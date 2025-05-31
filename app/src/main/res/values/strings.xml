@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">ABB mobile</string>
+    <string name="earn_faydalı">Earn \"Faydalı\" cashback</string>
+    <string name="spend_with_abb">Spend with ABB cards and\nearn \"Faydalı\" cashback</string>
+    <string name="abb_customer">ABB Customer</string>
+    <string name="not_an_abb_customer">Not an ABB Customer</string>
+    <string name="swipe_for_menu">Swipe for menu</string>
+    <string name="language">Language</string>
+    <string name="az_rbaycan">Azərbaycan</string>
+    <string name="russia">Русский</string>
+    <string name="english">English</string>
+    <string name="service_network">Service Network</string>
+    <string name="currency">Currency</string>
+    <string name="faq">FAQ</string>
+    <string name="contact_the_bank">Contact the bank</string>
+    <string name="the_international_bank_of_azerbaijan_all_rights_reserved_nversion_9_11_0_build_630_live_mode">ⓒ The International Bank of Azerbaijan - All rights reserved\nVersion: 9.11.0 - Build: 630 - Live mode</string>
+    <string name="call_us">Call us</string>
+    <string name="you_have_to_be_over_18_to_register">You have to be over 18 to register</string>
+    <string name="enter_your_date_of_birth">Enter your date of Birth</string>
+    <string name="continues">Continue</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="email">Email</string>
+    <string name="fin_number">FIN number</string>
+    <string name="you_can_enter_with_fin_number">You can enter with FIN number</string>
+    <string name="you_can_enter_with_email">You can enter with email</string>
+    <string name="use_fin_number">Use FIN number</string>
+    <string name="password">Password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

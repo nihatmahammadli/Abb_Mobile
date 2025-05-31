@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "166177847748",
+    "project_id": "abb-mobile-86c7b",
+    "storage_bucket": "abb-mobile-86c7b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:166177847748:android:75f1d8174c0988e6fdcc91",
+        "android_client_info": {
+          "package_name": "com.nihatmahammadli.abbmobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAKwwMhAU338qUYGE3nNfaNX2NWIKq4MY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

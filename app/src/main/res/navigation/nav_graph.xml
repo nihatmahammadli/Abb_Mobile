@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+
+    <fragment
+        android:id="@+id/signUp"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.sign.sign_up.SignUp"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUp_to_signUpWithFin"
+            app:destination="@id/signUpWithFin" />
+        <action
+            android:id="@+id/action_signUp_to_enterDateOfBirth"
+            app:destination="@id/enterDateOfBirth" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterDateOfBirth"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.sign.sign_up.EnterDateOfBirth"
+        android:label="fragment_enter_date_of_birth"
+        tools:layout="@layout/fragment_enter_date_of_birth" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/signUpWithFin"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.sign.sign_up.SignUpWithFin"
+        android:label="fragment_sign_up_with_fin"
+        tools:layout="@layout/fragment_sign_up_with_fin" >
+        <action
+            android:id="@+id/action_signUpWithFin_to_enterDateOfBirth"
+            app:destination="@id/enterDateOfBirth" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_signIn"
+            app:destination="@id/signIn" />
+        <action
+            android:id="@+id/action_mainFragment_to_signUp"
+            app:destination="@id/signUp" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerTypeSelection"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.CustomerTypeSelection"
+        android:label="fragment_customer_type_selection"
+        tools:layout="@layout/fragment_customer_type_selection" />
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.MenuFragment"
+        android:label="MenuFragment" />
+    <fragment
+        android:id="@+id/signIn"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.sign.sign_in.SignIn"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signIn_to_homePage"
+            app:destination="@id/homePage" />
+    </fragment>
+    <fragment
+        android:id="@+id/homePage"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.home.HomePage"
+        android:label="fragment_home_page"
+        tools:layout="@layout/fragment_home_page" />
+
+</navigation>

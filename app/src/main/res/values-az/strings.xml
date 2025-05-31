@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ABB mobile</string>
+    <string name="earn_faydalı">Faydalı keşbek qazanın</string>
+    <string name="spend_with_abb">Faydalı keşbek ilə xərcləyin və\nearn Faydalı keşbek qazanın</string>
+    <string name="abb_customer">ABB müştərisiyəm</string>
+    <string name="not_an_abb_customer">ABB müştərisi deyiləm</string>
+    <string name="swipe_for_menu">Daxil olmaq üçün aşağı çəkin</string>
+    <string name="language">Dil</string>
+    <string name="az_rbaycan">Azərbaycan</string>
+    <string name="russia">Русский</string>
+    <string name="english">English</string>
+    <string name="service_network">Xidmət şəbəkəsi</string>
+    <string name="currency">Valyuta məzənnəsi</string>
+    <string name="faq">Tez-tez verilən suallar</string>
+    <string name="contact_the_bank">Əlaqə</string>
+    <string name="the_international_bank_of_azerbaijan_all_rights_reserved_nversion_9_11_0_build_630_live_mode">ⓒAzərbaycan Beynəlxalq Bank - Bütün hüquqlar qorunur Version:\n 9.12.1 - Build: 640 - Live Mode</string>
+    <string name="call_us">Bizə zəng edin</string>
+    <string name="you_have_to_be_over_18_to_register">Qeydiyyatdan keçmək üçün 18 yaşdan yuxarı\n olmalısınız</string>
+    <string name="enter_your_date_of_birth">Doğum tarixini daxil et</string>
+    <string name="continues">Davam et</string>
+    <string name="date_of_birth">Doğum tarixi</string>
+    <string name="email">Email</string>
+    <string name="fin_number">FIN nömrəsi</string>
+    <string name="you_can_enter_with_fin_number">FIN nömrəsi ilə daxil ola bilərsiniz</string>
+    <string name="you_can_enter_with_email">Email ilə daxil ola bilirsiniz</string>
+    <string name="use_fin_number">FIN nömrəsi ilə giriş</string>
+</resources>

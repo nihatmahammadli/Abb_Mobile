@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ABB mobile</string>
+    <string name="earn_faydalı">Получайте кэшбэк «Faydalı»</string>
+    <string name="spend_with_abb">Платите картами ABB и\nполучайте кэшбэк «Faydalı»</string>
+    <string name="abb_customer">Клиент ABB</string>
+    <string name="not_an_abb_customer">Не клиент ABB</string>
+    <string name="swipe_for_menu">Смахните для меню</string>
+    <string name="language">Язык</string>
+    <string name="az_rbaycan">Азербайджанский</string>
+    <string name="russia">Русский</string>
+    <string name="english">Английский</string>
+    <string name="service_network">Сеть обслуживания</string>
+    <string name="currency">Валюта</string>
+    <string name="faq">Часто задаваемые вопросы</string>
+    <string name="contact_the_bank">Связаться с банком</string>
+    <string name="the_international_bank_of_azerbaijan_all_rights_reserved_nversion_9_11_0_build_630_live_mode">
+        ⓒ Международный Банк Азербайджана - Все права защищены\nВерсия: 9.11.0 - Сборка: 630 - Рабочий режим
+    </string>
+    <string name="call_us">Позвоните нам</string>
+    <string name="you_have_to_be_over_18_to_register">Вам должно быть более 18 лет для регистрации</string>
+    <string name="enter_your_date_of_birth">Введите дату рождения</string>
+    <string name="continues">Продолжить</string>
+    <string name="date_of_birth">Дата рождения</string>
+    <string name="email">Эл. почта</string>
+    <string name="fin_number">ФИН-код</string>
+    <string name="you_can_enter_with_fin_number">Вы можете войти с помощью ФИН-кода</string>
+    <string name="you_can_enter_with_email">Вы можете войти с помощью эл. почты</string>
+    <string name="use_fin_number">Использовать ФИН-код</string>
+</resources>
