@@ -66,7 +66,7 @@ class SignIn : Fragment() {
             val password = binding.passwordText.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(requireContext(), "Boş buraxma qızım/oğlum!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Email and password cannot be empty!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
