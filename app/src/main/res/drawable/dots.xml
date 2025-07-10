@@ -1,0 +1,39 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportWidth="256"
+    android:viewportHeight="256">
+
+    <!-- Row 1 -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M60,48a12,12 0 1,0 12,12a12,12 0 0,0 -12,-12z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M128,48a12,12 0 1,0 12,12a12,12 0 0,0 -12,-12z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M196,48a12,12 0 1,0 12,12a12,12 0 0,0 -12,-12z" />
+
+    <!-- Row 2 -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M60,116a12,12 0 1,0 12,12a12,12 0 0,0 -12,-12z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M128,116a12,12 0 1,0 12,12a12,12 0 0,0 -12,-12z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M196,116a12,12 0 1,0 12,12a12,12 0 0,0 -12,-12z" />
+
+    <!-- Row 3 -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M60,184a12,12 0 1,0 12,12a12,12 0 0,0 -12,-12z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M128,184a12,12 0 1,0 12,12a12,12 0 0,0 -12,-12z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M196,184a12,12 0 1,0 12,12a12,12 0 0,0 -12,-12z" />
+</vector>

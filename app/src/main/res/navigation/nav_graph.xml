@@ -15,8 +15,8 @@
             android:id="@+id/action_signUp_to_signUpWithFin"
             app:destination="@id/signUpWithFin" />
         <action
-            android:id="@+id/action_signUp_to_enterDateOfBirth"
-            app:destination="@id/enterDateOfBirth" />
+            android:id="@+id/action_signUp_to_userInfo"
+            app:destination="@id/userInfo" />
     </fragment>
     <fragment
         android:id="@+id/enterDateOfBirth"
@@ -24,6 +24,11 @@
         android:label="fragment_enter_date_of_birth"
         tools:layout="@layout/fragment_enter_date_of_birth" >
 
+        <action
+            android:id="@+id/action_enterDateOfBirth_to_homePage"
+            app:destination="@id/homePage"
+            app:popUpTo="@id/enterDateOfBirth"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/signUpWithFin"
@@ -31,8 +36,8 @@
         android:label="fragment_sign_up_with_fin"
         tools:layout="@layout/fragment_sign_up_with_fin" >
         <action
-            android:id="@+id/action_signUpWithFin_to_enterDateOfBirth"
-            app:destination="@id/enterDateOfBirth" />
+            android:id="@+id/action_signUpWithFin_to_userInfo"
+            app:destination="@id/userInfo" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -45,6 +50,11 @@
         <action
             android:id="@+id/action_mainFragment_to_signUp"
             app:destination="@id/signUp" />
+        <action
+            android:id="@+id/action_mainFragment_to_homePage"
+            app:destination="@id/homePage"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/customerTypeSelection"
@@ -62,12 +72,29 @@
         tools:layout="@layout/fragment_sign_in" >
         <action
             android:id="@+id/action_signIn_to_homePage"
-            app:destination="@id/homePage" />
+            app:destination="@id/homePage"
+            app:popUpTo="@id/signIn"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/homePage"
         android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.home.HomePage"
         android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePage_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInfo"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.sign.user_info.UserInfo"
+        android:label="fragment_user_info"
+        tools:layout="@layout/fragment_user_info" >
+        <action
+            android:id="@+id/action_userInfo_to_enterDateOfBirth"
+            app:destination="@id/enterDateOfBirth" />
+    </fragment>
 
 </navigation>

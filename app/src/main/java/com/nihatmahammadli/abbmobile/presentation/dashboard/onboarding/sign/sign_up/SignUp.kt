@@ -8,123 +8,83 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentSignUpBinding
 import com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.sign.sign_up.viewmodel.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SignUp : Fragment() {
+
     private lateinit var binding: FragmentSignUpBinding
-    private lateinit var signUpViewModel: SignUpViewModel
+    private val signUpViewModel: SignUpViewModel by viewModels()
 
-    @Inject
-    lateinit var auth: FirebaseAuth
-    @Inject
-    lateinit var firestore: FirebaseFirestore
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+        // Reset the sign up result when fragment is created
+        signUpViewModel.resetSignUpResult()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentSignUpBinding.inflate(inflater,container,false)
-        signUpViewModel = SignUpViewModel(auth,firestore)
-
-        observerViewModel()
-        singUp()
-        bindInputListenerEmail()
-        bindInputListenerPassword()
-        goCustomerTypeSelection()
-
-        goSignUpWithFin()
+        setupListeners()
+        observeViewModel()
+        observeSignUpResult()
         return binding.root
     }
 
+    private fun setupListeners() {
+        binding.emailText.addTextChangedListener(SimpleTextWatcher {
+            signUpViewModel.onFixTextChangedEmail(it.trim())
+        })
+        binding.passwordText.addTextChangedListener(SimpleTextWatcher {
+            signUpViewModel.onFixTextChangedPasswordForEmail(it.trim())
+        })
 
+        binding.btnContinue.setOnClickListener {
+            // Call the sign up method when button is clicked
+            signUpViewModel.signUp()
+        }
 
-    fun goCustomerTypeSelection(){
         binding.leftBtn.setOnClickListener {
-            binding.passwordText.text?.clear()
             binding.emailText.text?.clear()
+            binding.passwordText.text?.clear()
             findNavController().popBackStack()
         }
-    }
 
-    fun goDatePick(){
-       findNavController().navigate(R.id.action_signUp_to_enterDateOfBirth)
-    }
-
-    fun goSignUpWithFin(){
         binding.signUpWithFin.setOnClickListener {
             findNavController().navigate(R.id.action_signUp_to_signUpWithFin)
         }
     }
 
-    fun observerViewModel(){
-        signUpViewModel.emailInput.observe(viewLifecycleOwner) { text ->
-            if (binding.emailText.text.toString() != text){
-                binding.emailText.setText(text)
-                binding.emailText.setSelection(text.length)
-            }
-        }
-        signUpViewModel.passwordInput.observe(viewLifecycleOwner) { text ->
-            if (binding.passwordText.text.toString() != text){
-                binding.passwordText.setText(text)
-                binding.passwordText.setSelection(text.length)
-            }
-        }
+    private fun observeViewModel() {
         signUpViewModel.isButtonEnabled.observe(viewLifecycleOwner) { enabled ->
             binding.btnContinue.isEnabled = enabled
             binding.btnContinue.alpha = if (enabled) 1f else 0.5f
         }
     }
 
-    fun bindInputListenerEmail(){
-        binding.emailText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                signUpViewModel.onFixTextChangedEmail(s.toString().trim())
-            }
-        })
-    }
-
-    fun bindInputListenerPassword(){
-        binding.passwordText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                signUpViewModel.onFixTextChangedPassword(s.toString().trim())
-            }
-        })
-    }
-
-    fun singUp(){
-        binding.btnContinue.setOnClickListener {
-        val email = binding.emailText.text.toString()
-        val password = binding.passwordText.text.toString()
-        signUpViewModel.singUp(email,password)
-
+    private fun observeSignUpResult() {
         signUpViewModel.signUpResult.observe(viewLifecycleOwner) { success ->
-            if(success) {
-                goDatePick()
-            } else {
-                Toast.makeText(requireContext(), "Qeydiyyat uğurlu deyildir!", Toast.LENGTH_SHORT).show()
+            success?.let {
+                if (it) {
+                    Toast.makeText(requireContext(), "Sign up uğurlu oldu.", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_signUp_to_userInfo)
+                } else {
+                    Toast.makeText(requireContext(), "Sign up uğursuz oldu.", Toast.LENGTH_SHORT).show()
+                }
+                signUpViewModel.resetSignUpResult()
             }
-        }
         }
     }
 
+}
+
+class SimpleTextWatcher(private val onAfterTextChanged: (String) -> Unit) : TextWatcher {
+    override fun afterTextChanged(s: Editable?) {
+        onAfterTextChanged(s.toString())
+    }
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 }

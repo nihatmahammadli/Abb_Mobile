@@ -27,4 +27,8 @@
     <string name="you_can_enter_with_fin_number">Вы можете войти с помощью ФИН-кода</string>
     <string name="you_can_enter_with_email">Вы можете войти с помощью эл. почты</string>
     <string name="use_fin_number">Использовать ФИН-код</string>
+    <string name="password">Пароль</string>
+    <string name="enter_abb_mobile">Войдите в ABB Mobile</string>
+    <string name="you_can_enter_with_email_or_fin_number">Вы можете войти с помощью электронной почты или FIN-номера</string>
+
 </resources>

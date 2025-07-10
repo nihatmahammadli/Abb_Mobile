@@ -1,4 +1,4 @@
-package com.nihatmahammadli.abbmobile.presentation.di
+package com.nihatmahammadli.abbmobile.data.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class NetworkModule {
+object NetworkModule {
 
     @Provides
     @Singleton

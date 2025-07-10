@@ -45,7 +45,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailInputLayout"
+        android:id="@+id/finInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/fin_number"
@@ -75,8 +75,8 @@
         app:layout_constraintBottom_toTopOf="@+id/btnContinue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailInputLayout"
-        app:layout_constraintVertical_bias="0.00999999">
+        app:layout_constraintTop_toBottomOf="@+id/finInputLayout"
+        app:layout_constraintVertical_bias="0.02">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordText"

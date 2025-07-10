@@ -25,4 +25,8 @@
     <string name="you_can_enter_with_fin_number">FIN nömrəsi ilə daxil ola bilərsiniz</string>
     <string name="you_can_enter_with_email">Email ilə daxil ola bilirsiniz</string>
     <string name="use_fin_number">FIN nömrəsi ilə giriş</string>
+    <string name="password">Şifrə</string>
+    <string name="enter_abb_mobile">ABB mobil tətbiqinə daxil olun</string>
+    <string name="you_can_enter_with_email_or_fin_number">E-poçt və ya FİN nömrəsi ilə daxil ola bilərsiniz</string>
+
 </resources>

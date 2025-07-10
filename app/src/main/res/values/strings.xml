@@ -25,6 +25,10 @@
     <string name="you_can_enter_with_email">You can enter with email</string>
     <string name="use_fin_number">Use FIN number</string>
     <string name="password">Password</string>
+    <string name="enter_abb_mobile">Enter ABB mobile</string>
+    <string name="you_can_enter_with_email_or_fin_number">You can enter with email or FIN number</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
 </resources>

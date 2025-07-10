@@ -1,11 +1,13 @@
 package com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.sign.sign_in
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.edit
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -41,7 +43,11 @@ class SignIn : Fragment() {
 
         viewModel.signInStatus.observe(viewLifecycleOwner) { result ->
             result.onSuccess {
-                goHomeFragment()
+
+                val sharedPref = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+                sharedPref.edit { putBoolean("isLoggedIn", true) }
+
+                findNavController().navigate(R.id.action_signIn_to_homePage)
             }
             result.onFailure {
                 Toast.makeText(requireContext(), "User not found!", Toast.LENGTH_SHORT).show()
@@ -49,10 +55,6 @@ class SignIn : Fragment() {
         }
     }
 
-
-    fun goHomeFragment(){
-        findNavController().navigate(R.id.action_signIn_to_homePage)
-    }
 
     fun goBack(){
         binding.leftBtn.setOnClickListener {
@@ -65,11 +67,12 @@ class SignIn : Fragment() {
             val email = binding.emailText.text.toString().trim()
             val password = binding.passwordText.text.toString().trim()
 
+
+
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(requireContext(), "Email and password cannot be empty!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
             viewModel.signIn(email, password)
         }
     }
