@@ -96,5 +96,10 @@
             android:id="@+id/action_userInfo_to_enterDateOfBirth"
             app:destination="@id/enterDateOfBirth" />
     </fragment>
+    <fragment
+        android:id="@+id/history"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.history.History"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
 
 </navigation>

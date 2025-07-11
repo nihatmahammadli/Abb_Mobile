@@ -8,5 +8,5 @@
 
 
 
-    <style name="Theme.ABBMobile" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="Theme.ABBMobile" parent="Base.Theme.ABBMobile" />
 </resources>
