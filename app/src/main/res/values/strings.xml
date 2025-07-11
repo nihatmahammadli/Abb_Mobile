@@ -35,4 +35,16 @@
     <string name="for_you">For You</string>
     <string name="history">History</string>
     <string name="home">Home</string>
+    <string name="see_all">See all</string>
+
+    <string name="_0_npending_edv">0 ₼ \nPending EDV</string>
+    <string name="_0_00_ncashback">0.00 ₼ \nCashback</string>
+    <string name="apply_now">Apply now</string>
+    <string name="add_other_bank_s_card_nor_order_a_new_one">Add other bank\'s card \nor order a new one</string>
+    <string name="add_new_card">Add new card</string>
+    <string name="investment">Investment 🔔</string>
+    <string name="all_products">All products</string>
+    <string name="insurance">Insurance</string>
+    <string name="nice_to_see_you_again">Nice to see you again 😊</string>
+    <string name="create_new">Create new</string>
 </resources>

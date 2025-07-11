@@ -1,8 +1,8 @@
     <resources xmlns:tools="http://schemas.android.com/tools">
         <!-- Base application theme. -->
         <style name="Base.Theme.ABBMobile" parent="Theme.AppCompat.Light.NoActionBar">
-            <item name="android:windowSplashScreenAnimatedIcon">@drawable/abb_logo_foreground_wrapper</item>
-            <item name="android:windowSplashScreenBackground">@android:color/white</item>
+            <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="31">@drawable/abb_logo_foreground_wrapper</item>
+            <item name="android:windowSplashScreenBackground" tools:targetApi="31">@android:color/white</item>
         </style>
 
 

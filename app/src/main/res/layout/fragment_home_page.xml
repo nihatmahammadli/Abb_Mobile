@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:fillViewport="true"
     android:scrollbars="none"
     android:fadeScrollbars="false">
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="800dp"
-        android:paddingVertical="40dp"
+        android:paddingVertical="0dp"
         android:background="#F2F0F0"
         android:paddingHorizontal="20dp"
         android:paddingBottom="100dp"
@@ -24,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/trans"
+            android:importantForAccessibility="no"
             android:src="@drawable/profile"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,9 +33,9 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nice to see you again 😊"
-            android:textSize="12sp"
+            android:text="@string/nice_to_see_you_again"
             android:textColor="#3C3B3B"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/txtName"
             app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
@@ -55,6 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:background="@color/trans"
+            android:importantForAccessibility="no"
             android:src="@drawable/eye_open"
             app:layout_constraintBottom_toBottomOf="@+id/profileButton"
             app:layout_constraintEnd_toStartOf="@+id/imageButton2"
@@ -65,6 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/trans"
+            android:importantForAccessibility="no"
             android:src="@drawable/notification_bell"
             app:layout_constraintBottom_toBottomOf="@+id/profileButton"
             app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +79,7 @@
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/white_button"
-            android:text="Insurance"
+            android:text="@string/insurance"
             android:textAllCaps="false"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,13 +89,13 @@
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/white_button"
             android:drawableStart="@drawable/dots"
             android:drawablePadding="7dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:text="All products"
+            android:text="@string/all_products"
             android:textAllCaps="false"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/button2"
@@ -106,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:background="@drawable/white_button"
-            android:text="Investment 🔔"
+            android:text="@string/investment"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:textAllCaps="false"
@@ -122,6 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:background="@drawable/card_background"
+            android:importantForAccessibility="no"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button2" />
@@ -131,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="Add new card"
+            android:text="@string/add_new_card"
             android:textColor="@color/black"
             android:textSize="19sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
@@ -144,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="Add other bank's card \nor order a new one"
+            android:text="@string/add_other_bank_s_card_nor_order_a_new_one"
             app:layout_constraintStart_toStartOf="@+id/textView12"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
@@ -153,7 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="34dp"
             android:background="@drawable/order_card"
-            android:text="Apply now"
+            android:text="@string/apply_now"
             android:textAllCaps="false"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
@@ -166,6 +170,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/visa_card"
+            android:importantForAccessibility="no"
             app:layout_constraintBottom_toBottomOf="@+id/textView14"
             app:layout_constraintEnd_toEndOf="@+id/imageView5"
             app:layout_constraintHorizontal_bias="0.82"
@@ -180,13 +185,14 @@
             android:background="@drawable/cashback_button"
             android:drawableStart="@drawable/finance_ic"
             android:paddingStart="10dp"
-            android:text="0.00 ₼ \nCashback"
+            android:text="@string/_0_00_ncashback"
             android:textAllCaps="false"
             android:textAlignment="viewStart"
             android:drawablePadding="10dp"
             app:layout_constraintStart_toStartOf="@+id/imageView5"
             app:layout_constraintTop_toBottomOf="@+id/imageView5"
-            app:layout_constraintWidth_percent="0.48" />
+            app:layout_constraintWidth_percent="0.48"
+            tools:ignore="RtlSymmetry" />
 
         <Button
             android:id="@+id/button6"
@@ -197,12 +203,13 @@
             android:drawableStart="@drawable/qr_ic"
             android:textAllCaps="false"
             android:drawablePadding="10dp"
-            android:text="0 ₼ \nPending EDV"
+            android:text="@string/_0_npending_edv"
             android:textAlignment="viewStart"
             android:paddingStart="10dp"
             app:layout_constraintEnd_toEndOf="@+id/imageView5"
             app:layout_constraintTop_toBottomOf="@+id/imageView5"
-            app:layout_constraintWidth_percent="0.48" />
+            app:layout_constraintWidth_percent="0.48"
+            tools:ignore="RtlSymmetry" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/horizontalRecyclerView"
@@ -212,58 +219,121 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button6" />
 
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:text="Recent Transactions"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalRecyclerView" />
 
-
-        <LinearLayout
-            android:id="@+id/dummyContent"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical"
+            android:background="@color/white"
+            app:cardCornerRadius="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView15">
+            app:layout_constraintTop_toBottomOf="@+id/horizontalRecyclerView">
 
-            <View
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="16dp"
-                android:background="#E0E0E0" />
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="18dp">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="16dp"
-                android:background="#E0E0E0" />
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Auto-payment/transfer and templates"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="16dp"
-                android:background="#E0E0E0" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_gray"
+                    android:padding="2dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/seeAllText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:paddingEnd="2dp"
+                        android:text="@string/see_all"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/arrowIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow_right"
+                        app:layout_constraintBottom_toBottomOf="@id/seeAllText"
+                        app:layout_constraintStart_toEndOf="@id/seeAllText"
+                        app:layout_constraintTop_toTopOf="@id/seeAllText" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/refresh_ic"
+                    app:layout_constraintEnd_toStartOf="@+id/textView16"
+                    app:layout_constraintHorizontal_bias="0.84"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView16" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:textSize="16dp"
+                    android:text="You don't have any auto-payment\nor template yet"
+                    android:textAlignment="center"
+                    android:textColor="#9E9999"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textAllCaps="false"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:background="@drawable/button_light_blue"
+                    android:text="@string/create_new"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
         <Button
             android:id="@+id/exitBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Exit Button"
+            android:text="exit"
+            android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dummyContent" />
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.core.widget.NestedScrollView>

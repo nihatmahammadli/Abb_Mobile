@@ -42,7 +42,6 @@ class SignUp : Fragment() {
         })
 
         binding.btnContinue.setOnClickListener {
-            // Call the sign up method when button is clicked
             signUpViewModel.signUp()
         }
 
