@@ -193,7 +193,7 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginTop="16dp"
-            android:background="@color/white"
+            android:background="@drawable/cashback_button"
             android:drawableStart="@drawable/qr_ic"
             android:textAllCaps="false"
             android:drawablePadding="10dp"
