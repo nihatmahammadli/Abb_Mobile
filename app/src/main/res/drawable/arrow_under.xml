@@ -1,0 +1,20 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="18dp"
+    android:height="18dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <!-- Arxa fon dairəsi -->
+    <path
+        android:fillColor="#F2F0F0"
+        android:pathData="M256,0
+                          C397.4,0 512,114.6 512,256
+                          C512,397.4 397.4,512 256,512
+                          C114.6,512 0,397.4 0,256
+                          C0,114.6 114.6,0 256,0 Z" />
+
+    <!-- Ox işarəsi -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M396.6,160 L416,180.7 256,352 96,180.7 115.3,160 256,310.5 Z"/>
+</vector>

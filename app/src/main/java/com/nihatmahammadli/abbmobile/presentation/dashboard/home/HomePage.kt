@@ -14,10 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.presentation.adapters.HorizontalImageAdapter
+import com.nihatmahammadli.abbmobile.presentation.adapters.TransactionAdapter
+import com.nihatmahammadli.abbmobile.presentation.dashboard.home.model_home.Transaction
 
 class HomePage : Fragment() {
     private lateinit var binding: FragmentHomePageBinding
     private lateinit var adapter: HorizontalImageAdapter
+    private lateinit var trAdapter: TransactionAdapter
+    private var isExpanded = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -27,18 +32,32 @@ class HomePage : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomePageBinding.inflate(inflater,container,false)
+
+        val transactions = getDummyTransactions()
+
+        binding.recyclerViewTransactions.layoutManager = LinearLayoutManager(requireContext())
+        trAdapter = TransactionAdapter(getDummyTransactions())
+        binding.recyclerViewTransactions.adapter = trAdapter
+        updateNoTransactionVisibility(transactions)
+
+
+
+        binding.lastestTransaction.setOnClickListener {
+            if (isExpanded) {
+                slideUp(binding.recyclerViewTransactions)
+            } else {
+                slideDown(binding.recyclerViewTransactions)
+            }
+            isExpanded = !isExpanded
+        }
+
         setupAdapter()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.exitBtn.setOnClickListener {
-            val sharedPref = requireActivity().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-            sharedPref.edit { putBoolean("isLoggedIn", false) }
-            findNavController().navigate(R.id.action_homePage_to_mainFragment)
 
-        }
     }
 
     fun setupAdapter(){
@@ -52,7 +71,49 @@ class HomePage : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.horizontalRecyclerView.adapter = adapter
     }
+    private fun getDummyTransactions(): List<Transaction> {
+        return listOf(
+            Transaction("Groceries", 75.5, "10.07.2025"),
+            Transaction("Online Shopping", 150.0, "09.07.2025"),
+            Transaction("Electricity Bill", 45.75, "08.07.2025"),
+            Transaction("Taxi", 12.0, "07.07.2025"),
+            Transaction("Restaurant", 30.0, "06.07.2025")
+        )
+    }
 
+    private fun slideUp(view: View) {
+        view.animate()
+            .translationY(-view.height.toFloat())
+            .alpha(0f)
+            .setDuration(300)
+            .withEndAction {
+                view.visibility = View.GONE
+                view.translationY = 0f
+                view.alpha = 1f
+            }
+            .start()
+    }
 
+    private fun slideDown(view: View) {
 
+        view.visibility = View.VISIBLE
+        view.alpha = 0f
+        view.post {
+            view.translationY = -view.height.toFloat()
+            view.animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setDuration(300)
+                .start()
+        }
+    }
+    fun updateNoTransactionVisibility(transactions: List<Transaction>) {
+        if (transactions.isEmpty()) {
+            binding.noTransactionYet.visibility = View.VISIBLE
+            binding.recyclerViewTransactions.visibility = View.GONE
+        } else {
+            binding.noTransactionYet.visibility = View.GONE
+            binding.recyclerViewTransactions.visibility = View.VISIBLE
+        }
+    }
 }

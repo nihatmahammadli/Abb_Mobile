@@ -24,7 +24,6 @@ class SignUp : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
-        // Reset the sign up result when fragment is created
         signUpViewModel.resetSignUpResult()
 
         setupListeners()
