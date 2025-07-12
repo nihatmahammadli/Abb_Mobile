@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nihatmahammadli.abbmobile.databinding.ItemTransactionBinding
 import com.nihatmahammadli.abbmobile.presentation.dashboard.home.model_home.Transaction
 
-class TransactionAdapter(private val items: List<Transaction>) :
+class TransactionAdapter(val items: List<Transaction>) :
     RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         val binding =

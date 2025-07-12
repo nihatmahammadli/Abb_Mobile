@@ -118,78 +118,34 @@
             app:layout_constraintStart_toEndOf="@+id/button"
             app:layout_constraintTop_toTopOf="@+id/button" />
 
-        <ImageView
-            android:id="@+id/imageView5"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/card_background"
-            android:importantForAccessibility="no"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button2" />
 
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@string/add_new_card"
-            android:textColor="@color/black"
-            android:textSize="19sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-            app:layout_constraintStart_toStartOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/imageView5"
-            app:layout_constraintVertical_bias="0.17000002" />
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:text="@string/add_other_bank_s_card_nor_order_a_new_one"
-            app:layout_constraintStart_toStartOf="@+id/textView12"
-            app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="34dp"
-            android:background="@drawable/order_card"
-            android:text="@string/apply_now"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-            app:layout_constraintStart_toStartOf="@+id/textView14"
-            app:layout_constraintTop_toBottomOf="@+id/textView14"
-            app:layout_constraintVertical_bias="0.71000004" />
-
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/visa_card"
-            android:importantForAccessibility="no"
-            app:layout_constraintBottom_toBottomOf="@+id/textView14"
-            app:layout_constraintEnd_toEndOf="@+id/imageView5"
-            app:layout_constraintHorizontal_bias="0.82"
-            app:layout_constraintStart_toEndOf="@+id/textView14"
-            app:layout_constraintTop_toTopOf="@+id/textView12" />
 
         <Button
             android:id="@+id/button5"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginTop="16dp"
             android:background="@drawable/cashback_button"
             android:drawableStart="@drawable/finance_ic"
+            android:drawablePadding="10dp"
             android:paddingStart="10dp"
             android:text="@string/_0_00_ncashback"
-            android:textAllCaps="false"
             android:textAlignment="viewStart"
-            android:drawablePadding="10dp"
+            android:textAllCaps="false"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5"
+            app:layout_constraintTop_toBottomOf="@+id/viewPager"
             app:layout_constraintWidth_percent="0.48"
             tools:ignore="RtlSymmetry" />
 
@@ -197,16 +153,17 @@
             android:id="@+id/button6"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginTop="16dp"
             android:background="@drawable/cashback_button"
             android:drawableStart="@drawable/qr_ic"
-            android:textAllCaps="false"
             android:drawablePadding="10dp"
+            android:layout_marginTop="16dp"
+
+            android:paddingStart="10dp"
             android:text="@string/_0_npending_edv"
             android:textAlignment="viewStart"
-            android:paddingStart="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewPager"
             app:layout_constraintWidth_percent="0.48"
             tools:ignore="RtlSymmetry" />
 
