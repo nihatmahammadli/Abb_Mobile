@@ -3,6 +3,7 @@ package com.nihatmahammadli.abbmobile.presentation.dashboard.home
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.zxing.integration.android.IntentIntegrator
 import com.nihatmahammadli.abbmobile.databinding.FragmentHomePageBinding
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,15 +23,18 @@ import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.presentation.adapters.*
 import com.nihatmahammadli.abbmobile.presentation.dashboard.home.model_home.Transaction
 import com.nihatmahammadli.abbmobile.presentation.providers.CardProvider
+import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
+@AndroidEntryPoint
 class HomePage : Fragment() {
 
     private lateinit var binding: FragmentHomePageBinding
     private lateinit var imageAdapter: HorizontalImageAdapter
     private lateinit var transactionAdapter: TransactionAdapter
     private var isExpanded = false
-
+    private val viewModel: CardViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +47,12 @@ class HomePage : Fragment() {
         changeViewPager()
         viewPagerOverlapEffect()
         setupQrButton()
+
+        viewModel.cards.observe(viewLifecycleOwner) { list ->
+            Log.d("CardFragment", "Cards: $list")
+        }
+
+        viewModel.fetchCards()
 
         return binding.root
     }
@@ -199,4 +210,5 @@ class HomePage : Fragment() {
             Toast.makeText(requireContext(), "Cancelled", Toast.LENGTH_SHORT).show()
         }
     }
+
 }
