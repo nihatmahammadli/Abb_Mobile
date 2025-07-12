@@ -1,22 +1,17 @@
 package com.nihatmahammadli.abbmobile.presentation.providers
 
-import android.app.AlertDialog
 import android.util.Log
-import android.widget.Toast
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.presentation.dashboard.home.model_home.CardData
-import retrofit2.http.POST
-import kotlin.math.log
 
 object CardProvider {
-
     fun getCards(): List<CardData> {
         return listOf(
             CardData(
-                title = "Yeni kart sifarişi",
-                description = "ABB Visa kartını sifariş et",
+                title = "Add new card",
+                description = "Add other bank\'s card \nor order a new one",
                 backgroundResId = R.drawable.card_background,
-                buttonText = "Sifariş et",
+                buttonText = "Apply now",
                 showVisa = true
             ),CardData(
                 title = "Kart izləmə",

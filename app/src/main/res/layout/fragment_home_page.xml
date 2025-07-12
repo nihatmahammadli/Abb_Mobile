@@ -150,14 +150,13 @@
             tools:ignore="RtlSymmetry" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/qrButton"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:background="@drawable/cashback_button"
             android:drawableStart="@drawable/qr_ic"
             android:drawablePadding="10dp"
             android:layout_marginTop="16dp"
-
             android:paddingStart="10dp"
             android:text="@string/_0_npending_edv"
             android:textAlignment="viewStart"
@@ -173,7 +172,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@+id/imageView5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button6" />
+            app:layout_constraintTop_toBottomOf="@+id/qrButton" />
 
 
         <androidx.cardview.widget.CardView

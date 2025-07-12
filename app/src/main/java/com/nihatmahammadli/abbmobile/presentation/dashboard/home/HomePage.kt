@@ -1,36 +1,48 @@
 package com.nihatmahammadli.abbmobile.presentation.dashboard.home
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
+import com.google.zxing.integration.android.IntentIntegrator
 import com.nihatmahammadli.abbmobile.databinding.FragmentHomePageBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
+import com.journeyapps.barcodescanner.CaptureActivity
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanOptions
 import com.nihatmahammadli.abbmobile.R
-import com.nihatmahammadli.abbmobile.presentation.adapters.CardAdapter
-import com.nihatmahammadli.abbmobile.presentation.adapters.HorizontalImageAdapter
-import com.nihatmahammadli.abbmobile.presentation.adapters.TransactionAdapter
+import com.nihatmahammadli.abbmobile.presentation.adapters.*
 import com.nihatmahammadli.abbmobile.presentation.dashboard.home.model_home.Transaction
 import com.nihatmahammadli.abbmobile.presentation.providers.CardProvider
+import kotlin.math.abs
 
 class HomePage : Fragment() {
+
     private lateinit var binding: FragmentHomePageBinding
     private lateinit var imageAdapter: HorizontalImageAdapter
     private lateinit var transactionAdapter: TransactionAdapter
     private var isExpanded = false
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
+
         setupHorizontalAdapter()
         setupTransactionSection()
         changeViewPager()
         viewPagerOverlapEffect()
+        setupQrButton()
+
         return binding.root
     }
 
@@ -40,7 +52,6 @@ class HomePage : Fragment() {
             R.drawable.read_more_2,
             R.drawable.read_more_3,
         )
-
         imageAdapter = HorizontalImageAdapter(imageList)
         binding.horizontalRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -50,13 +61,11 @@ class HomePage : Fragment() {
 
     private fun setupTransactionSection() {
         val transactions = getDummyTransactions()
-
         transactionAdapter = TransactionAdapter(transactions)
         binding.recyclerViewTransactions.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = transactionAdapter
         }
-
         updateTransactionVisibility(transactions)
 
         binding.lastestTransaction.setOnClickListener {
@@ -130,7 +139,7 @@ class HomePage : Fragment() {
         )
     }
 
-    fun changeViewPager(){
+    fun changeViewPager() {
         val cards = CardProvider.getCards()
 
         val adapter = CardAdapter(cards) { position ->
@@ -138,6 +147,7 @@ class HomePage : Fragment() {
         }
         binding.viewPager.adapter = adapter
     }
+
     fun viewPagerOverlapEffect() {
         binding.viewPager.apply {
             clipToPadding = false
@@ -146,27 +156,23 @@ class HomePage : Fragment() {
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
             setPageTransformer { page, position ->
-                val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin)
                 val offsetPx = resources.getDimensionPixelOffset(R.dimen.offset)
 
                 when {
-                    position < -1 -> { // Sol kənarda gizli olsun
+                    position < -1 -> {
                         page.alpha = 0f
                     }
                     position <= 1 -> {
-                        // kartları overlap və üst-üstə qoy, altındakılar qismən görünsün
                         val startOffset = -position * offsetPx
                         page.translationX = startOffset
 
-                        // Kartların ölçüsünü azacıq dəyişmək (istəyə görə)
-                        val scaleFactor = 1 - 0.1f * kotlin.math.abs(position)
+                        val scaleFactor = 1 - 0.1f * abs(position)
                         page.scaleX = scaleFactor
                         page.scaleY = scaleFactor
 
-                        // Alpha-nı da tənzimlə, sağa sürüşəndə azalsın
-                        page.alpha = 1 - 0.3f * kotlin.math.abs(position)
+                        page.alpha = 1 - 0.3f * abs(position)
                     }
-                    else -> { // Sağ kənarda gizli olsun
+                    else -> {
                         page.alpha = 0f
                     }
                 }
@@ -174,4 +180,23 @@ class HomePage : Fragment() {
         }
     }
 
+
+    private fun setupQrButton() {
+        binding.qrButton.setOnClickListener {
+            val options = ScanOptions()
+            options.setPrompt("Scan any QR code")
+            options.setBeepEnabled(true)
+            options.setOrientationLocked(true)
+            options.setCaptureActivity(CaptureActivity::class.java)
+            barcodeLauncher.launch(options)
+        }
+    }
+
+    private val barcodeLauncher = registerForActivityResult(ScanContract()){result ->
+        if(result.contents != null){
+            Toast.makeText(requireContext(), result.contents, Toast.LENGTH_SHORT).show()
+        }else {
+            Toast.makeText(requireContext(), "Cancelled", Toast.LENGTH_SHORT).show()
+        }
+    }
 }

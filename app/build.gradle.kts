@@ -54,6 +54,7 @@ dependencies {
 
     //Dagger
     implementation("com.google.dagger:hilt-android:2.56.2")
+    implementation(libs.androidx.recyclerview)
     ksp("com.google.dagger:hilt-android-compiler:2.56.2")
 
     // Firebase
@@ -78,6 +79,9 @@ dependencies {
     // Room database
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
+
+    //Qr
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
     //
     implementation(libs.androidx.legacy.support.v4)

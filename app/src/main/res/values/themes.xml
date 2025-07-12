@@ -6,7 +6,10 @@
         </style>
 
 
-
+        <style name="CornerRadius" >
+            <item name="cornerFamily">rounded</item>
+            <item name="cornerSize">10%</item>
+        </style>
 
         <style name="Theme.ABBMobile" parent="Base.Theme.ABBMobile" />
     </resources>

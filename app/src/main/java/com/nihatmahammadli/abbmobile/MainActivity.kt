@@ -1,5 +1,6 @@
 package com.nihatmahammadli.abbmobile
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.homePage -> binding.bottomNavigationView.visibility = View.VISIBLE
                 R.id.history -> binding.bottomNavigationView.visibility = View.VISIBLE
+                R.id.forYou -> binding.bottomNavigationView.visibility = View.VISIBLE
                 else -> binding.bottomNavigationView.visibility = View.GONE
             }
         }
@@ -67,6 +69,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.history -> {
                     if(navController.currentDestination?.id != R.id.history) {
                         navController.navigate(R.id.history)
+                    }
+                    true
+                }
+                R.id.for_you -> {
+                    if(navController.currentDestination?.id != R.id.for_you) {
+                        navController.navigate(R.id.forYou)
                     }
                     true
                 }

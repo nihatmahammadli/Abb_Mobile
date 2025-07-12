@@ -101,5 +101,10 @@
         android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.history.History"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/forYou"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.for_you.ForYou"
+        android:label="fragment_for_you"
+        tools:layout="@layout/fragment_for_you" />
 
 </navigation>
