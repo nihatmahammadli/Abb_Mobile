@@ -29,6 +29,10 @@ class CardAdapter(private val cards: List<CardData>,
             }
 
             visaCard.visibility = if (card.showVisa) View.VISIBLE else View.GONE
+
+            applyBtn.setOnClickListener {
+                onCardButtonClick(position)
+            }
         }
     }
 

@@ -23,6 +23,4 @@ object NetworkModule {
     fun providesFireStore(): FirebaseFirestore {
         return FirebaseFirestore.getInstance()
     }
-
-
 }

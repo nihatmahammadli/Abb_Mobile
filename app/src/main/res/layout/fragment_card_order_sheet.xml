@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp"
+    android:paddingHorizontal="20dp"
+    android:minHeight="200dp"
+    android:paddingTop="8dp"
+    android:background="@drawable/bottomsheet_background"
+    android:orientation="vertical"
+    tools:context=".presentation.components.CardOrderSheet">
+
+    <View
+        android:layout_width="33dp"
+        android:layout_height="3dp"
+        android:background="@drawable/view_radius"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Options"
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select relevant option"
+        android:layout_marginBottom="20dp"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/orderNewCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order new card"
+        android:drawableStart="@drawable/circle_plus_ic"
+        android:drawablePadding="20dp"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/black"
+        android:layout_marginStart="5dp"
+        android:textSize="16sp"
+        tools:ignore="UseCompatTextViewDrawableXml" />
+    <TextView
+        android:id="@+id/addOtherBanksCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:drawablePadding="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/black"
+        android:drawableStart="@drawable/link_ic"
+        android:text="Add other bank's card"
+        android:textSize="16sp"
+        tools:ignore="UseCompatTextViewDrawableXml" />
+
+
+
+
+</LinearLayout>

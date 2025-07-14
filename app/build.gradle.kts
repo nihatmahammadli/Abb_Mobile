@@ -83,7 +83,9 @@ dependencies {
     //Qr
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
-    //
+    // Circle indicator
+    implementation("me.relex:circleindicator:2.1.6")
+
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

@@ -86,6 +86,9 @@
             app:destination="@id/mainFragment"
             app:popUpTo="@id/mainFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homePage_to_orderNewCard"
+            app:destination="@id/orderNewCard" />
     </fragment>
     <fragment
         android:id="@+id/userInfo"
@@ -106,5 +109,24 @@
         android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.for_you.ForYou"
         android:label="fragment_for_you"
         tools:layout="@layout/fragment_for_you" />
+    <dialog
+        android:id="@+id/cardOrderSheet"
+        android:name="com.nihatmahammadli.abbmobile.presentation.components.CardOrderSheet"
+        android:label="fragment_card_order_sheet"
+        tools:layout="@layout/fragment_card_order_sheet" >
+
+        <action
+            android:id="@+id/action_cardOrderSheet_to_orderNewCard"
+            app:destination="@id/orderNewCard" />
+    </dialog>
+    <fragment
+        android:id="@+id/orderNewCard"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.order_card.OrderNewCard"
+        android:label="fragment_order_new_card"
+        tools:layout="@layout/fragment_order_new_card" >
+        <action
+            android:id="@+id/action_orderNewCard_to_homePage"
+            app:destination="@id/homePage" />
+    </fragment>
 
 </navigation>

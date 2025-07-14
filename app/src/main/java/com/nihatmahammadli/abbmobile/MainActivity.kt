@@ -26,29 +26,43 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        iconFindForMenu()
+//        iconFindForMenu()
         menuInFragments()
         addDestinationMenu()
 
     }
-
-    fun iconFindForMenu(){
-        val bottomNavigationView = binding.bottomNavigationView
-        val plus = bottomNavigationView.menu.findItem(R.id.plus)
-        plus.icon = ContextCompat.getDrawable(this, R.drawable.plus_ic_img)
-        plus.icon?.setTintList(null)
-    }
+//
+//    fun iconFindForMenu(){
+//        val bottomNavigationView = binding.bottomNavigationView
+//        val plus = bottomNavigationView.menu.findItem(R.id.plus)
+//        plus.icon = ContextCompat.getDrawable(this, R.drawable.plus_ic_img)
+//        plus.icon?.setTintList(null)
+//    }
 
     fun menuInFragments(){
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.frgContainerView) as NavHostFragment
         val navController = navHostFragment.navController
+        val bottomNav = binding.bottomNavigationView
+        val fab = binding.fabIcon
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.homePage -> binding.bottomNavigationView.visibility = View.VISIBLE
-                R.id.history -> binding.bottomNavigationView.visibility = View.VISIBLE
-                R.id.forYou -> binding.bottomNavigationView.visibility = View.VISIBLE
-                else -> binding.bottomNavigationView.visibility = View.GONE
+                R.id.homePage -> {
+                    bottomNav.visibility = View.VISIBLE
+                    fab.visibility = View.VISIBLE
+                }
+                R.id.history -> {
+                    bottomNav.visibility = View.VISIBLE
+                    fab.visibility = View.VISIBLE
+                }
+                R.id.forYou -> {
+                    bottomNav.visibility = View.VISIBLE
+                    fab.visibility = View.VISIBLE
+                }
+                else -> {
+                    bottomNav.visibility = View.GONE
+                    fab.visibility = View.GONE
+                }
             }
         }
     }

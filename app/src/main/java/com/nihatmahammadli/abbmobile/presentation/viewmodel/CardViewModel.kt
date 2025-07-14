@@ -14,8 +14,13 @@ import javax.inject.Inject
 @HiltViewModel
 class CardViewModel
    @Inject constructor(private val repository: CardRepository): ViewModel() {
+
     private val _cards = MutableLiveData<List<CardInfo>>()
     val cards: LiveData<List<CardInfo>> = _cards
+
+    private val _selectedCard = MutableLiveData<CardInfo>()
+    val selectedCard: LiveData<CardInfo> = _selectedCard
+
 
     fun fetchCards(){
         viewModelScope.launch {
@@ -27,5 +32,8 @@ class CardViewModel
                 Log.e("CardViewModel", "Error fetching cards", e)
             }
         }
+    }
+    fun selectCard(card: CardInfo) {
+        _selectedCard.value = card
     }
 }

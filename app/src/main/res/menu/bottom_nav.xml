@@ -4,17 +4,20 @@
 
     <item android:title="@string/home"
         android:id="@+id/home"
-        android:icon="@drawable/home_ic"/>
+        android:icon="@drawable/home_ic" />
+
     <item android:title="@string/history"
         android:id="@+id/history"
         android:icon="@drawable/history_icon"/>
+
     <item android:title=""
-        android:id="@+id/plus"
-        android:icon="@drawable/plus_ic_img"
+        android:enabled="true"
         />
+
     <item android:title="@string/for_you"
         android:id="@+id/for_you"
         android:icon="@drawable/for_you_ic"/>
+
     <item android:title="@string/more"
         android:id="@+id/more"
         android:icon="@drawable/more_ic"/>
