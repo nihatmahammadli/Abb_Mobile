@@ -1,16 +1,11 @@
 package com.nihatmahammadli.abbmobile
 import android.content.Context
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.navigation.NavOptions
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.navOptions
 import com.nihatmahammadli.abbmobile.databinding.ActivityMainBinding
-import com.nihatmahammadli.abbmobile.presentation.dashboard.ui.LocaleHelper
+import com.nihatmahammadli.abbmobile.presentation.ui.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

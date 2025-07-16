@@ -1,7 +1,6 @@
 package com.nihatmahammadli.abbmobile.presentation.providers
 
-import com.nihatmahammadli.abbmobile.presentation.dashboard.home.model_home.CardData
-import com.nihatmahammadli.abbmobile.presentation.dashboard.order_card.AllCardInfo
+import com.nihatmahammadli.abbmobile.presentation.model.AllCardInfo
 
 object OrderCardProvider {
     fun getCards(): List<AllCardInfo> {

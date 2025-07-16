@@ -9,8 +9,12 @@ import javax.inject.Singleton
 @Singleton
 class CardRepositoryImpl @Inject constructor(
     private val cardApi: CardApi
-): CardRepository {
+) : CardRepository {
     override suspend fun getCards(): List<CardInfo> {
+        return cardApi.getCards()
+    }
+
+    override suspend fun getRemoteCards(): List<CardInfo> {
         return cardApi.getCards()
     }
 }

@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.nihatmahammadli.abbmobile.databinding.FragmentMenuBinding
-import com.nihatmahammadli.abbmobile.presentation.dashboard.ui.LocaleHelper
+import com.nihatmahammadli.abbmobile.presentation.ui.LocaleHelper
 
 class MenuFragment : Fragment() {
     private lateinit var binding: FragmentMenuBinding

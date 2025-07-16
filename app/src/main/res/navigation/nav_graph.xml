@@ -89,6 +89,9 @@
         <action
             android:id="@+id/action_homePage_to_orderNewCard"
             app:destination="@id/orderNewCard" />
+        <action
+            android:id="@+id/action_homePage_to_profile"
+            app:destination="@id/profile" />
     </fragment>
     <fragment
         android:id="@+id/userInfo"
@@ -128,5 +131,10 @@
             android:id="@+id/action_orderNewCard_to_homePage"
             app:destination="@id/homePage" />
     </fragment>
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.profile.Profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 
 </navigation>

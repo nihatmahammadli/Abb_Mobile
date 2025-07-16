@@ -5,42 +5,64 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentOrderNewCardBinding
+import com.nihatmahammadli.abbmobile.domain.model.UiCard
 import com.nihatmahammadli.abbmobile.presentation.adapters.AllCardsAdapter
-import com.nihatmahammadli.abbmobile.presentation.adapters.CardAdapter
-import com.nihatmahammadli.abbmobile.presentation.providers.CardProvider
 import com.nihatmahammadli.abbmobile.presentation.providers.OrderCardProvider
+import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
+@AndroidEntryPoint
 class OrderNewCard : Fragment() {
     private lateinit var binding: FragmentOrderNewCardBinding
-    private lateinit var cardAdapter: AllCardsAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private val viewModel: CardViewModel by activityViewModels()
+    private lateinit var adapter: AllCardsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
-        binding = FragmentOrderNewCardBinding.inflate(inflater,container,false)
-        setUpAdapter()
-        viewPagerOverlapEffect()
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentOrderNewCardBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    fun setUpAdapter(){
-        val cards = OrderCardProvider.getCards()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val adapter = AllCardsAdapter(cards)
-        binding.viewPager.adapter = adapter
+        setupAdapter()
+        setupObservers()
+        orderCard()
+        viewPagerOverlapEffect()
+
+        // API-dən kart məlumatlarını al
+        viewModel.fetchSingleCardFromApi()
     }
 
-    fun viewPagerOverlapEffect() {
+    private fun setupAdapter() {
+        val cards = OrderCardProvider.getCards()
+        adapter = AllCardsAdapter(cards)
+        binding.viewPager.adapter = adapter
+
+
+    }
+
+    private fun setupObservers() {
+
+        viewModel.cards.observe(viewLifecycleOwner) { cards ->
+            if (cards.isNotEmpty()) {
+                showToast("${cards.size} kart mövcuddur")
+            }
+        }
+    }
+
+    private fun viewPagerOverlapEffect() {
         binding.viewPager.apply {
             clipToPadding = false
             clipChildren = false
@@ -72,6 +94,14 @@ class OrderNewCard : Fragment() {
         }
     }
 
+    private fun orderCard(){
+        binding.orderCardBtn.setOnClickListener {
+            findNavController().navigateUp()
 
+        }
+    }
 
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
 }

@@ -10,7 +10,7 @@ import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentForYouBinding
 import com.nihatmahammadli.abbmobile.databinding.FragmentHomePageBinding
 import com.nihatmahammadli.abbmobile.presentation.adapters.NewsAdapter
-import com.nihatmahammadli.abbmobile.presentation.dashboard.for_you.model_for_you.NewsItem
+import com.nihatmahammadli.abbmobile.presentation.model.NewsItem
 
 class ForYou : Fragment() {
     private lateinit var binding: FragmentForYouBinding

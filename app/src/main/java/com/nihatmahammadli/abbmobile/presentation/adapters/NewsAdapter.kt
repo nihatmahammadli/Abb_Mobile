@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nihatmahammadli.abbmobile.databinding.ItemNewsBinding
-import com.nihatmahammadli.abbmobile.presentation.dashboard.for_you.model_for_you.NewsItem
+import com.nihatmahammadli.abbmobile.presentation.model.NewsItem
 
 class NewsAdapter(val newsList: List<NewsItem>): RecyclerView.Adapter<NewsAdapter.NewsItemHolder>() {
     override fun onCreateViewHolder(

@@ -1,4 +1,4 @@
-package com.nihatmahammadli.abbmobile.presentation.dashboard.home.model_home
+package com.nihatmahammadli.abbmobile.presentation.model
 
 data class Transaction(
     val title: String,

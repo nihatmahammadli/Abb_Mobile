@@ -1,4 +1,4 @@
-package com.nihatmahammadli.abbmobile.presentation.dashboard.order_card
+package com.nihatmahammadli.abbmobile.presentation.model
 
 data class AllCardInfo(
     val title: String,
@@ -14,5 +14,5 @@ data class AllCardInfo(
     val currencyText: String,
     val withDrawalText: String,
     val welcomeMilesText: String,
-    val cardImage: String
+    val cardImage: String,
 )

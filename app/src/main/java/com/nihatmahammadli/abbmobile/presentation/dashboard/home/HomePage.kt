@@ -1,222 +1,259 @@
-    package com.nihatmahammadli.abbmobile.presentation.dashboard.home
+package com.nihatmahammadli.abbmobile.presentation.dashboard.home
 
-    import android.app.Activity
-    import android.content.Intent
-    import android.os.Bundle
-    import android.util.Log
-    import android.view.LayoutInflater
-    import android.view.View
-    import android.view.ViewGroup
-    import android.widget.Toast
-    import androidx.activity.result.ActivityResultLauncher
-    import androidx.activity.result.contract.ActivityResultContracts
-    import androidx.fragment.app.Fragment
-    import androidx.fragment.app.viewModels
-    import com.google.zxing.integration.android.IntentIntegrator
-    import com.nihatmahammadli.abbmobile.databinding.FragmentHomePageBinding
-    import androidx.recyclerview.widget.LinearLayoutManager
-    import androidx.recyclerview.widget.RecyclerView
-    import com.journeyapps.barcodescanner.CaptureActivity
-    import com.journeyapps.barcodescanner.ScanContract
-    import com.journeyapps.barcodescanner.ScanOptions
-    import com.nihatmahammadli.abbmobile.R
-    import com.nihatmahammadli.abbmobile.presentation.adapters.*
-    import com.nihatmahammadli.abbmobile.presentation.components.CardOrderSheet
-    import com.nihatmahammadli.abbmobile.presentation.dashboard.home.model_home.Transaction
-    import com.nihatmahammadli.abbmobile.presentation.providers.CardProvider
-    import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
-    import dagger.hilt.android.AndroidEntryPoint
-    import kotlin.math.abs
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.journeyapps.barcodescanner.CaptureActivity
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanOptions
+import com.nihatmahammadli.abbmobile.R
+import com.nihatmahammadli.abbmobile.databinding.FragmentHomePageBinding
+import com.nihatmahammadli.abbmobile.presentation.adapters.*
+import com.nihatmahammadli.abbmobile.presentation.components.CardOrderSheet
+import com.nihatmahammadli.abbmobile.presentation.model.BaseCardData
+import com.nihatmahammadli.abbmobile.presentation.model.Transaction
+import com.nihatmahammadli.abbmobile.presentation.providers.CardProvider
+import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.abs
 
-    @AndroidEntryPoint
-    class HomePage : Fragment() {
+@AndroidEntryPoint
+class HomePage : Fragment() {
 
-        private lateinit var binding: FragmentHomePageBinding
-        private lateinit var imageAdapter: HorizontalImageAdapter
-        private lateinit var transactionAdapter: TransactionAdapter
-        private var isExpanded = false
-        private val viewModel: CardViewModel by viewModels()
+    private lateinit var binding: FragmentHomePageBinding
+    private lateinit var imageAdapter: HorizontalImageAdapter
+    private lateinit var transactionAdapter: TransactionAdapter
+    private lateinit var cardAdapter: CardAdapter
+    private var isExpanded = false
 
-        override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?,
-        ): View {
-            binding = FragmentHomePageBinding.inflate(inflater, container, false)
+    private val viewModel: CardViewModel by activityViewModels()
 
-            setupHorizontalAdapter()
-            setupTransactionSection()
-            changeViewPager()
-            viewPagerOverlapEffect()
-            setupQrButton()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentHomePageBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-            viewModel.cards.observe(viewLifecycleOwner) { list ->
-                Log.d("CardFragment", "Cards: $list")
-            }
-            viewModel.fetchCards()
-
-            return binding.root
-        }
-
-        private fun setupHorizontalAdapter() {
-            val imageList = listOf(
-                R.drawable.read_more_1,
-                R.drawable.read_more_2,
-                R.drawable.read_more_3,
-            )
-            imageAdapter = HorizontalImageAdapter(imageList)
-            binding.horizontalRecyclerView.apply {
-                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                adapter = imageAdapter
-            }
-        }
-
-        private fun setupTransactionSection() {
-            val transactions = getDummyTransactions()
-            transactionAdapter = TransactionAdapter(transactions)
-            binding.recyclerViewTransactions.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = transactionAdapter
-            }
-            updateTransactionVisibility(transactions)
-
-            binding.lastestTransaction.setOnClickListener {
-                toggleTransactionList()
-            }
-        }
-
-        private fun toggleTransactionList() {
-            isExpanded = !isExpanded
-            updateArrowIcon()
-
-            val transactions = transactionAdapter.items
-
-            if (isExpanded) {
-                expandView(binding.recyclerViewTransactions)
-            } else {
-                collapseView(binding.recyclerViewTransactions)
-            }
-            updateTransactionVisibility(transactions)
-        }
-
-        private fun updateArrowIcon() {
-            val icon = if (isExpanded) R.drawable.arrow_up else R.drawable.arrow_under
-            binding.lastestTransaction.setCompoundDrawablesWithIntrinsicBounds(0, 0, icon, 0)
-        }
-
-        private fun updateTransactionVisibility(transactions: List<Transaction>) {
-            val hasTransactions = transactions.isNotEmpty()
-            if (isExpanded) {
-                binding.noTransactionYet.visibility = if (hasTransactions) View.GONE else View.VISIBLE
-                binding.recyclerViewTransactions.visibility = if (hasTransactions) View.VISIBLE else View.GONE
-            } else {
-                binding.recyclerViewTransactions.visibility = View.GONE
-                binding.noTransactionYet.visibility = View.GONE
-            }
-        }
-
-        private fun expandView(view: View) {
-            view.visibility = View.VISIBLE
-            view.alpha = 0f
-            view.post {
-                view.translationY = -view.height.toFloat()
-                view.animate()
-                    .translationY(0f)
-                    .alpha(1f)
-                    .setDuration(300)
-                    .start()
-            }
-        }
-
-        private fun collapseView(view: View) {
-            view.animate()
-                .translationY(-view.height.toFloat())
-                .alpha(0f)
-                .setDuration(300)
-                .withEndAction {
-                    view.visibility = View.GONE
-                    view.translationY = 0f
-                    view.alpha = 1f
-                }
-                .start()
-        }
-
-        private fun getDummyTransactions(): List<Transaction> {
-            return listOf(
-                Transaction("Groceries", 75.5, "10.07.2025"),
-                Transaction("Online Shopping", 150.0, "09.07.2025"),
-                Transaction("Electricity Bill", 45.75, "08.07.2025"),
-                Transaction("Taxi", 12.0, "07.07.2025"),
-                Transaction("Restaurant", 30.0, "06.07.2025")
-            )
-        }
-
-        fun changeViewPager() {
-            val cards = CardProvider.getCards()
-
-            val adapter = CardAdapter(cards) { position ->
-               if (position==0){
-                   showCardOrderBottomSheet()
-               }else {
-                   CardProvider.handleCardClick(position)
-               }
-            }
-            binding.viewPager.adapter = adapter
-        }
-
-        fun viewPagerOverlapEffect() {
-            binding.viewPager.apply {
-                clipToPadding = false
-                clipChildren = false
-                offscreenPageLimit = 3
-                (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-
-                setPageTransformer { page, position ->
-                    val offsetPx = resources.getDimensionPixelOffset(R.dimen.offset)
-
-                    when {
-                        position < -1 -> {
-                            page.alpha = 0f
-                        }
-                        position <= 1 -> {
-                            val startOffset = -position * offsetPx
-                            page.translationX = startOffset
-
-                            val scaleFactor = 1 - 0.1f * abs(position)
-                            page.scaleX = scaleFactor
-                            page.scaleY = scaleFactor
-
-                            page.alpha = 1 - 0.3f * abs(position)
-                        }
-                        else -> {
-                            page.alpha = 0f
-                        }
-                    }
-                }
-            }
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.fetchCardsFromFirebase()
+        initUI()
+        setupObservers()
 
 
-        private fun setupQrButton() {
-            binding.qrButton.setOnClickListener {
-                val options = ScanOptions()
-                options.setPrompt("Scan any QR code")
-                options.setBeepEnabled(true)
-                options.setOrientationLocked(true)
-                options.setCaptureActivity(CaptureActivity::class.java)
-                barcodeLauncher.launch(options)
-            }
-        }
+    }
 
-        private val barcodeLauncher = registerForActivityResult(ScanContract()){result ->
-            if(result.contents != null){
-                Toast.makeText(requireContext(), result.contents, Toast.LENGTH_SHORT).show()
-            }else {
-                Toast.makeText(requireContext(), "Cancelled", Toast.LENGTH_SHORT).show()
-            }
-        }
+    private fun initUI() {
+        setupGreetingFromFirebase()
+        setupHorizontalRecycler()
+        setupTransactionSection()
+        setupQrScan()
+        setupCardSection()
+        applyViewPagerOverlap()
+        goProfile()
+    }
 
-        private fun showCardOrderBottomSheet() {
-            val bottomSheet = CardOrderSheet()
-            bottomSheet.show(parentFragmentManager, CardOrderSheet.TAG)
+    private fun setupObservers() {
+        viewModel.uiCards.observe(viewLifecycleOwner) { uiCards ->
+            updateCardAdapter(uiCards)
         }
     }
+
+    private fun updateCardAdapter(uiCards: List<com.nihatmahammadli.abbmobile.domain.model.UiCard>) {
+        val cards = mutableListOf<BaseCardData>()
+
+        cards.addAll(CardProvider.getCards())
+
+        cards.addAll(uiCards.map { card ->
+            BaseCardData.CustomCard(
+                title = "Mastercard",
+                balance = "0.00 ₼",
+                cardCodeEnding = "•••• ${card.cardNumber.takeLast(4)}",
+                expiryDate = card.expiryDate,
+                backgroundResId = R.drawable.card_background,
+                cardLogoResId = R.drawable.visa_card,
+                showVisa = true,
+                onTopUpClick = { handleTopUpClick(card) },
+                onPayClick = { handlePayClick(card) },
+                onTransferClick = { handleTransferClick(card) }
+            )
+        })
+
+
+
+        cardAdapter.updateItems(cards)
+    }
+
+    private fun handleTopUpClick(card: com.nihatmahammadli.abbmobile.domain.model.UiCard) {
+        showToast("Balansı artır: ${card.cardNumber.takeLast(4)}")
+    }
+
+    private fun handlePayClick(card: com.nihatmahammadli.abbmobile.domain.model.UiCard) {
+        showToast("Ödəniş: ${card.cardNumber.takeLast(4)}")
+    }
+
+    private fun handleTransferClick(card: com.nihatmahammadli.abbmobile.domain.model.UiCard) {
+        showToast("Köçürmə: ${card.cardNumber.takeLast(4)}")
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setupGreetingFromFirebase() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        FirebaseFirestore.getInstance().collection("users").document(uid)
+            .get()
+            .addOnSuccessListener { doc ->
+                val name = doc.getString("name") ?: "user"
+                binding.txtName.text = "Hello, $name"
+            }
+            .addOnFailureListener {
+                binding.txtName.text = "Hello!"
+            }
+    }
+
+    private fun setupHorizontalRecycler() {
+        val imageList = listOf(
+            R.drawable.read_more_1,
+            R.drawable.read_more_2,
+            R.drawable.read_more_3
+        )
+        imageAdapter = HorizontalImageAdapter(imageList)
+        binding.horizontalRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = imageAdapter
+        }
+    }
+
+    private fun setupTransactionSection() {
+        val transactions = getDummyTransactions()
+        transactionAdapter = TransactionAdapter(transactions)
+
+        binding.recyclerViewTransactions.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewTransactions.adapter = transactionAdapter
+
+        binding.lastestTransaction.setOnClickListener { toggleTransactionList(transactions) }
+
+        updateTransactionUI(transactions)
+    }
+
+    private fun toggleTransactionList(transactions: List<Transaction>) {
+        isExpanded = !isExpanded
+        updateArrowIcon()
+        updateTransactionUI(transactions)
+    }
+
+    private fun updateArrowIcon() {
+        val icon = if (isExpanded) R.drawable.arrow_up else R.drawable.arrow_under
+        binding.lastestTransaction.setCompoundDrawablesWithIntrinsicBounds(0, 0, icon, 0)
+    }
+
+    private fun updateTransactionUI(transactions: List<Transaction>) {
+        if (isExpanded) {
+            if (transactions.isEmpty()) {
+                binding.recyclerViewTransactions.visibility = View.GONE
+                binding.noTransactionYet.visibility = View.VISIBLE
+            } else {
+                binding.recyclerViewTransactions.visibility = View.VISIBLE
+                binding.noTransactionYet.visibility = View.GONE
+            }
+        } else {
+            binding.recyclerViewTransactions.visibility = View.GONE
+            binding.noTransactionYet.visibility = View.GONE
+        }
+    }
+
+    private fun getDummyTransactions(): List<Transaction> {
+        return listOf(
+            Transaction("Market", 75.5, "10.07.2025"),
+            Transaction("Online alış-veriş", 150.0, "09.07.2025"),
+            Transaction("İşıq pulu", 45.75, "08.07.2025"),
+            Transaction("Taksi", 12.0, "07.07.2025"),
+            Transaction("Restoran", 30.0, "06.07.2025")
+        )
+    }
+
+    private fun setupQrScan() {
+        binding.qrButton.setOnClickListener {
+            val options = ScanOptions().apply {
+                setPrompt("QR kodu oxudun")
+                setBeepEnabled(true)
+                setOrientationLocked(true)
+                setCaptureActivity(CaptureActivity::class.java)
+            }
+            barcodeLauncher.launch(options)
+        }
+    }
+
+    private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
+        val msg = result.contents ?: "Ləğv edildi"
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setupCardSection() {
+        cardAdapter = CardAdapter(mutableListOf()) { position ->
+            if (position == 0) {
+                showCardOrderBottomSheet()
+            } else {
+                val card = cardAdapter.getCardAt(position)
+                if (card is BaseCardData.CustomCard) {
+                    showToast("Kart seçildi: ${card.title}")
+                }
+            }
+        }
+
+        binding.viewPager.adapter = cardAdapter
+    }
+
+    private fun showCardOrderBottomSheet() {
+        val sheet = CardOrderSheet()
+        sheet.show(parentFragmentManager, CardOrderSheet.TAG)
+    }
+
+    private fun applyViewPagerOverlap() {
+        binding.viewPager.apply {
+            clipToPadding = false
+            clipChildren = false
+            offscreenPageLimit = 3
+            (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+            setPageTransformer { page, position ->
+                val offsetPx = resources.getDimensionPixelOffset(R.dimen.offset)
+                when {
+                    position < -1 -> page.alpha = 0f
+                    position <= 1 -> {
+                        page.translationX = -position * offsetPx
+                        val scale = 1 - 0.1f * abs(position)
+                        page.scaleX = scale
+                        page.scaleY = scale
+                        page.alpha = 1 - 0.3f * abs(position)
+                    }
+                    else -> page.alpha = 0f
+                }
+            }
+        }
+    }
+
+    fun goProfile(){
+        binding.profileButton.setOnClickListener {
+            findNavController().navigate(R.id.action_homePage_to_profile)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchCardsFromFirebase()
+    }
+}

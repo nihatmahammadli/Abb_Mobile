@@ -1,4 +1,4 @@
-package com.nihatmahammadli.abbmobile.presentation.dashboard.ui
+package com.nihatmahammadli.abbmobile.presentation.ui
 
 import android.content.Context
 import android.content.res.Configuration
