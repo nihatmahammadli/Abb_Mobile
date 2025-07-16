@@ -58,6 +58,8 @@ class UserInfo : Fragment() {
         }
 
         binding.btnContinue.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
+
             userInfoViewModel.personalInfo()
         }
     }
@@ -71,9 +73,10 @@ class UserInfo : Fragment() {
         userInfoViewModel.signUpResult.observe(viewLifecycleOwner) { success ->
             success?.let {
                 if (it) {
-                    Toast.makeText(requireContext(), "Personal info saved successfully", Toast.LENGTH_SHORT).show()
+                    binding.progressBar.visibility = View.GONE
                     findNavController().navigate(R.id.action_userInfo_to_enterDateOfBirth)
                 } else {
+                    binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), "Failed to save personal info", Toast.LENGTH_SHORT).show()
                 }
                 userInfoViewModel.resetResult()

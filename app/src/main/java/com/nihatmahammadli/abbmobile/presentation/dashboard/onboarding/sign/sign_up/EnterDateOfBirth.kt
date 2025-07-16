@@ -27,9 +27,6 @@ class EnterDateOfBirth : Fragment() {
     private lateinit var binding: FragmentEnterDateOfBirthBinding
     private var isValidAge = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -100,6 +97,7 @@ class EnterDateOfBirth : Fragment() {
         binding.btnContinue.setOnClickListener {
             val user = FirebaseAuth.getInstance().currentUser
             if (user != null && isValidAge && binding.selectDate.text?.isNotEmpty() == true) {
+
                 val sharedPref = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
                 sharedPref.edit { putBoolean("isLoggedIn", true) }
 

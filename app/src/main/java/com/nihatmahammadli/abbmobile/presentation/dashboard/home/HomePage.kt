@@ -1,6 +1,7 @@
 package com.nihatmahammadli.abbmobile.presentation.dashboard.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,10 +48,12 @@ class HomePage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchCardsFromFirebase()
         initUI()
         setupObservers()
 
+        if (viewModel.uiCards.value.isNullOrEmpty()) {
+            viewModel.fetchCardsFromFirebase()
+        }
 
     }
 
@@ -62,12 +65,33 @@ class HomePage : Fragment() {
         setupCardSection()
         applyViewPagerOverlap()
         goProfile()
+        setupSwipeToRefresh()
     }
+    private fun setupSwipeToRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            refreshData()
+        }
+    }
+
+    private fun refreshData() {
+        viewModel.hasFetchedCards = false  // Flagı sıfırla ki, yenidən data gəlsin
+        viewModel.fetchCardsFromFirebase()
+        setupGreetingFromFirebase()
+    }
+
+
+
 
     private fun setupObservers() {
         viewModel.uiCards.observe(viewLifecycleOwner) { uiCards ->
+            Log.d("HomePage", "Data gəldi, kartların sayı: ${uiCards.size}")
+            uiCards.forEachIndexed { index, card ->
+                Log.d("HomePage", "Card #$index: Number=${card.cardNumber}, Expiry=${card.expiryDate}, CVV=${card.cvv}")
+            }
             updateCardAdapter(uiCards)
+            binding.swipeRefreshLayout.isRefreshing = false
         }
+
     }
 
     private fun updateCardAdapter(uiCards: List<com.nihatmahammadli.abbmobile.domain.model.UiCard>) {
@@ -117,12 +141,15 @@ class HomePage : Fragment() {
             .get()
             .addOnSuccessListener { doc ->
                 val name = doc.getString("name") ?: "user"
+                Log.d("HomePage", "User name loaded: $name")  // Burada log elədik
                 binding.txtName.text = "Hello, $name"
             }
             .addOnFailureListener {
+                Log.e("HomePage", "Failed to load user name")  // Log xətaya görə
                 binding.txtName.text = "Hello!"
             }
     }
+
 
     private fun setupHorizontalRecycler() {
         val imageList = listOf(
@@ -247,13 +274,13 @@ class HomePage : Fragment() {
     }
 
     fun goProfile(){
-        binding.profileButton.setOnClickListener {
-            findNavController().navigate(R.id.action_homePage_to_profile)
-        }
+        val clickListener = View.OnClickListener {
+        findNavController().navigate(R.id.action_homePage_to_profile)
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.fetchCardsFromFirebase()
+        binding.profileButton.setOnClickListener(clickListener)
+        binding.txtName.setOnClickListener(clickListener)
+        binding.textView13.setOnClickListener(clickListener)
     }
+
 }

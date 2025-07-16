@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CardViewModel
-@Inject constructor(private val repository: CardRepositoryImpl): ViewModel() {
+@Inject constructor(private val repository: CardRepositoryImpl) : ViewModel() {
 
     private val _cards = MutableLiveData<List<CardInfo>>()
     val cards: LiveData<List<CardInfo>> = _cards
@@ -24,9 +24,10 @@ class CardViewModel
     private val _uiCards = MutableLiveData<List<UiCard>>()
     val uiCards: LiveData<List<UiCard>> = _uiCards
 
-
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+     var hasFetchedCards = false
 
     fun fetchSingleCardFromApi() {
         _isLoading.value = true
@@ -45,7 +46,6 @@ class CardViewModel
                             expiryDate = randomCard.expiryDate,
                             cvv = randomCard.cvv
                         )
-                        
                     )
                 } else {
                     _cards.value = emptyList()
@@ -53,7 +53,7 @@ class CardViewModel
                 }
             } catch (e: Exception) {
                 Log.e("CardViewModel", "API-dən kart alınmadı: ${e.message}")
-                fetchCardsFromFirebase()
+//                fetchCardsFromFirebase()
             } finally {
                 _isLoading.value = false
             }
@@ -65,7 +65,6 @@ class CardViewModel
         currentList.add(0, card)
         _uiCards.value = currentList
     }
-
 
     private fun saveSingleCardToFirebase(card: CardInfo) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
@@ -95,7 +94,6 @@ class CardViewModel
                 batch.commit()
                     .addOnSuccessListener {
                         Log.d("CardViewModel", "Tək kart Firebase-ə saxlandı")
-                        fetchCardsFromFirebase()
                     }
                     .addOnFailureListener { e ->
                         Log.e("CardViewModel", "Kart Firebase-ə saxlanmadı: ${e.message}")
@@ -104,6 +102,11 @@ class CardViewModel
     }
 
     fun fetchCardsFromFirebase() {
+        if (hasFetchedCards) {
+            Log.d("CardViewModel", "Firebase çağırılmadı — artıq yüklənib.")
+            return
+        }
+
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val firestore = FirebaseFirestore.getInstance()
 
@@ -120,8 +123,11 @@ class CardViewModel
                     val cvv = doc.getString("cvv") ?: return@mapNotNull null
                     UiCard(cardNumber, expiryDate, cvv)
                 }
+
                 _uiCards.value = fetchedCards
+                hasFetchedCards = true  // ✅ Flag burada true olur
                 _isLoading.value = false
+
                 Log.d("CardViewModel", "Firebase-dən ${fetchedCards.size} kart yükləndi")
             }
             .addOnFailureListener { e ->

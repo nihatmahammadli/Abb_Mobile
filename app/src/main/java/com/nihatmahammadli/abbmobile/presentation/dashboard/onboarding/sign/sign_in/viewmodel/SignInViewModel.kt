@@ -16,6 +16,7 @@ class SignInViewModel @Inject constructor(
     private val _signInStatus = MutableLiveData<Result<FirebaseUser>>()
     val signInStatus: LiveData<Result<FirebaseUser>> get() = _signInStatus
 
+
     fun signIn(email: String,password: String){
         auth.signInWithEmailAndPassword(email,password)
             .addOnSuccessListener {

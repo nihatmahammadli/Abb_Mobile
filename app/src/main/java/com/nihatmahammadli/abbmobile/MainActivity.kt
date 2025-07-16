@@ -3,6 +3,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.nihatmahammadli.abbmobile.databinding.ActivityMainBinding
 import com.nihatmahammadli.abbmobile.presentation.ui.LocaleHelper
@@ -26,14 +27,6 @@ class MainActivity : AppCompatActivity() {
         addDestinationMenu()
 
     }
-//
-//    fun iconFindForMenu(){
-//        val bottomNavigationView = binding.bottomNavigationView
-//        val plus = bottomNavigationView.menu.findItem(R.id.plus)
-//        plus.icon = ContextCompat.getDrawable(this, R.drawable.plus_ic_img)
-//        plus.icon?.setTintList(null)
-//    }
-
     fun menuInFragments(){
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.frgContainerView) as NavHostFragment
         val navController = navHostFragment.navController
@@ -68,28 +61,34 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.bottomNavigationView.setOnItemSelectedListener {
-            when(it.itemId) {
+            val navOptions = NavOptions.Builder()
+                .setPopUpTo(navController.graph.startDestinationId, false)  // startDestination-dən əvvəlki backstack-i təmizlə
+                .setLaunchSingleTop(true)
+                .build()
+
+            when (it.itemId) {
                 R.id.home -> {
-                    if(navController.currentDestination?.id != R.id.homePage) {
-                        navController.navigate(R.id.homePage)
+                    if (navController.currentDestination?.id != R.id.homePage) {
+                        navController.navigate(R.id.homePage, null, navOptions)
                     }
                     true
                 }
                 R.id.history -> {
-                    if(navController.currentDestination?.id != R.id.history) {
-                        navController.navigate(R.id.history)
+                    if (navController.currentDestination?.id != R.id.history) {
+                        navController.navigate(R.id.history, null, navOptions)
                     }
                     true
                 }
                 R.id.for_you -> {
-                    if(navController.currentDestination?.id != R.id.for_you) {
-                        navController.navigate(R.id.forYou)
+                    if (navController.currentDestination?.id != R.id.forYou) {
+                        navController.navigate(R.id.forYou, null, navOptions)
                     }
                     true
                 }
                 else -> false
             }
         }
+
     }
 
 

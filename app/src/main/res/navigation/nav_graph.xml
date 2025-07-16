@@ -135,6 +135,12 @@
         android:id="@+id/profile"
         android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.profile.Profile"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profile_to_customerTypeSelection"
+            app:destination="@id/customerTypeSelection"
+            app:popUpTo="@id/profile"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

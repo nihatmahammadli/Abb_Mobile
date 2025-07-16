@@ -41,6 +41,7 @@ class SignUp : Fragment() {
         })
 
         binding.btnContinue.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
             signUpViewModel.signUp()
         }
 
@@ -66,10 +67,15 @@ class SignUp : Fragment() {
     private fun observeSignUpResult() {
         signUpViewModel.signUpResult.observe(viewLifecycleOwner) { success ->
             success?.let {
+
                 if (it) {
+                    binding.progressBar.visibility = View.GONE
+
                     Toast.makeText(requireContext(), "Sign up uğurlu oldu.", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_signUp_to_userInfo)
                 } else {
+                    binding.progressBar.visibility = View.GONE
+
                     Toast.makeText(requireContext(), "Sign up uğursuz oldu.", Toast.LENGTH_SHORT).show()
                 }
                 signUpViewModel.resetSignUpResult()

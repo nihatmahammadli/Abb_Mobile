@@ -2,6 +2,7 @@ package com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.sign.sig
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.core.content.edit
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.transition.Visibility
 import com.google.firebase.auth.FirebaseAuth
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentSignInBinding
@@ -41,8 +43,12 @@ class SignIn : Fragment() {
         signInWithEmail()
         goBack()
 
+
         viewModel.signInStatus.observe(viewLifecycleOwner) { result ->
             result.onSuccess {
+                Log.d("TEST", "ProgressBar exists: ${binding.progressBar != null}")
+
+                binding.progressBar.visibility = View.GONE
 
                 val sharedPref = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
                 sharedPref.edit { putBoolean("isLoggedIn", true) }
@@ -50,6 +56,8 @@ class SignIn : Fragment() {
                 findNavController().navigate(R.id.action_signIn_to_homePage)
             }
             result.onFailure {
+                binding.progressBar.visibility = View.GONE
+
                 Toast.makeText(requireContext(), "User not found!", Toast.LENGTH_SHORT).show()
             }
         }
@@ -62,17 +70,22 @@ class SignIn : Fragment() {
         }
     }
 
+
+
+
     fun signInWithEmail() {
         binding.btnContinue.setOnClickListener {
             val email = binding.emailText.text.toString().trim()
             val password = binding.passwordText.text.toString().trim()
 
 
-
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(requireContext(), "Email and password cannot be empty!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            Log.d("TEST", "ProgressBar exists: visible")
+
+            binding.progressBar.visibility = View.VISIBLE
             viewModel.signIn(email, password)
         }
     }

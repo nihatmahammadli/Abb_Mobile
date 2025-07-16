@@ -47,4 +47,23 @@ class ProfileViewModel @Inject constructor(
                 }
             }
     }
+
+    fun logOut() {
+        try {
+            firebaseAuth.signOut()
+            clearUserData()
+            Log.d("ProfileViewModel", "User logged out successfully")
+
+        } catch (e: Exception) {
+            Log.e("ProfileViewModel", "Logout failed", e)
+        }
+    }
+
+    private fun clearUserData() {
+        name.value = ""
+        surName.value = ""
+        email.value = ""
+        customerId.value = ""
+    }
+
 }
