@@ -1,375 +1,390 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:scrollbars="none"
-        android:fadeScrollbars="false">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <!-- FAB'i SwipeRefreshLayout içinde ama NestedScrollView dışında konumlandırın -->
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="40dp"
-            android:paddingVertical="20dp"
-            android:background="#F2F0F0"
-            android:paddingHorizontal="20dp"
-            tools:context=".presentation.dashboard.home.HomePage">
-
-        <ImageButton
-            android:id="@+id/profileButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/trans"
-            android:importantForAccessibility="no"
-            android:src="@drawable/profile"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nice_to_see_you_again"
-            android:textColor="#3C3B3B"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/txtName"
-            app:layout_constraintTop_toBottomOf="@+id/txtName" />
-
-        <TextView
-            android:id="@+id/txtName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Hello, Customer"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/profileButton"
-            app:layout_constraintTop_toTopOf="@+id/profileButton" />
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:background="@color/trans"
-            android:importantForAccessibility="no"
-            android:src="@drawable/eye_open"
-            app:layout_constraintBottom_toBottomOf="@+id/profileButton"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-            app:layout_constraintTop_toTopOf="@+id/profileButton" />
-
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/trans"
-            android:importantForAccessibility="no"
-            android:src="@drawable/notification_bell"
-            app:layout_constraintBottom_toBottomOf="@+id/profileButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/profileButton" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/white_button"
-            android:text="@string/insurance"
-            android:textAllCaps="false"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileButton" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/white_button"
-            android:drawableStart="@drawable/dots"
-            android:drawablePadding="7dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="@string/all_products"
-            android:textAllCaps="false"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/button2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/button"
-            app:layout_constraintTop_toTopOf="@+id/button2" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:background="@drawable/white_button"
-            android:text="@string/investment"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:textAllCaps="false"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/button"
-            app:layout_constraintEnd_toStartOf="@+id/button3"
-            app:layout_constraintStart_toEndOf="@+id/button"
-            app:layout_constraintTop_toTopOf="@+id/button" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:clipToPadding="false"
-            android:clipChildren="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
-
-
-
-
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:background="@drawable/cashback_button"
-            android:drawableStart="@drawable/finance_ic"
-            android:drawablePadding="10dp"
-            android:paddingStart="10dp"
-            android:text="@string/_0_00_ncashback"
-            android:textAlignment="viewStart"
-            android:textAllCaps="false"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/viewPager"
-            app:layout_constraintWidth_percent="0.48"
-            tools:ignore="RtlSymmetry" />
-
-        <Button
-            android:id="@+id/qrButton"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:background="@drawable/cashback_button"
-            android:drawableStart="@drawable/qr_ic"
-            android:drawablePadding="10dp"
-            android:layout_marginTop="16dp"
-            android:paddingStart="10dp"
-            android:text="@string/_0_npending_edv"
-            android:textAlignment="viewStart"
-            android:textAllCaps="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewPager"
-            app:layout_constraintWidth_percent="0.48"
-            tools:ignore="RtlSymmetry" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/horizontalRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/imageView5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/qrButton" />
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:cardCornerRadius="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalRecyclerView">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            android:fadeScrollbars="false">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="14dp"
-                android:paddingVertical="18dp">
+                android:paddingTop="40dp"
+                android:paddingVertical="20dp"
+                android:background="#F2F0F0"
+                android:paddingHorizontal="20dp"
+                tools:context=".presentation.dashboard.home.HomePage">
 
-                <TextView
-                    android:id="@+id/textView15"
+
+                <ImageButton
+                    android:id="@+id/profileButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Auto-payment/transfer and templates"
-                    android:textColor="@color/black"
-                    app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_gray"
-                    android:padding="2dp"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/seeAllText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:paddingEnd="2dp"
-                        android:text="@string/see_all"
-                        android:textAllCaps="false"
-                        android:textColor="@color/black"
-                        android:textSize="10sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/arrowIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/arrow_right"
-                        app:layout_constraintBottom_toBottomOf="@id/seeAllText"
-                        app:layout_constraintStart_toEndOf="@id/seeAllText"
-                        app:layout_constraintTop_toTopOf="@id/seeAllText" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:background="@drawable/refresh_ic"
-                    app:layout_constraintEnd_toStartOf="@+id/textView16"
-                    app:layout_constraintHorizontal_bias="0.84"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView16" />
-
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:textSize="16dp"
-                    android:text="You don't have any auto-payment\nor template yet"
-                    android:textAlignment="center"
-                    android:textColor="#9E9999"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-                <Button
-                    android:id="@+id/createAutoPayment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="28dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:textAllCaps="false"
-                    android:paddingStart="14dp"
-                    android:paddingEnd="14dp"
-                    android:background="@drawable/button_light_blue"
-                    android:text="@string/create_new"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/white"
-                    app:layout_constraintTop_toBottomOf="@+id/textView16" />
-
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="14dp"
-                android:paddingVertical="18dp">
-
-                <TextView
-                    android:id="@+id/lastestTransaction"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/arrow_under"
-                    android:drawablePadding="8dp"
-                    android:text="Lastest transaction"
-                    android:textColor="@color/black"
+                    android:background="@color/trans"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/profile"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayoutTransaction"
+                <TextView
+                    android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_gray"
-                    android:padding="2dp"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/seeAllTextTransaction"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:paddingEnd="2dp"
-                        android:text="@string/see_all"
-                        android:textAllCaps="false"
-                        android:textColor="@color/black"
-                        android:textSize="10sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/arrowIconTransaction"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/arrow_right"
-                        app:layout_constraintBottom_toBottomOf="@id/seeAllTextTransaction"
-                        app:layout_constraintStart_toEndOf="@id/seeAllTextTransaction"
-                        app:layout_constraintTop_toTopOf="@id/seeAllTextTransaction" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:text="@string/nice_to_see_you_again"
+                    android:textColor="#3C3B3B"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@+id/txtName"
+                    app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
                 <TextView
-                    android:id="@+id/noTransactionYet"
+                    android:id="@+id/txtName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No transactions yet"
-                    android:textColor="#9E9999"
-                    android:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:text="Hello, Customer"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/profileButton"
+                    app:layout_constraintTop_toTopOf="@+id/profileButton" />
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/trans"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/eye_open"
+                    app:layout_constraintBottom_toBottomOf="@+id/profileButton"
+                    app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+                    app:layout_constraintTop_toTopOf="@+id/profileButton" />
+
+                <ImageButton
+                    android:id="@+id/imageButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/trans"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/notification_bell"
+                    app:layout_constraintBottom_toBottomOf="@+id/profileButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/profileButton" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/white_button"
+                    android:text="@string/insurance"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/profileButton" />
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/white_button"
+                    android:drawableStart="@drawable/dots"
+                    android:drawablePadding="7dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/all_products"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/button2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/button"
+                    app:layout_constraintTop_toTopOf="@+id/button2" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/white_button"
+                    android:text="@string/investment"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/button"
+                    app:layout_constraintEnd_toStartOf="@+id/button3"
+                    app:layout_constraintStart_toEndOf="@+id/button"
+                    app:layout_constraintTop_toTopOf="@+id/button" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:clipToPadding="false"
+                    android:clipChildren="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lastestTransaction" />
+                    app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/cashback_button"
+                    android:drawableStart="@drawable/finance_ic"
+                    android:drawablePadding="10dp"
+                    android:paddingStart="10dp"
+                    android:text="@string/_0_00_ncashback"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="@+id/imageView5"
+                    app:layout_constraintTop_toBottomOf="@+id/viewPager"
+                    app:layout_constraintWidth_percent="0.48"
+                    tools:ignore="RtlSymmetry" />
+
+                <Button
+                    android:id="@+id/qrButton"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/cashback_button"
+                    android:drawableStart="@drawable/qr_ic"
+                    android:drawablePadding="10dp"
+                    android:layout_marginTop="16dp"
+                    android:paddingStart="10dp"
+                    android:text="@string/_0_npending_edv"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewPager"
+                    app:layout_constraintWidth_percent="0.48"
+                    tools:ignore="RtlSymmetry" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewTransactions"
+                    android:id="@+id/horizontalRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lastestTransaction" />
+                    app:layout_constraintTop_toBottomOf="@+id/qrButton" />
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/horizontalRecyclerView">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="18dp">
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Auto-payment/transfer and templates"
+                            android:textColor="@color/black"
+                            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraintLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/button_gray"
+                            android:padding="2dp"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/seeAllText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:paddingEnd="2dp"
+                                android:text="@string/see_all"
+                                android:textAllCaps="false"
+                                android:textColor="@color/black"
+                                android:textSize="10sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/arrowIcon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/arrow_right"
+                                app:layout_constraintBottom_toBottomOf="@id/seeAllText"
+                                app:layout_constraintStart_toEndOf="@id/seeAllText"
+                                app:layout_constraintTop_toTopOf="@id/seeAllText" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/refresh_ic"
+                            app:layout_constraintEnd_toStartOf="@+id/textView16"
+                            app:layout_constraintHorizontal_bias="0.84"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView16" />
+
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:textSize="16dp"
+                            android:text="You don't have any auto-payment\nor template yet"
+                            android:textAlignment="center"
+                            android:textColor="#9E9999"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+                        <Button
+                            android:id="@+id/createAutoPayment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:textAllCaps="false"
+                            android:paddingStart="14dp"
+                            android:paddingEnd="14dp"
+                            android:background="@drawable/button_light_blue"
+                            android:text="@string/create_new"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/white"
+                            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="80dp"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="18dp">
+
+                        <TextView
+                            android:id="@+id/lastestTransaction"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/arrow_under"
+                            android:drawablePadding="8dp"
+                            android:text="Lastest transaction"
+                            android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraintLayoutTransaction"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/button_gray"
+                            android:padding="2dp"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/seeAllTextTransaction"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:paddingEnd="2dp"
+                                android:text="@string/see_all"
+                                android:textAllCaps="false"
+                                android:textColor="@color/black"
+                                android:textSize="10sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/arrowIconTransaction"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/arrow_right"
+                                app:layout_constraintBottom_toBottomOf="@id/seeAllTextTransaction"
+                                app:layout_constraintStart_toEndOf="@id/seeAllTextTransaction"
+                                app:layout_constraintTop_toTopOf="@id/seeAllTextTransaction" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/noTransactionYet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No transactions yet"
+                            android:textColor="#9E9999"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/lastestTransaction" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerViewTransactions"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/lastestTransaction" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_support"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="ABB support"
+        android:backgroundTint="@color/white"
+        app:srcCompat="@drawable/abb_support"
+        android:scaleType="centerInside"
+        app:maxImageSize="60dp" />
+
+</FrameLayout>

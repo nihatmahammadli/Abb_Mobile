@@ -1,0 +1,8 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <bitmap
+            android:src="@mipmap/abb_logo_asset_foreground"
+            android:gravity="center"
+            android:tileMode="disabled" />
+    </item>
+</layer-list>

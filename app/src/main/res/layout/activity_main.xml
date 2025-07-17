@@ -34,21 +34,18 @@
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
         android:id="@+id/fabIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/plus_ic"
+        android:background="@android:color/transparent"
         android:contentDescription="Add"
-        app:layout_constraintBottom_toBottomOf="@id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:maxImageSize="41dp"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="10dp"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/bottomNavigationView"
         app:layout_constraintTop_toTopOf="@id/bottomNavigationView"
-        app:elevation="8dp"
-        app:backgroundTint="@android:color/transparent"
-        app:borderWidth="0dp"
-        app:rippleColor="@android:color/transparent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

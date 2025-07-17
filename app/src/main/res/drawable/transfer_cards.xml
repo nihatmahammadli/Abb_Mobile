@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="28dp"
+    android:height="28dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+  <!-- Ağ dairə (2x) -->
+  <path
+      android:fillColor="#FFFFFFFF"
+      android:pathData="M12,12 m-12,0 a12,12 0 1,0 24,0 a12,12 0 1,0 -24,0" />
+
+  <!-- Böyük ikon (sabit path, ancaq görünüş 2x) -->
+  <path
+      android:fillColor="#2058BB"
+      android:pathData="m15,12 l5,-4 -5,-4v2.999L2,6.999v2h13zM22,15L9,15v-3l-5,4 5,4v-3h13z"/>
+</vector>

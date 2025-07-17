@@ -92,6 +92,9 @@
         <action
             android:id="@+id/action_homePage_to_profile"
             app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_homePage_to_topUp"
+            app:destination="@id/topUp" />
     </fragment>
     <fragment
         android:id="@+id/userInfo"
@@ -142,5 +145,10 @@
             app:popUpTo="@id/profile"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/topUp"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.card_transactions.TopUp"
+        android:label="fragment_top_up"
+        tools:layout="@layout/fragment_top_up" />
 
 </navigation>

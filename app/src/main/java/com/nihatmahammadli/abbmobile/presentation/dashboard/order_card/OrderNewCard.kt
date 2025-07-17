@@ -41,7 +41,6 @@ class OrderNewCard : Fragment() {
         orderCard()
         viewPagerOverlapEffect()
 
-        // API-dən kart məlumatlarını al
         viewModel.fetchSingleCardFromApi()
     }
 

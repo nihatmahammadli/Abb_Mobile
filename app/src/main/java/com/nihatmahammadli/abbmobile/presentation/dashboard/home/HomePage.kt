@@ -1,5 +1,6 @@
 package com.nihatmahammadli.abbmobile.presentation.dashboard.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,8 +12,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.journeyapps.barcodescanner.CaptureActivity
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
@@ -51,14 +50,17 @@ class HomePage : Fragment() {
         initUI()
         setupObservers()
 
-        if (viewModel.uiCards.value.isNullOrEmpty()) {
+        if (!viewModel.hasFetchedCards) {
             viewModel.fetchCardsFromFirebase()
         }
 
+        if (!viewModel.hasFetchedUserName) {
+            viewModel.fetchUserNameFromFirebase()
+        }
     }
 
+
     private fun initUI() {
-        setupGreetingFromFirebase()
         setupHorizontalRecycler()
         setupTransactionSection()
         setupQrScan()
@@ -74,14 +76,15 @@ class HomePage : Fragment() {
     }
 
     private fun refreshData() {
-        viewModel.hasFetchedCards = false  // Flagı sıfırla ki, yenidən data gəlsin
+        viewModel.hasFetchedUserName = false
+        viewModel.hasFetchedCards = false
+
         viewModel.fetchCardsFromFirebase()
-        setupGreetingFromFirebase()
+        viewModel.fetchUserNameFromFirebase()
     }
 
 
-
-
+    @SuppressLint("SetTextI18n")
     private fun setupObservers() {
         viewModel.uiCards.observe(viewLifecycleOwner) { uiCards ->
             Log.d("HomePage", "Data gəldi, kartların sayı: ${uiCards.size}")
@@ -92,12 +95,14 @@ class HomePage : Fragment() {
             binding.swipeRefreshLayout.isRefreshing = false
         }
 
+        viewModel.userName.observe(viewLifecycleOwner) { name ->
+            binding.txtName.text = "Hello $name"
+        }
     }
+
 
     private fun updateCardAdapter(uiCards: List<com.nihatmahammadli.abbmobile.domain.model.UiCard>) {
         val cards = mutableListOf<BaseCardData>()
-
-        cards.addAll(CardProvider.getCards())
 
         cards.addAll(uiCards.map { card ->
             BaseCardData.CustomCard(
@@ -114,13 +119,13 @@ class HomePage : Fragment() {
             )
         })
 
-
+        cards.addAll(CardProvider.getCards())
 
         cardAdapter.updateItems(cards)
     }
 
     private fun handleTopUpClick(card: com.nihatmahammadli.abbmobile.domain.model.UiCard) {
-        showToast("Balansı artır: ${card.cardNumber.takeLast(4)}")
+        findNavController().navigate(R.id.action_homePage_to_topUp)
     }
 
     private fun handlePayClick(card: com.nihatmahammadli.abbmobile.domain.model.UiCard) {
@@ -134,22 +139,6 @@ class HomePage : Fragment() {
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
-
-    private fun setupGreetingFromFirebase() {
-        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        FirebaseFirestore.getInstance().collection("users").document(uid)
-            .get()
-            .addOnSuccessListener { doc ->
-                val name = doc.getString("name") ?: "user"
-                Log.d("HomePage", "User name loaded: $name")  // Burada log elədik
-                binding.txtName.text = "Hello, $name"
-            }
-            .addOnFailureListener {
-                Log.e("HomePage", "Failed to load user name")  // Log xətaya görə
-                binding.txtName.text = "Hello!"
-            }
-    }
-
 
     private fun setupHorizontalRecycler() {
         val imageList = listOf(
@@ -231,7 +220,7 @@ class HomePage : Fragment() {
 
     private fun setupCardSection() {
         cardAdapter = CardAdapter(mutableListOf()) { position ->
-            if (position == 0) {
+            if (position == 1 || position == 0) {
                 showCardOrderBottomSheet()
             } else {
                 val card = cardAdapter.getCardAt(position)
@@ -273,10 +262,10 @@ class HomePage : Fragment() {
         }
     }
 
-    fun goProfile(){
+    fun goProfile() {
         val clickListener = View.OnClickListener {
-        findNavController().navigate(R.id.action_homePage_to_profile)
-    }
+            findNavController().navigate(R.id.action_homePage_to_profile)
+        }
 
         binding.profileButton.setOnClickListener(clickListener)
         binding.txtName.setOnClickListener(clickListener)

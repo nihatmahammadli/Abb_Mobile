@@ -12,11 +12,14 @@ import com.nihatmahammadli.abbmobile.data.repository.CardRepositoryImpl
 import com.nihatmahammadli.abbmobile.domain.model.UiCard
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
 class CardViewModel
-@Inject constructor(private val repository: CardRepositoryImpl) : ViewModel() {
+@Inject constructor(private val repository: CardRepositoryImpl,
+                    private val firebaseAuth: FirebaseAuth,
+                    private val firestore: FirebaseFirestore) : ViewModel() {
 
     private val _cards = MutableLiveData<List<CardInfo>>()
     val cards: LiveData<List<CardInfo>> = _cards
@@ -27,44 +30,57 @@ class CardViewModel
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _userName = MutableLiveData<String?>()
+    val userName: LiveData<String?> get() = _userName
+
      var hasFetchedCards = false
+    var hasFetchedUserName = false
 
     fun fetchSingleCardFromApi() {
         _isLoading.value = true
         viewModelScope.launch {
             try {
                 val apiCards = repository.getCards()
-                val randomCard = apiCards.randomOrNull()
 
-                if (randomCard != null) {
-                    _cards.value = listOf(randomCard)
-                    saveSingleCardToFirebase(randomCard)
+                val validCard = apiCards.shuffled().firstOrNull { card ->
+                    !isCardAlreadyInFirebase(card.cardNumber)
+                }
+
+                if (validCard != null) {
+                    _cards.value = listOf(validCard)
+                    saveSingleCardToFirebase(validCard)
 
                     _uiCards.value = listOf(
                         UiCard(
-                            cardNumber = randomCard.cardNumber,
-                            expiryDate = randomCard.expiryDate,
-                            cvv = randomCard.cvv
+                            cardNumber = validCard.cardNumber,
+                            expiryDate = validCard.expiryDate,
+                            cvv = validCard.cvv
                         )
                     )
                 } else {
+                    Log.w("CardViewModel", "İstifadə olunmamış kart tapılmadı.")
                     _cards.value = emptyList()
                     _uiCards.value = emptyList()
                 }
             } catch (e: Exception) {
                 Log.e("CardViewModel", "API-dən kart alınmadı: ${e.message}")
-//                fetchCardsFromFirebase()
             } finally {
                 _isLoading.value = false
             }
         }
     }
 
-    fun addCardToTop(card: UiCard) {
-        val currentList = _uiCards.value?.toMutableList() ?: mutableListOf()
-        currentList.add(0, card)
-        _uiCards.value = currentList
+
+    suspend fun isCardAlreadyInFirebase(cardNumber: String): Boolean {
+        val snapshot = FirebaseFirestore.getInstance()
+            .collection("cards")
+            .whereEqualTo("cardNumber", cardNumber)
+            .get()
+            .await()
+
+        return !snapshot.isEmpty
     }
+
 
     private fun saveSingleCardToFirebase(card: CardInfo) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
@@ -133,6 +149,23 @@ class CardViewModel
             .addOnFailureListener { e ->
                 Log.e("CardFirebase", "Kartlar yüklənmədi: ${e.message}")
                 _isLoading.value = false
+            }
+    }
+
+    fun fetchUserNameFromFirebase(){
+        if (hasFetchedUserName) return
+
+        val uid =  firebaseAuth.currentUser?.uid ?: return
+        firestore.collection("users").document(uid)
+            .get()
+            .addOnSuccessListener { doc ->
+                val name = doc.getString("name") ?: "user"
+                _userName.value = name
+                hasFetchedUserName = true
+                Log.d("CardFirebase", "Username $name")
+            }.addOnFailureListener { error ->
+                _userName.value = "user"
+                Log.d("CardFirebase", "Error : $error")
             }
     }
 }

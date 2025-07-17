@@ -1,5 +1,7 @@
 package com.nihatmahammadli.abbmobile.presentation.dashboard.profile
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +9,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.edit
+import androidx.core.content.getSystemService
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -39,6 +43,7 @@ class Profile : Fragment() {
         logOut()
         goBack()
         setUserInfos()
+        copyText()
     }
 
     fun goBack(){
@@ -77,5 +82,16 @@ class Profile : Fragment() {
         }
 
     }
+
+    fun copyText(){
+        binding.customerIdText.setOnClickListener {
+            val fullText = binding.customerIdText.text.toString()
+            val toCopy = if (fullText.length >= 7) fullText.takeLast(7) else fullText
+
+            val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("copied_text", toCopy)
+            clipboard.setPrimaryClip(clip)
+        }
+        }
 
 }
