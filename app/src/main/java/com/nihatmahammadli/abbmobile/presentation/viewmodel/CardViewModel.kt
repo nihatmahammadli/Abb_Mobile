@@ -33,7 +33,11 @@ class CardViewModel
     private val _userName = MutableLiveData<String?>()
     val userName: LiveData<String?> get() = _userName
 
-     var hasFetchedCards = false
+    private val _totalBalance = MutableLiveData<Int>(0)
+    val totalBalance: LiveData<Int> = _totalBalance
+
+
+    var hasFetchedCards = false
     var hasFetchedUserName = false
 
     fun fetchSingleCardFromApi() {
@@ -123,8 +127,7 @@ class CardViewModel
             return
         }
 
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        val firestore = FirebaseFirestore.getInstance()
+        val userId = firebaseAuth.currentUser?.uid ?: return
 
         _isLoading.value = true
 
@@ -141,7 +144,7 @@ class CardViewModel
                 }
 
                 _uiCards.value = fetchedCards
-                hasFetchedCards = true  // ✅ Flag burada true olur
+                hasFetchedCards = true
                 _isLoading.value = false
 
                 Log.d("CardViewModel", "Firebase-dən ${fetchedCards.size} kart yükləndi")
@@ -151,6 +154,8 @@ class CardViewModel
                 _isLoading.value = false
             }
     }
+
+
 
     fun fetchUserNameFromFirebase(){
         if (hasFetchedUserName) return
@@ -167,5 +172,62 @@ class CardViewModel
                 _userName.value = "user"
                 Log.d("CardFirebase", "Error : $error")
             }
+    }
+
+    fun fetchCardsWithBalances() {
+        if (hasFetchedCards) {
+            Log.d("CardViewModel", "Firebase çağırılmadı — artıq yüklənib.")
+            return
+        }
+
+        val userId = firebaseAuth.currentUser?.uid ?: return
+
+        _isLoading.value = true
+
+        viewModelScope.launch {
+            try {
+                val cardDocs = firestore.collection("users")
+                    .document(userId)
+                    .collection("cards")
+                    .get()
+                    .await()
+
+                val cardsWithBalances = mutableListOf<UiCard>()
+
+                for (doc in cardDocs.documents) {
+                    val cardNumber = doc.getString("cardNumber") ?: continue
+                    val expiryDate = doc.getString("expiryDate") ?: continue
+                    val cvv = doc.getString("cvv") ?: continue
+                    val cardId = doc.id
+
+                    val transactions = firestore.collection("users")
+                        .document(userId)
+                        .collection("cards")
+                        .document(cardId)
+                        .collection("transaction")
+                        .get()
+                        .await()
+
+                    val balance = transactions.documents.sumOf { it.getLong("amount")?.toInt() ?: 0 }
+
+                    cardsWithBalances.add(
+                        UiCard(
+                            cardNumber = cardNumber,
+                            expiryDate = expiryDate,
+                            cvv = cvv,
+                            balance = balance
+                        )
+                    )
+                }
+
+                _uiCards.postValue(cardsWithBalances)
+                hasFetchedCards = true
+            } catch (e: Exception) {
+                Log.e("CardViewModel", "Kartlar və balanslar yüklənmədi: ${e.message}")
+                _uiCards.postValue(emptyList())
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
     }
 }

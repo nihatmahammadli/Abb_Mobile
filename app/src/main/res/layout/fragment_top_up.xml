@@ -10,11 +10,12 @@
     tools:context=".presentation.dashboard.card_transactions.TopUp">
 
     <ImageView
+        android:id="@+id/transferIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:elevation="8dp"
         android:src="@drawable/transfer_cards"
         app:layout_constraintBottom_toBottomOf="@+id/senderBtn"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintEnd_toStartOf="@+id/masterCard"
         app:layout_constraintStart_toEndOf="@+id/senderBtn"
         app:layout_constraintTop_toTopOf="@+id/senderBtn" />
 
@@ -56,14 +57,16 @@
         android:textAllCaps="false"
         app:layout_constraintTop_toBottomOf="@+id/description"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintEnd_toStartOf="@+id/masterCard"
         app:layout_constraintWidth_percent="0.43" />
 
-    <TextView
+    <EditText
         android:id="@+id/topUpAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
+        android:textColor="@color/black"
+        android:background="@color/trans"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,8 +74,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.22000003" />
 
+    <TextView
+        android:id="@+id/aznText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="₼"
+        android:textColor="@color/black"
+        android:layout_marginStart="5dp"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/topUpAmount"
+        app:layout_constraintStart_toEndOf="@+id/topUpAmount"
+        app:layout_constraintTop_toTopOf="@+id/topUpAmount" />
+
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/masterCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingHorizontal="10dp"

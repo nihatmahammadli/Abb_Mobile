@@ -22,7 +22,7 @@
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sender"
+        android:text="@string/recevier"
         android:textColor="@color/black"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,16 +33,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Which card or account would you like to use to \nsend money?"
+        android:text="Which card or account would you like to use to \naccept money?"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <TextView
-        android:id="@+id/applyPayText"
+        android:id="@+id/cardsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Apple Pay"
+        android:text="Cards"
         android:layout_marginTop="24dp"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,57 +59,7 @@
         android:paddingVertical="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/applyPayText">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/apple_pay_ic" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:text="Apple Pay"
-            android:textColor="@color/black" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <RadioButton
-            android:id="@+id/applyPaySelect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/customText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Linked cards"
-        android:layout_marginTop="15dp"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/applyPayLayout" />
-
-    <!-- Custom Layout -->
-    <LinearLayout
-        android:id="@+id/layoutCustom"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/cashback_button"
-        app:layout_constraintTop_toBottomOf="@+id/customText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/cardsText">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -118,11 +68,12 @@
             android:src="@drawable/credit_cart_icon" />
 
         <TextView
+            android:id="@+id/cardNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
-            android:text="Other card"
+            android:text="Mastercard · Debit"
             android:textColor="@color/black" />
 
         <View
@@ -131,7 +82,7 @@
             android:layout_weight="1" />
 
         <RadioButton
-            android:id="@+id/customSelect"
+            android:id="@+id/myCardSelection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical" />

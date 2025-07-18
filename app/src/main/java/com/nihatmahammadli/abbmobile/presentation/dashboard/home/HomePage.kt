@@ -50,6 +50,11 @@ class HomePage : Fragment() {
         initUI()
         setupObservers()
 
+
+        if (!viewModel.hasFetchedCards) {
+            viewModel.fetchCardsWithBalances()
+        }
+
         if (!viewModel.hasFetchedCards) {
             viewModel.fetchCardsFromFirebase()
         }
@@ -81,6 +86,7 @@ class HomePage : Fragment() {
 
         viewModel.fetchCardsFromFirebase()
         viewModel.fetchUserNameFromFirebase()
+        viewModel.fetchCardsWithBalances()
     }
 
 
@@ -107,7 +113,7 @@ class HomePage : Fragment() {
         cards.addAll(uiCards.map { card ->
             BaseCardData.CustomCard(
                 title = "Mastercard",
-                balance = "0.00 ₼",
+                balance = "${card.balance} ₼",
                 cardCodeEnding = "•••• ${card.cardNumber.takeLast(4)}",
                 expiryDate = card.expiryDate,
                 backgroundResId = R.drawable.card_background,
@@ -123,6 +129,7 @@ class HomePage : Fragment() {
 
         cardAdapter.updateItems(cards)
     }
+
 
     private fun handleTopUpClick(card: com.nihatmahammadli.abbmobile.domain.model.UiCard) {
         findNavController().navigate(R.id.action_homePage_to_topUp)
