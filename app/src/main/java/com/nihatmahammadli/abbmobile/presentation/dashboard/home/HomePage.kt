@@ -136,7 +136,7 @@ class HomePage : Fragment() {
     }
 
     private fun handlePayClick(card: com.nihatmahammadli.abbmobile.domain.model.UiCard) {
-        showToast("Ödəniş: ${card.cardNumber.takeLast(4)}")
+        findNavController().navigate(R.id.action_homePage_to_payments)
     }
 
     private fun handleTransferClick(card: com.nihatmahammadli.abbmobile.domain.model.UiCard) {
@@ -226,16 +226,24 @@ class HomePage : Fragment() {
     }
 
     private fun setupCardSection() {
-        cardAdapter = CardAdapter(mutableListOf()) { position ->
-            if (position == 1 || position == 0) {
-                showCardOrderBottomSheet()
-            } else {
+        cardAdapter = CardAdapter(mutableListOf(),
+            onCardButtonClick = { position ->
+                if (position == 1 || position == 0) {
+                    showCardOrderBottomSheet()
+                } else {
+                    val card = cardAdapter.getCardAt(position)
+                    if (card is BaseCardData.CustomCard) {
+                        showToast("Button clicked on kart: ${card.title}")
+                    }
+                }
+            },
+            onCustomCardClick = { position ->
                 val card = cardAdapter.getCardAt(position)
                 if (card is BaseCardData.CustomCard) {
-                    showToast("Kart seçildi: ${card.title}")
+                    findNavController().navigate(R.id.action_homePage_to_cardView)
                 }
             }
-        }
+        )
 
         binding.viewPager.adapter = cardAdapter
     }

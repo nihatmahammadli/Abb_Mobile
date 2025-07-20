@@ -25,6 +25,5 @@ class HorizontalImageAdapter(val imageList: List<Int>) : RecyclerView.Adapter<Ho
     override fun getItemCount(): Int {return imageList.size
     }
     inner class ImageViewHolder(val binding: ItemRecyclerHomepageBinding) : RecyclerView.ViewHolder(binding.root){
-
     }
 }

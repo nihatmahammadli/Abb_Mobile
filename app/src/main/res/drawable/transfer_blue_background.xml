@@ -1,0 +1,58 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+  <!-- Mavi dairə -->
+  <path
+      android:pathData="M22.9,0C10.75,0 0.9,9.85 0.9,22C0.9,34.15 10.75,44 22.9,44C35.051,44 44.9,34.15 44.9,22C44.9,9.85 35.051,0 22.9,0Z"
+      android:fillColor="#2058BB"
+      android:fillType="evenOdd" />
+
+  <!-- Arxa plan şəffaflıq -->
+  <path
+      android:pathData="M0,0h48v48h-48z"
+      android:fillColor="#ffffff"
+      android:fillAlpha="0.01" />
+
+  <!-- Kiçildilmiş və ağ rəngli transfer oxları -->
+  <group
+      android:scaleX="0.6"
+      android:scaleY="0.6"
+      android:translateX="8.5"
+      android:translateY="8.5">
+
+    <path
+        android:pathData="M10,8L4,14L10,20"
+        android:strokeLineJoin="round"
+        android:strokeWidth="3"
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round" />
+
+    <path
+        android:pathData="M38,28L44,34L38,40"
+        android:strokeLineJoin="round"
+        android:strokeWidth="3"
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round" />
+
+    <path
+        android:pathData="M4,14H38"
+        android:strokeLineJoin="round"
+        android:strokeWidth="3"
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round" />
+
+    <path
+        android:pathData="M10,34H44"
+        android:strokeLineJoin="round"
+        android:strokeWidth="3"
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round" />
+  </group>
+</vector>

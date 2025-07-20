@@ -208,7 +208,7 @@ class CardViewModel
                         .get()
                         .await()
 
-                    val balance = transactions.documents.sumOf { it.getLong("amount")?.toInt() ?: 0 }
+                    val balance = transactions.documents.sumOf { it.getDouble("amount") ?: 0.0 }
 
                     cardsWithBalances.add(
                         UiCard(

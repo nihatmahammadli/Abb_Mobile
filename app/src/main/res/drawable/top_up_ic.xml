@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="42dp"
+    android:height="42dp"
+    android:viewportWidth="45"
+    android:viewportHeight="44">
+
+    <path
+        android:pathData="M22.9,0C10.75,0 0.9,9.85 0.9,22C0.9,34.15 10.75,44 22.9,44C35.051,44 44.9,34.15 44.9,22C44.9,9.85 35.051,0 22.9,0Z"
+        android:fillColor="#2058BB"
+        android:fillType="evenOdd"/>
+
+    <!-- Nazikləşdirilmiş Plus simvolu -->
+    <path
+        android:pathData="M22.9,13C23.452,13 23.9,13.448 23.9,14V21H30.9C31.452,21 31.9,21.448 31.9,22C31.9,22.552 31.452,23 30.9,23H23.9V30C23.9,30.552 23.452,31 22.9,31C22.348,31 21.9,30.552 21.9,30V23H14.9C14.348,23 13.9,22.552 13.9,22C13.9,21.448 14.348,21 14.9,21H21.9V14C21.9,13.448 22.348,13 22.9,13Z"
+        android:fillColor="#ffffff"/>
+</vector>

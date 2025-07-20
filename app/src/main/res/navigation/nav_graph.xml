@@ -95,6 +95,12 @@
         <action
             android:id="@+id/action_homePage_to_topUp"
             app:destination="@id/topUp" />
+        <action
+            android:id="@+id/action_homePage_to_cardView"
+            app:destination="@id/cardView" />
+        <action
+            android:id="@+id/action_homePage_to_payments"
+            app:destination="@id/payments" />
     </fragment>
     <fragment
         android:id="@+id/userInfo"
@@ -150,5 +156,27 @@
         android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.card_transactions.TopUp"
         android:label="fragment_top_up"
         tools:layout="@layout/fragment_top_up" />
+    <fragment
+        android:id="@+id/cardView"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.card_view.CardView"
+        android:label="fragment_card_view"
+        tools:layout="@layout/fragment_card_view" >
+        <action
+            android:id="@+id/action_cardView_to_topUp"
+            app:destination="@id/topUp" />
+    </fragment>
+    <fragment
+        android:id="@+id/payments"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.card_transactions.Payments"
+        android:label="fragment_payments"
+        tools:layout="@layout/fragment_payments" >
+        <action
+            android:id="@+id/action_payments_to_paymentsAmount"
+            app:destination="@id/paymentsAmount" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentsAmount"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.card_transactions.PaymentsAmount"
+        android:label="PaymentsAmount" />
 
 </navigation>

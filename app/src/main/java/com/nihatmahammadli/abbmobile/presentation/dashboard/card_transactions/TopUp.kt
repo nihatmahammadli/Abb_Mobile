@@ -2,6 +2,8 @@ package com.nihatmahammadli.abbmobile.presentation.dashboard.card_transactions
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +18,7 @@ import com.nihatmahammadli.abbmobile.presentation.components.CardOrderSheet
 import com.nihatmahammadli.abbmobile.presentation.components.ItemMyCardSheet
 import com.nihatmahammadli.abbmobile.presentation.components.SelectTopUpSheet
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.TopUpViewModel
+import com.nihatmahammadli.abbmobile.presentation.viewmodel.TopUpResult
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,6 +26,8 @@ class TopUp : Fragment() {
     private lateinit var binding: FragmentTopUpBinding
     private var lastSelectedOption: String? = null
     private val topUpViewModel: TopUpViewModel by viewModels()
+
+    private var totalAmount = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,18 +37,24 @@ class TopUp : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTopUpBinding.inflate(inflater,container,false)
+        binding = FragmentTopUpBinding.inflate(inflater, container, false)
+
+        setupClickListeners()
+        setupAmountButtons()
+        observeViewModel()
+        disableBottomSection()
+
+        return binding.root
+    }
+
+    private fun setupClickListeners() {
         binding.transferBtn.setOnClickListener {
             sendTopUpDataToFirebase()
         }
 
-        goBack()
-        showTopUpSheet()
-        disableBottomSection()
-        observeViewModel()
-        changeAmount()
-        showMyCardSheet()
-        return binding.root
+        binding.leftBtn.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun observeViewModel() {
@@ -55,25 +66,33 @@ class TopUp : Fragment() {
             }
         }
 
-        topUpViewModel.topUpResult.observe(viewLifecycleOwner) { isSuccess ->
-            if (isSuccess) {
-                Toast.makeText(requireContext(), "Uğurla əlavə olundu!", Toast.LENGTH_SHORT).show()
-                totalAmount = 0
-                binding.topUpAmount.setText("0")
-            } else {
-                Toast.makeText(requireContext(), "Xəta baş verdi", Toast.LENGTH_SHORT).show()
+        topUpViewModel.topUpResult.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is TopUpResult.Success -> {
+                    Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
+                    resetAmount()
+                    topUpViewModel.clearResult()
+                }
+                is TopUpResult.Error -> {
+                    Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
+                    topUpViewModel.clearResult()
+                }
+                null -> {
+                    // No result or cleared
+                }
             }
         }
 
-    }
+        topUpViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.transferBtn.isEnabled = !isLoading && (topUpViewModel.senderSelected.value == true)
+            binding.transferBtn.text = if (isLoading) "Əlavə edilir..." else "Əlavə et"
 
-    fun goBack(){
-        binding.leftBtn.setOnClickListener {
-            findNavController().navigateUp()
+            // Disable amount controls during loading
+            setAmountControlsEnabled(!isLoading)
         }
     }
 
-        private fun showTopUpSheet() {
+    private fun showTopUpSheet() {
         binding.senderBtn.setOnClickListener {
             SelectTopUpSheet(
                 selectedOption = lastSelectedOption,
@@ -92,79 +111,100 @@ class TopUp : Fragment() {
         }
     }
 
-    private fun showMyCardSheet(){
+    private fun showMyCardSheet() {
         binding.masterCard.setOnClickListener {
             val sheet = ItemMyCardSheet()
             sheet.show(parentFragmentManager, CardOrderSheet.TAG)
             val newIcon = ContextCompat.getDrawable(requireContext(), R.drawable.credit_cart_icon)
             binding.senderBtn.setCompoundDrawablesWithIntrinsicBounds(newIcon, null, null, null)
-
+            topUpViewModel.setSenderSelected(true)
         }
+    }
+
+    private fun setAmountControlsEnabled(enabled: Boolean) {
+        binding.plus1.isEnabled = enabled
+        binding.plus2.isEnabled = enabled
+        binding.plus3.isEnabled = enabled
+        binding.plus4.isEnabled = enabled
+        binding.topUpAmount.isEnabled = enabled
+
+        val alpha = if (enabled) 1f else 0.5f
+        binding.plus1.alpha = alpha
+        binding.plus2.alpha = alpha
+        binding.plus3.alpha = alpha
+        binding.plus4.alpha = alpha
+        binding.topUpAmount.alpha = alpha
     }
 
     private fun disableBottomSection() {
-        binding.plus1.isEnabled = false
-        binding.plus2.isEnabled = false
-        binding.plus3.isEnabled = false
-        binding.plus4.isEnabled = false
+        setAmountControlsEnabled(false)
         binding.transferBtn.isEnabled = false
-        binding.topUpAmount.isEnabled = false
         binding.aznText.isEnabled = false
 
         val alpha = 0.5f
-        binding.plus1.alpha = alpha
-        binding.plus2.alpha = alpha
-        binding.plus3.alpha = alpha
-        binding.aznText.alpha = alpha
-        binding.plus4.alpha = alpha
         binding.transferBtn.alpha = alpha
-        binding.topUpAmount.alpha = alpha
+        binding.aznText.alpha = alpha
     }
 
     private fun enableBottomSection() {
-        binding.plus1.isEnabled = true
-        binding.plus2.isEnabled = true
-        binding.plus3.isEnabled = true
-        binding.plus4.isEnabled = true
+        setAmountControlsEnabled(true)
         binding.transferBtn.isEnabled = true
-        binding.topUpAmount.isEnabled = true
         binding.aznText.isEnabled = true
 
         val alpha = 1f
-        binding.plus1.alpha = alpha
-        binding.aznText.alpha = alpha
-        binding.plus2.alpha = alpha
-        binding.plus3.alpha = alpha
-        binding.plus4.alpha = alpha
         binding.transferBtn.alpha = alpha
-        binding.topUpAmount.alpha = alpha
+        binding.aznText.alpha = alpha
     }
 
-    var totalAmount = 0
-
     @SuppressLint("SetTextI18n")
-    fun changeAmount() {
-        val plus1 = binding.plus1
-        val plus2 = binding.plus2
-        val plus3 = binding.plus3
-        val max = binding.plus4
+    private fun setupAmountButtons() {
+        // Quick amount buttons
+        binding.plus1.setOnClickListener { addAmount(1.0) }
+        binding.plus2.setOnClickListener { addAmount(10.0) }
+        binding.plus3.setOnClickListener { addAmount(50.0) }
+        binding.plus4.setOnClickListener { setMaxAmount() }
 
-        plus1.setOnClickListener {
-            totalAmount += 1
-            binding.topUpAmount.setText("$totalAmount")
-        }
-        plus2.setOnClickListener {
-            totalAmount += 10
-            binding.topUpAmount.setText("$totalAmount")
-        }
-        plus3.setOnClickListener {
-            totalAmount += 50
-            binding.topUpAmount.setText("$totalAmount")
-        }
-        max.setOnClickListener {
-            binding.topUpAmount.setText("4.978.34 ₼")
-            totalAmount = 0
-        }
+        // Text change listener for manual input
+        binding.topUpAmount.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val text = s.toString().replace(',', '.')
+                val parsedAmount = text.toDoubleOrNull() ?: 0.0
+                // Round to 2 decimal places to avoid precision issues
+                totalAmount = Math.round(parsedAmount * 100.0) / 100.0
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        // Initialize with proper formatting
+        showTopUpSheet()
+        showMyCardSheet()
+    }
+
+    private fun addAmount(amount: Double) {
+        totalAmount += amount
+        // Round to 2 decimal places to avoid precision issues
+        totalAmount = Math.round(totalAmount * 100.0) / 100.0
+        updateAmountField()
+    }
+
+    private fun setMaxAmount() {
+        totalAmount = 4978.0
+        updateAmountField()
+    }
+
+    private fun updateAmountField() {
+        // Use BigDecimal to ensure exact 2 decimal places
+        val formattedAmount = java.math.BigDecimal(totalAmount)
+            .setScale(2, java.math.RoundingMode.HALF_UP)
+            .toString()
+        binding.topUpAmount.setText(formattedAmount)
+        binding.topUpAmount.setSelection(binding.topUpAmount.text.length)
+    }
+
+    private fun resetAmount() {
+        totalAmount = 0.0
+        binding.topUpAmount.setText("0.00")
     }
 
     private fun sendTopUpDataToFirebase() {
@@ -173,13 +213,24 @@ class TopUp : Fragment() {
             return
         }
 
-        val amountText = binding.topUpAmount.text.toString()
-        val amount = amountText.toIntOrNull() ?: run {
+        val amountText = binding.topUpAmount.text.toString().replace(',', '.')
+        val amount = amountText.toDoubleOrNull() ?: run {
             Toast.makeText(requireContext(), "Məbləğ düzgün deyil", Toast.LENGTH_SHORT).show()
             return
         }
 
-        topUpViewModel.saveAmountInFirebase(amount, sender)
+        if (amount <= 0.0) {
+            Toast.makeText(requireContext(), "Məbləğ sıfırdan böyük olmalıdır", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Round amount before sending to ensure precision
+        val roundedAmount = Math.round(amount * 100.0) / 100.0
+        topUpViewModel.saveAmountInFirebase(roundedAmount, sender)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        topUpViewModel.clearResult()
+    }
 }

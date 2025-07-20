@@ -10,7 +10,8 @@ import com.nihatmahammadli.abbmobile.presentation.model.BaseCardData
 
 class CardAdapter(
     private val cards: MutableList<BaseCardData>,
-    private val onCardButtonClick: (position: Int) -> Unit
+    private val onCardButtonClick: (position: Int) -> Unit,
+    private val onCustomCardClick: (position: Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -68,6 +69,10 @@ class CardAdapter(
                         topUpBtn.setOnClickListener { card.onTopUpClick?.invoke() }
                         payBtn.setOnClickListener { card.onPayClick?.invoke() }
                         transferBtn.setOnClickListener { card.onTransferClick?.invoke() }
+
+                        root.setOnClickListener {
+                            onCustomCardClick(position)
+                        }
                     }
                 }
             }
