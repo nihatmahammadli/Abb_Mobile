@@ -34,6 +34,7 @@ class Payments : Fragment() {
         binding = FragmentPaymentsBinding.inflate(inflater,container,false)
         setUpRecyclerView()
         setUpVerticalRcy()
+        goBack()
         return binding.root
     }
     fun setUpRecyclerView() {
@@ -53,6 +54,12 @@ class Payments : Fragment() {
         binding.recyclerViewVertical.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = verticalRcy
+        }
+    }
+
+    fun goBack(){
+        binding.leftBtn.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 

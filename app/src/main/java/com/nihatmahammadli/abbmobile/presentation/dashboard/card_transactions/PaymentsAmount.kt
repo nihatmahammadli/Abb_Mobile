@@ -10,11 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentPaymentsAmountBinding
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.PaymentAmountsViewModel
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.TransferResult
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class PaymentsAmount : Fragment() {
@@ -36,8 +38,13 @@ class PaymentsAmount : Fragment() {
         setupAmountButtons()
         setupTransferButton()
         observeViewModel()
+        goBack()
 
         return binding.root
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.clearResult()
     }
 
     private fun setupTransferButton() {
@@ -61,19 +68,16 @@ class PaymentsAmount : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun setupAmountButtons() {
-        // Quick amount buttons
         binding.plus1.setOnClickListener { addAmount(1.0) }
         binding.plus2.setOnClickListener { addAmount(10.0) }
         binding.plus3.setOnClickListener { addAmount(50.0) }
         binding.plus4.setOnClickListener { setMaxAmount() }
 
-        // Text change listener for manual input
         binding.topUpAmount.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val text = s.toString().replace(',', '.')
                 val parsedAmount = text.toDoubleOrNull() ?: 0.0
-                // Round to 2 decimal places to avoid precision issues
-                totalAmount = Math.round(parsedAmount * 100.0) / 100.0
+                totalAmount = (parsedAmount * 100.0).roundToInt() / 100.0
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -82,18 +86,16 @@ class PaymentsAmount : Fragment() {
 
     private fun addAmount(amount: Double) {
         totalAmount += amount
-        // Round to 2 decimal places to avoid precision issues
-        totalAmount = Math.round(totalAmount * 100.0) / 100.0
+        totalAmount = (totalAmount * 100.0).roundToInt() / 100.0
         updateAmountField()
     }
 
     private fun setMaxAmount() {
-        totalAmount = 4978.0 // Consider making this configurable
+        totalAmount = 4978.0
         updateAmountField()
     }
 
     private fun updateAmountField() {
-        // Use BigDecimal to ensure exact 2 decimal places
         val formattedAmount = java.math.BigDecimal(totalAmount)
             .setScale(2, java.math.RoundingMode.HALF_UP)
             .toString()
@@ -107,25 +109,21 @@ class PaymentsAmount : Fragment() {
     }
 
     private fun observeViewModel() {
-        // Observe transfer results
         viewModel.transferResult.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is TransferResult.Success -> {
                     Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
-                    resetAmount() // Reset amount on successful transfer
-                    viewModel.clearResult() // Clear the result to prevent re-showing
+                    resetAmount()
+                    viewModel.clearResult()
                 }
                 is TransferResult.Error -> {
                     Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
-                    viewModel.clearResult() // Clear the result
+                    viewModel.clearResult()
                 }
                 null -> {
-                    // No result or result was cleared
                 }
             }
         }
-
-        // Observe loading state
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.transferBtn.isEnabled = !isLoading
             binding.transferBtn.text = if (isLoading) "Sending..." else "Transfer et"
@@ -139,9 +137,10 @@ class PaymentsAmount : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        // Clear any remaining results to prevent memory leaks
-        viewModel.clearResult()
+
+    fun goBack(){
+        binding.leftBtn.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 }

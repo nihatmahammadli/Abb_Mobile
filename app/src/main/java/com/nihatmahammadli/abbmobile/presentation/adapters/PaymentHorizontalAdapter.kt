@@ -24,7 +24,11 @@ class PaymentHorizontalAdapter(
     ) {
         val item = imageList[position]
         holder.bind(item)
+
         holder.itemView.setOnClickListener {
+            onClick(item)
+        }
+        holder.binding.image.setOnClickListener {
             onClick(item)
         }
     }

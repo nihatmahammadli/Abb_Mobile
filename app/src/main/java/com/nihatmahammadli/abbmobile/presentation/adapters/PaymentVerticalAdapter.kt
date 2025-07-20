@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nihatmahammadli.abbmobile.databinding.ItemPaymentVerticalBinding
 import com.nihatmahammadli.abbmobile.presentation.model.PaymentVertical
-import dagger.hilt.android.AndroidEntryPoint
 
 class PaymentVerticalAdapter(
     val list: List<PaymentVertical>,
@@ -22,6 +21,7 @@ class PaymentVerticalAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
         holder.bind(item)
+
         holder.itemView.setOnClickListener {
             onItemClicked(item)
         }

@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="40dp"
-                android:paddingVertical="20dp"
+                android:paddingVertical="30dp"
                 android:background="#F2F0F0"
                 android:paddingHorizontal="20dp"
                 tools:context=".presentation.dashboard.home.HomePage">
