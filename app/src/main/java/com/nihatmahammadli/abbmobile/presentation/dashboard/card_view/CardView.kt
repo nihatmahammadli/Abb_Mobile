@@ -22,20 +22,20 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 @AndroidEntryPoint
 class CardView : Fragment() {
     private lateinit var binding: FragmentCardViewBinding
-    private val viewModel : CardViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val viewModel: CardViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCardViewBinding.inflate(inflater, container, false)
 
         val cardView = binding.cardImage
@@ -44,40 +44,57 @@ class CardView : Fragment() {
         }
 
         observeViewModel()
-        goTopUp()
-        goBack()
+        setupClickListeners()
         return binding.root
     }
 
-    fun goBack(){
+    private fun setupClickListeners() {
         binding.leftBtn.setOnClickListener {
             findNavController().navigateUp()
         }
-    }
 
-    @SuppressLint("SetTextI18n")
-    fun observeViewModel(){
-            viewModel.fetchCardsWithBalances()
-
-            viewModel.uiCards.observe(viewLifecycleOwner) { cards ->
-                if (!cards.isNullOrEmpty()) {
-                    val firstCard = cards[0] // ilk kartı göstərək
-
-                    binding.cardInfoBtn.text = "${firstCard.expiryDate}   •• ${firstCard.cardNumber.takeLast(4)}"
-                    binding.amount.text = "${firstCard.balance} AZN"
-                } else {
-                    binding.cardInfoBtn.text = "•••• •••• •••• ••••"
-                    binding.amount.text = "0.00 AZN"
-            }
-        }
-    }
-
-    fun goTopUp(){
         binding.topUpLayout.setOnClickListener {
             findNavController().navigate(R.id.action_cardView_to_topUp)
         }
+
         binding.topUpBtn.setOnClickListener {
             findNavController().navigate(R.id.action_cardView_to_topUp)
+        }
+
+        binding.payLayout.setOnClickListener {
+            findNavController().navigate(R.id.action_cardView_to_topUp)
+        }
+
+        binding.payBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_cardView_to_topUp)
+        }
+
+        binding.transferLayout.setOnClickListener {
+            findNavController().navigate(R.id.action_cardView_to_topUp)
+        }
+
+        binding.transferBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_cardView_to_topUp)
+        }
+
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun observeViewModel() {
+        viewModel.fetchCardsWithBalances()
+
+        viewModel.uiCards.observe(viewLifecycleOwner) { cards ->
+            if (!cards.isNullOrEmpty()) {
+                val firstCard = cards[0]
+                val formattedBalance = "%.2f".format(firstCard.balance ?: 0.0)
+
+                binding.cardInfoBtn.text = "${firstCard.expiryDate}   •• ${firstCard.cardNumber.takeLast(4)}"
+                binding.amount.text = "$formattedBalance AZN"
+            } else {
+                binding.cardInfoBtn.text = "•••• •••• •••• ••••"
+                binding.amount.text = "0.00 AZN"
+            }
         }
     }
 
@@ -106,34 +123,33 @@ class CardView : Fragment() {
     }
 
     private fun startCardAnimation(cardView: View) {
-        val translationXAnimator = ObjectAnimator.ofFloat(cardView, "translationX", 0f).apply {
-            duration = 1000
-            interpolator = OvershootInterpolator(0.8f)
-        }
-
-        val translationYAnimator = ObjectAnimator.ofFloat(cardView, "translationY", 0f).apply {
-            duration = 1000
-            interpolator = OvershootInterpolator(0.8f)
-        }
-
-        val rotationAnimator = ObjectAnimator.ofFloat(cardView, "rotation", 0f).apply {
-            duration = 1000
-            interpolator = OvershootInterpolator(0.6f)
-        }
-
-        val alphaAnimator = ObjectAnimator.ofFloat(cardView, "alpha", 1f).apply {
-            duration = 800
-            interpolator = DecelerateInterpolator()
-        }
-
-        val scaleXAnimator = ObjectAnimator.ofFloat(cardView, "scaleX", 1f).apply {
-            duration = 1000
-            interpolator = OvershootInterpolator(0.4f)
-        }
-
-        val scaleYAnimator = ObjectAnimator.ofFloat(cardView, "scaleY", 1f).apply {
-            duration = 1000
-            interpolator = OvershootInterpolator(0.4f)
+        val animatorSet = AnimatorSet().apply {
+            playTogether(
+                ObjectAnimator.ofFloat(cardView, "translationX", 0f).apply {
+                    duration = 1000
+                    interpolator = OvershootInterpolator(0.8f)
+                },
+                ObjectAnimator.ofFloat(cardView, "translationY", 0f).apply {
+                    duration = 1000
+                    interpolator = OvershootInterpolator(0.8f)
+                },
+                ObjectAnimator.ofFloat(cardView, "rotation", 0f).apply {
+                    duration = 1000
+                    interpolator = OvershootInterpolator(0.6f)
+                },
+                ObjectAnimator.ofFloat(cardView, "alpha", 1f).apply {
+                    duration = 800
+                    interpolator = DecelerateInterpolator()
+                },
+                ObjectAnimator.ofFloat(cardView, "scaleX", 1f).apply {
+                    duration = 1000
+                    interpolator = OvershootInterpolator(0.4f)
+                },
+                ObjectAnimator.ofFloat(cardView, "scaleY", 1f).apply {
+                    duration = 1000
+                    interpolator = OvershootInterpolator(0.4f)
+                }
+            )
         }
 
         val floatingAnimator = ObjectAnimator.ofFloat(cardView, "translationY", 0f, -8f, 0f).apply {
@@ -144,30 +160,15 @@ class CardView : Fragment() {
             startDelay = 1200
         }
 
-        val mainAnimatorSet = AnimatorSet().apply {
-            playTogether(
-                translationXAnimator,
-                translationYAnimator,
-                rotationAnimator,
-                alphaAnimator,
-                scaleXAnimator,
-                scaleYAnimator
-            )
-        }
-
-        // Start animations
-        mainAnimatorSet.start()
+        animatorSet.start()
         floatingAnimator.start()
-
-        // Add a subtle shadow animation
         addShadowEffect(cardView)
     }
 
     private fun addShadowEffect(cardView: View) {
-        val shadowAnimator = ObjectAnimator.ofFloat(cardView, "elevation", 4f, 12f, 8f).apply {
+        ObjectAnimator.ofFloat(cardView, "elevation", 4f, 12f, 8f).apply {
             duration = 1000
             interpolator = DecelerateInterpolator()
-        }
-        shadowAnimator.start()
+        }.start()
     }
 }

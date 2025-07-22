@@ -63,12 +63,11 @@
 
                     val cardId = cardsSnapshot.documents[0].id
 
-                    val roundedAmount = (amount * 100.0).roundToInt() / 100.0
-
-
+                    // Format the amount to 2 decimal places
+                    val formattedAmount = "%.2f".format(amount).toDouble()
 
                     val topUp = TopUpModel(
-                        amount = roundedAmount,
+                        amount = formattedAmount,
                         sender = sender,
                         timeStamp = System.currentTimeMillis(),
                         type = "topup"

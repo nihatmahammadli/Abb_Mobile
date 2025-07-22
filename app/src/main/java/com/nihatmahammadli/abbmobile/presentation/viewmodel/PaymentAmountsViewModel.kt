@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
+import kotlin.math.min
 
 @HiltViewModel
 class PaymentAmountsViewModel @Inject constructor(
@@ -28,9 +29,11 @@ class PaymentAmountsViewModel @Inject constructor(
         private const val CASHBACK_PERCENTAGE = 0.02
         private const val MAX_CASHBACK_AMOUNT = 10.0
         private const val MIN_PAYMENT_FOR_CASHBACK = 5.0
+
+        @SuppressLint("DefaultLocale")
+        private fun formatAmount(amount: Double): String = "%.2f".format(amount)
     }
 
-    @SuppressLint("DefaultLocale")
     fun transferAmount(amount: Double, paymentType: String = "transfer") {
         if (amount <= 0) {
             _transferResult.value = TransferResult.Error("Məbləğ müsbət olmalıdır")
@@ -75,20 +78,23 @@ class PaymentAmountsViewModel @Inject constructor(
                 }
 
                 if (totalBalance < amount) {
-                    _transferResult.value = TransferResult.Error("Yetersiz balans! Mövcud balans: ${String.format("%.2f", totalBalance)} AZN")
+                    _transferResult.value = TransferResult.Error(
+                        "Yetersiz balans! Mövcud balans: ${formatAmount(totalBalance)} AZN"
+                    )
                     _isLoading.value = false
                     return@launch
                 }
 
+                val roundedAmount = -amount.toRoundedDouble()
                 val paymentTransaction = hashMapOf(
-                    "amount" to -amount,
+                    "amount" to roundedAmount,
                     "timestamp" to System.currentTimeMillis(),
                     "type" to paymentType,
                     "description" to when(paymentType) {
                         "payment" -> "Ödəniş əməliyyatı"
                         "transfer" -> "Transfer əməliyyatı"
                         else -> "Əməliyyat"
-                    },
+                    }
                 )
 
                 firestore.collection("users")
@@ -100,19 +106,20 @@ class PaymentAmountsViewModel @Inject constructor(
                     .await()
 
                 val cashbackAmount = calculateCashback(amount, paymentType)
-                var resultMessage = when(paymentType) {
+                val resultMessage = when(paymentType) {
                     "payment" -> "Ödəniş uğurla tamamlandı"
                     "transfer" -> "Transfer uğurla tamamlandı"
                     else -> "Əməliyyat uğurla tamamlandı"
                 }
 
                 if (cashbackAmount > 0) {
+                    val roundedCashback = cashbackAmount.toRoundedDouble()
                     val cashbackTransaction = hashMapOf(
-                        "amount" to cashbackAmount,
+                        "amount" to roundedCashback,
                         "timestamp" to System.currentTimeMillis() + 1000,
                         "type" to "cashback",
-                        "description" to "Cashback bonus (${String.format("%.1f", getCashbackPercentage(paymentType) * 100)}%)",
-                        "relatedAmount" to amount,
+                        "description" to "Cashback bonus (${formatAmount(getCashbackPercentage(paymentType) * 100)}%)",
+                        "relatedAmount" to roundedAmount,
                         "relatedType" to paymentType
                     )
 
@@ -131,15 +138,14 @@ class PaymentAmountsViewModel @Inject constructor(
                         .collection("cashbacks")
                         .add(
                             mapOf(
-                                "amount" to cashbackAmount,
+                                "amount" to roundedCashback,
                                 "timestamp" to System.currentTimeMillis(),
-                                "relatedAmount" to amount,
+                                "relatedAmount" to roundedAmount,
                                 "relatedType" to paymentType
                             )
                         )
                         .await()
                 }
-
 
                 _transferResult.value = TransferResult.Success(resultMessage)
 
@@ -152,13 +158,12 @@ class PaymentAmountsViewModel @Inject constructor(
     }
 
     private fun calculateCashback(amount: Double, paymentType: String): Double {
-        val allowedTypes = listOf("payment", "online_shopping", "utilities", "fuel", "transfer") // transfer əlavə etdim
+        val allowedTypes = listOf("payment", "online_shopping", "utilities", "fuel", "transfer")
         if (paymentType !in allowedTypes || amount < MIN_PAYMENT_FOR_CASHBACK) {
             return 0.0
         }
-        val cashbackPercentage = getCashbackPercentage(paymentType)
-        val cashbackAmount = amount * cashbackPercentage
-        return minOf(cashbackAmount, MAX_CASHBACK_AMOUNT)
+        val cashbackAmount = amount * getCashbackPercentage(paymentType)
+        return min(cashbackAmount, MAX_CASHBACK_AMOUNT)
     }
 
     private fun getCashbackPercentage(paymentType: String): Double {
@@ -172,29 +177,18 @@ class PaymentAmountsViewModel @Inject constructor(
         }
     }
 
+    fun makePayment(amount: Double) = transferAmount(amount, "payment")
+    fun makeOnlinePayment(amount: Double) = transferAmount(amount, "online_shopping")
+    fun payUtilities(amount: Double) = transferAmount(amount, "utilities")
+    fun payForFuel(amount: Double) = transferAmount(amount, "fuel")
+    fun clearResult() { _transferResult.value = null }
 
-    fun makePayment(amount: Double) {
-        transferAmount(amount, "payment")
-    }
-
-    fun makeOnlinePayment(amount: Double) {
-        transferAmount(amount, "online_shopping")
-    }
-
-    fun payUtilities(amount: Double) {
-        transferAmount(amount, "utilities")
-    }
-
-    fun payForFuel(amount: Double) {
-        transferAmount(amount, "fuel")
-    }
-
-    fun clearResult() {
-        _transferResult.value = null
+    private fun Double.toRoundedDouble(): Double {
+        return "%.2f".format(this).toDouble()
     }
 }
 
 sealed class TransferResult {
     data class Success(val message: String) : TransferResult()
-    data class Error(val message: String) : TransferResult()
+    data class Error(val message: String) : TransferResult()  // Fixed: added 'val' for message
 }

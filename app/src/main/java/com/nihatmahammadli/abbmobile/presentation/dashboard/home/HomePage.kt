@@ -127,7 +127,7 @@ class HomePage : Fragment() {
                 cards.addAll(uiCards.map { card ->
                     BaseCardData.CustomCard(
                         title = "Mastercard",
-                        balance = "${card.balance.toString()} ₼",
+                        balance = "${"%.2f".format(card.balance)} ₼",  // Format balance to 2 decimal places
                         cardCodeEnding = "•••• ${card.cardNumber.takeLast(4)}",
                         expiryDate = card.expiryDate,
                         backgroundResId = R.drawable.card_background,
@@ -138,7 +138,7 @@ class HomePage : Fragment() {
                         onTransferClick = { handleTransferClick(card) }
                     )
                 })
-            }else {
+            } else {
                 cards.addAll(uiCards.map { card ->
                     BaseCardData.CustomCard(
                         title = "Mastercard",
@@ -156,11 +156,8 @@ class HomePage : Fragment() {
             }
 
             cards.addAll(CardProvider.getCards())
-
             cardAdapter.updateItems(cards)
         }
-
-
     private fun handleTopUpClick(card: com.nihatmahammadli.abbmobile.domain.model.UiCard) {
         findNavController().navigate(R.id.action_homePage_to_topUp)
     }
@@ -322,6 +319,14 @@ class HomePage : Fragment() {
             binding.cashBackBtn.text = "${String.format("%.2f", cashbackValue)} \nCashback₼"
         }
 
+        viewModel.cashbackTotal.observe(viewLifecycleOwner) { cashback ->
+            if (isSeen) {
+                binding.cashBackBtn.text = "${"%.2f".format(cashback)} \nCashback₼"  // Format to 2 decimal places
+            } else {
+                binding.cashBackBtn.text = "••••"
+            }
+        }
+
         binding.eyeIcon.setOnClickListener {
             isSeen = !isSeen
             val iconRes = if (isSeen) R.drawable.eye_open else R.drawable.eye_closed
@@ -335,7 +340,7 @@ class HomePage : Fragment() {
                 binding.cashBackBtn.text = "••••"
             } else {
                 val cashbackValue = viewModel.cashbackTotal.value ?: 0.0
-                binding.cashBackBtn.text = "${String.format("%.2f", cashbackValue)} \nCashback₼"
+                binding.cashBackBtn.text = "${"%.2f".format(cashbackValue)} \nCashback₼"  // Format to 2 decimal places
             }
         }
     }
