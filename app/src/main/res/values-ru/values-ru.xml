@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Rusca -->
     <string name="app_name">ABB mobile</string>
-    <string name="earn_faydalı">Получайте кэшбэк «Faydalı»</string>
-    <string name="spend_with_abb">Платите картами ABB и\nполучайте кэшбэк «Faydalı»</string>
+    <string name="earn_faydalı">Получайте кэшбэк "Faydalı"</string>
+    <string name="spend_with_abb">Платите картами ABB и\nполучайте кэшбэк Faydalı</string>
     <string name="abb_customer">Клиент ABB</string>
     <string name="not_an_abb_customer">Не клиент ABB</string>
     <string name="swipe_for_menu">Смахните для меню</string>
     <string name="language">Язык</string>
-    <string name="az_rbaycan">Азербайджанский</string>
-    <string name="russia">Русский</string>
-    <string name="english">Английский</string>
     <string name="service_network">Сеть обслуживания</string>
     <string name="currency">Валюта</string>
     <string name="faq">Часто задаваемые вопросы</string>
     <string name="contact_the_bank">Связаться с банком</string>
-    <string name="the_international_bank_of_azerbaijan_all_rights_reserved_nversion_9_11_0_build_630_live_mode">
-        ⓒ Международный Банк Азербайджана - Все права защищены\nВерсия: 9.11.0 - Сборка: 630 - Рабочий режим
-    </string>
+    <string name="the_international_bank_of_azerbaijan_all_rights_reserved_nversion_9_11_0_build_630_live_mode">ⓒ Международный Банк Азербайджана - Все права защищены\nВерсия: 9.11.0 - Сборка: 630 - Рабочий режим</string>
     <string name="call_us">Позвоните нам</string>
     <string name="you_have_to_be_over_18_to_register">Вам должно быть более 18 лет для регистрации</string>
     <string name="enter_your_date_of_birth">Введите дату рождения</string>
@@ -30,5 +26,62 @@
     <string name="password">Пароль</string>
     <string name="enter_abb_mobile">Войдите в ABB Mobile</string>
     <string name="you_can_enter_with_email_or_fin_number">Вы можете войти с помощью электронной почты или FIN-номера</string>
+    <string name="hello_blank_fragment">Привет, пустой фрагмент</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="more">Больше</string>
+    <string name="for_you">Для вас</string>
+    <string name="history">История</string>
+    <string name="home">Главная</string>
+    <string name="see_all">Смотреть все</string>
+    <string name="_0_npending_edv">0 ₼\nОжидаемый НДС</string>
+    <string name="_0_00_ncashback">0.00 ₼\nКэшбэк</string>
+    <string name="apply_now">Подать заявку</string>
+    <string name="add_other_bank_s_card_nor_order_a_new_one">Добавить карту другого банка\nили заказать новую</string>
+    <string name="add_new_card">Добавить новую карту</string>
+    <string name="investment">Инвестиции 🔔</string>
+    <string name="all_products">Все продукты</string>
+    <string name="insurance">Страхование</string>
+    <string name="nice_to_see_you_again">Рады снова вас видеть 😊</string>
+    <string name="create_new">Создать новый</string>
+    <string name="receiver">Получатель</string>
+    <string name="enter_your_information">Введите вашу информацию</string>
+    <string name="enter_your_personal_data_please">Пожалуйста, введите свои личные данные</string>
+    <string name="options">Опции</string>
+    <string name="select_relevant_option">Выберите соответствующий вариант</string>
+    <string name="order_new_card">Заказать новую карту</string>
+    <string name="add_other_bank_s_card">Добавить карту другого банка</string>
+    <string name="top_up">Пополнить</string>
+    <string name="pay">Оплатить</string>
+    <string name="transfer">Перевести</string>
+    <string name="you_don_t_have_any_auto_payment_or_template_yet">У вас еще нет автоплатежей или шаблонов</string>
+    <string name="auto_payment_transfer_and_templates">Автоплатежи/переводы и шаблоны</string>
+    <string name="no_transactions_yet">Пока нет транзакций</string>
+    <string name="lastest_transaction">Последняя транзакция</string>
+    <string name="order_a_card">Заказать карту</string>
+    <string name="payments">Платежи</string>
+    <string name="search">Поиск</string>
+    <string name="balance_growth">Рост баланса</string>
+    <string name="profile">Профиль</string>
+    <string name="mobile_number">Номер телефона</string>
+    <string name="personal_information">Личная информация</string>
+    <string name="log_out">Выйти</string>
+    <string name="sender">Отправитель</string>
+    <string name="which_card_or_account_would_you_like_to_use_to_nsend_money">С какой карты или счета вы хотите отправить деньги?</string>
+    <string name="linked_cards">Привязанные карты</string>
+    <string name="other_card">Другая карта</string>
+    <string name="transaction_title">Название транзакции</string>
+    <string name="mobile">Мобильный</string>
+    <string name="which_card_or_account_would_you_like_to_use_to_naccept_money">На какую карту или счет вы хотите принять деньги?</string>
+    <string name="cards">Карты</string>
+    <string name="current_card_name">Название текущей карты</string>
+    <string name="price">Цена</string>
+    <string name="free">БЕСПЛАТНО</string>
+    <string name="cash_withdrawal">Снятие наличных</string>
+    <string name="welcome_miles">Приветственные мили</string>
+    <string name="tariff">Тариф</string>
+    <string name="_3_azn_2_miles_0_6667">3 AZN = 2 мили (0.6667)</string>
+    <string name="between_my_cards_and_account">Между моими картами и счетом</string>
+    <string name="sender_ncard_ac">Отправитель \nКарта/счет</string>
 
 </resources>

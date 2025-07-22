@@ -61,7 +61,7 @@
                     app:layout_constraintTop_toTopOf="@+id/profileButton" />
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/eyeIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
@@ -141,7 +141,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/button2" />
 
                 <Button
-                    android:id="@+id/button5"
+                    android:id="@+id/cashBackBtn"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:background="@drawable/cashback_button"
@@ -201,7 +201,7 @@
                             android:id="@+id/textView15"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Auto-payment/transfer and templates"
+                            android:text="@string/auto_payment_transfer_and_templates"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
                             app:layout_constraintStart_toStartOf="parent"
@@ -258,7 +258,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="14dp"
                             android:textSize="16dp"
-                            android:text="You don't have any auto-payment\nor template yet"
+                            android:text="@string/you_don_t_have_any_auto_payment_or_template_yet"
                             android:textAlignment="center"
                             android:textColor="#9E9999"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -305,7 +305,7 @@
                             android:layout_height="wrap_content"
                             android:drawableEnd="@drawable/arrow_under"
                             android:drawablePadding="8dp"
-                            android:text="Lastest transaction"
+                            android:text="@string/lastest_transaction"
                             android:textColor="@color/black"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -350,7 +350,7 @@
                             android:id="@+id/noTransactionYet"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No transactions yet"
+                            android:text="@string/no_transactions_yet"
                             android:textColor="#9E9999"
                             android:visibility="visible"
                             app:layout_constraintBottom_toBottomOf="parent"

@@ -14,7 +14,7 @@
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Payments"
+        android:text="@string/payments"
         android:textColor="@color/black"
         android:textSize="22sp"
 
@@ -36,7 +36,7 @@
         android:id="@+id/search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Search"
+        android:hint="@string/search"
         android:textSize="16sp"
         android:paddingHorizontal="10dp"
         android:paddingVertical="6dp"

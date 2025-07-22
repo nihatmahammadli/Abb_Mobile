@@ -21,14 +21,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Options"
+        android:text="@string/options"
         android:textSize="18sp"
         android:layout_marginBottom="20dp"
         android:textColor="@color/black"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select relevant option"
+        android:text="@string/select_relevant_option"
         android:layout_marginBottom="20dp"
         android:textSize="14sp" />
 
@@ -36,7 +36,7 @@
         android:id="@+id/orderNewCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Order new card"
+        android:text="@string/order_new_card"
         android:drawableStart="@drawable/circle_plus_ic"
         android:drawablePadding="20dp"
         android:gravity="center"
@@ -55,11 +55,8 @@
         android:layout_marginBottom="10dp"
         android:textColor="@color/black"
         android:drawableStart="@drawable/link_ic"
-        android:text="Add other bank's card"
+        android:text="@string/add_other_bank_s_card"
         android:textSize="16sp"
         tools:ignore="UseCompatTextViewDrawableXml" />
-
-
-
 
 </LinearLayout>

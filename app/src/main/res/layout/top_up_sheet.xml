@@ -22,7 +22,7 @@
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sender"
+        android:text="@string/sender"
         android:textColor="@color/black"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Which card or account would you like to use to \nsend money?"
+        android:text="@string/which_card_or_account_would_you_like_to_use_to_nsend_money"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
@@ -91,7 +91,7 @@
         android:id="@+id/customText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Linked cards"
+        android:text="@string/linked_cards"
         android:layout_marginTop="15dp"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,7 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
-            android:text="Other card"
+            android:text="@string/other_card"
             android:textColor="@color/black" />
 
         <View

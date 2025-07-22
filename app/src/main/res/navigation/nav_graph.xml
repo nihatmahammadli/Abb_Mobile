@@ -101,6 +101,9 @@
         <action
             android:id="@+id/action_homePage_to_payments"
             app:destination="@id/payments" />
+        <action
+            android:id="@+id/action_homePage_to_transfer"
+            app:destination="@id/transfer" />
     </fragment>
     <fragment
         android:id="@+id/userInfo"
@@ -164,6 +167,12 @@
         <action
             android:id="@+id/action_cardView_to_topUp"
             app:destination="@id/topUp" />
+        <action
+            android:id="@+id/action_cardView_to_payments"
+            app:destination="@id/payments" />
+        <action
+            android:id="@+id/action_cardView_to_transfer"
+            app:destination="@id/transfer" />
     </fragment>
     <fragment
         android:id="@+id/payments"
@@ -178,5 +187,10 @@
         android:id="@+id/paymentsAmount"
         android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.card_transactions.PaymentsAmount"
         android:label="PaymentsAmount" />
+    <fragment
+        android:id="@+id/transfer"
+        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.card_transactions.Transfer"
+        android:label="fragment_transfer"
+        tools:layout="@layout/fragment_transfer" />
 
 </navigation>

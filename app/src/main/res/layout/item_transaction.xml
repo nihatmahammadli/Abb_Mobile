@@ -10,7 +10,7 @@
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Transaction Title"
+        android:text="@string/transaction_title"
         android:textSize="16sp"
         android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"

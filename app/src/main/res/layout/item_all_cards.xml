@@ -10,7 +10,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Current Card Name"
+        android:text="@string/current_card_name"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -56,7 +56,7 @@
             android:id="@+id/priceText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Price"
+            android:text="@string/price"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -67,7 +67,7 @@
             android:layout_marginStart="7dp"
             android:background="@drawable/card_texts_background"
             android:padding="4dp"
-            android:text="FREE"
+            android:text="@string/free"
             android:textColor="#1B63ED"
             android:textSize="11sp" />
     </LinearLayout>
@@ -91,7 +91,7 @@
             android:id="@+id/withDrawalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cash withdawal"
+            android:text="@string/cash_withdrawal"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -102,7 +102,7 @@
             android:layout_marginStart="7dp"
             android:background="@drawable/card_texts_background"
             android:padding="4dp"
-            android:text="FREE"
+            android:text="@string/free"
             android:textColor="#1B63ED"
             android:textSize="11sp" />
     </LinearLayout>
@@ -126,7 +126,7 @@
             android:id="@+id/currencyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Currency"
+            android:text="@string/currency"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -160,7 +160,7 @@
             android:id="@+id/welcomeMilesText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome Miles"
+            android:text="@string/welcome_miles"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -195,7 +195,7 @@
             android:id="@+id/transferText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Transfer"
+            android:text="@string/transfer"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -206,7 +206,7 @@
             android:layout_marginStart="7dp"
             android:background="@drawable/card_texts_background"
             android:padding="4dp"
-            android:text="FREE"
+            android:text="@string/free"
             android:textColor="#1B63ED"
             android:textSize="11sp" />
     </LinearLayout>
@@ -229,7 +229,7 @@
             android:id="@+id/tariffText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tariff"
+            android:text="@string/tariff"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -240,7 +240,7 @@
             android:layout_marginStart="7dp"
             android:background="@drawable/card_texts_background"
             android:padding="4dp"
-            android:text="3 AZN = 2 MILES (0.6667)"
+            android:text="@string/_3_azn_2_miles_0_6667"
             android:textColor="#1B63ED"
             android:textSize="11sp" />
     </LinearLayout>

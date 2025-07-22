@@ -37,9 +37,12 @@ class OrderNewCard : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupAdapter()
-        setupObservers()
-        orderCard()
+        binding.orderCardBtn.setOnClickListener {
+            setupObservers()
+        }
         viewPagerOverlapEffect()
+
+
 
         viewModel.fetchSingleCardFromApi()
     }
@@ -48,8 +51,6 @@ class OrderNewCard : Fragment() {
         val cards = OrderCardProvider.getCards()
         adapter = AllCardsAdapter(cards)
         binding.viewPager.adapter = adapter
-
-
     }
 
     private fun setupObservers() {
@@ -57,6 +58,17 @@ class OrderNewCard : Fragment() {
         viewModel.cards.observe(viewLifecycleOwner) { cards ->
             if (cards.isNotEmpty()) {
                 showToast("${cards.size} kart mövcuddur")
+            }
+        }
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+
+        viewModel.cardFetchResult.observe(viewLifecycleOwner) { success ->
+            if (success) {
+                findNavController().navigateUp()
+            } else {
+                showToast("Təəssüf, mövcud kart tapılmadı.")
             }
         }
     }
@@ -90,13 +102,6 @@ class OrderNewCard : Fragment() {
                     }
                 }
             }
-        }
-    }
-
-    private fun orderCard(){
-        binding.orderCardBtn.setOnClickListener {
-            findNavController().navigateUp()
-
         }
     }
 

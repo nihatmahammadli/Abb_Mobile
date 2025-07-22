@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Top Up"
+            android:text="@string/top_up"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -140,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Pay"
+            android:text="@string/pay"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -171,7 +171,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Transfer"
+            android:text="@string/transfer"
             android:textColor="@color/black"
             android:textSize="14sp" />
     </LinearLayout>

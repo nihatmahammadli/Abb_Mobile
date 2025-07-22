@@ -20,6 +20,7 @@ import com.nihatmahammadli.abbmobile.presentation.components.SelectTopUpSheet
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.TopUpViewModel
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.TopUpResult
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class TopUp : Fragment() {
@@ -78,7 +79,6 @@ class TopUp : Fragment() {
                     topUpViewModel.clearResult()
                 }
                 null -> {
-                    // No result or cleared
                 }
             }
         }
@@ -87,7 +87,6 @@ class TopUp : Fragment() {
             binding.transferBtn.isEnabled = !isLoading && (topUpViewModel.senderSelected.value == true)
             binding.transferBtn.text = if (isLoading) "Əlavə edilir..." else "Əlavə et"
 
-            // Disable amount controls during loading
             setAmountControlsEnabled(!isLoading)
         }
     }
@@ -158,33 +157,28 @@ class TopUp : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun setupAmountButtons() {
-        // Quick amount buttons
         binding.plus1.setOnClickListener { addAmount(1.0) }
         binding.plus2.setOnClickListener { addAmount(10.0) }
         binding.plus3.setOnClickListener { addAmount(50.0) }
         binding.plus4.setOnClickListener { setMaxAmount() }
 
-        // Text change listener for manual input
         binding.topUpAmount.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val text = s.toString().replace(',', '.')
                 val parsedAmount = text.toDoubleOrNull() ?: 0.0
-                // Round to 2 decimal places to avoid precision issues
-                totalAmount = Math.round(parsedAmount * 100.0) / 100.0
+                totalAmount = (parsedAmount * 100.0).roundToInt() / 100.0
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        // Initialize with proper formatting
         showTopUpSheet()
         showMyCardSheet()
     }
 
     private fun addAmount(amount: Double) {
         totalAmount += amount
-        // Round to 2 decimal places to avoid precision issues
-        totalAmount = Math.round(totalAmount * 100.0) / 100.0
+        totalAmount = (totalAmount * 100.0).roundToInt() / 100.0
         updateAmountField()
     }
 
@@ -194,7 +188,6 @@ class TopUp : Fragment() {
     }
 
     private fun updateAmountField() {
-        // Use BigDecimal to ensure exact 2 decimal places
         val formattedAmount = java.math.BigDecimal(totalAmount)
             .setScale(2, java.math.RoundingMode.HALF_UP)
             .toString()
@@ -224,8 +217,7 @@ class TopUp : Fragment() {
             return
         }
 
-        // Round amount before sending to ensure precision
-        val roundedAmount = Math.round(amount * 100.0) / 100.0
+        val roundedAmount = (amount * 100.0).roundToInt() / 100.0
         topUpViewModel.saveAmountInFirebase(roundedAmount, sender)
     }
 

@@ -1,6 +1,7 @@
 package com.nihatmahammadli.abbmobile.presentation.dashboard.home
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentHomePageBinding
+import com.nihatmahammadli.abbmobile.domain.model.UiCard
 import com.nihatmahammadli.abbmobile.presentation.adapters.*
 import com.nihatmahammadli.abbmobile.presentation.components.CardOrderSheet
 import com.nihatmahammadli.abbmobile.presentation.model.BaseCardData
@@ -32,8 +34,11 @@ class HomePage : Fragment() {
     private lateinit var binding: FragmentHomePageBinding
     private lateinit var imageAdapter: HorizontalImageAdapter
     private lateinit var transactionAdapter: TransactionAdapter
+    private lateinit var lastUiCards: List<UiCard>
     private lateinit var cardAdapter: CardAdapter
     private var isExpanded = false
+    private var isSeen = false
+
 
     private val viewModel: CardViewModel by activityViewModels()
 
@@ -53,14 +58,9 @@ class HomePage : Fragment() {
 
         if (!viewModel.hasFetchedCards) {
             viewModel.fetchCardsWithBalances()
-        }
-
-        if (!viewModel.hasFetchedCards) {
-            viewModel.fetchCardsFromFirebase()
-        }
-
-        if (!viewModel.hasFetchedUserName) {
             viewModel.fetchUserNameFromFirebase()
+            viewModel.fetchCardsFromFirebase()
+            viewModel.fetchTotalCashback()
         }
     }
 
@@ -73,6 +73,7 @@ class HomePage : Fragment() {
         applyViewPagerOverlap()
         goProfile()
         setupSwipeToRefresh()
+        changeEyeIcon()
     }
     private fun setupSwipeToRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
@@ -87,6 +88,7 @@ class HomePage : Fragment() {
         viewModel.fetchCardsFromFirebase()
         viewModel.fetchUserNameFromFirebase()
         viewModel.fetchCardsWithBalances()
+        viewModel.fetchTotalCashback()
     }
 
 
@@ -97,6 +99,7 @@ class HomePage : Fragment() {
             uiCards.forEachIndexed { index, card ->
                 Log.d("HomePage", "Card #$index: Number=${card.cardNumber}, Expiry=${card.expiryDate}, CVV=${card.cvv}")
             }
+            lastUiCards = uiCards
             updateCardAdapter(uiCards)
             binding.swipeRefreshLayout.isRefreshing = false
         }
@@ -104,31 +107,58 @@ class HomePage : Fragment() {
         viewModel.userName.observe(viewLifecycleOwner) { name ->
             binding.txtName.text = "Hello $name"
         }
+
+        viewModel.cashbackTotal.observe(viewLifecycleOwner) { cashback ->
+            if (isSeen) {
+                binding.cashBackBtn.text = "${String.format("%.2f", cashback)} \nCashback₼"
+            } else {
+                binding.cashBackBtn.text = "••••"
+            }
+        }
+
     }
 
 
-    private fun updateCardAdapter(uiCards: List<com.nihatmahammadli.abbmobile.domain.model.UiCard>) {
-        val cards = mutableListOf<BaseCardData>()
+        @SuppressLint("DefaultLocale")
+        private fun updateCardAdapter(uiCards: List<com.nihatmahammadli.abbmobile.domain.model.UiCard>) {
+            val cards = mutableListOf<BaseCardData>()
 
-        cards.addAll(uiCards.map { card ->
-            BaseCardData.CustomCard(
-                title = "Mastercard",
-                balance = "${card.balance} ₼",
-                cardCodeEnding = "•••• ${card.cardNumber.takeLast(4)}",
-                expiryDate = card.expiryDate,
-                backgroundResId = R.drawable.card_background,
-                cardLogoResId = R.drawable.visa_card,
-                showVisa = true,
-                onTopUpClick = { handleTopUpClick(card) },
-                onPayClick = { handlePayClick(card) },
-                onTransferClick = { handleTransferClick(card) }
-            )
-        })
+            if (isSeen) {
+                cards.addAll(uiCards.map { card ->
+                    BaseCardData.CustomCard(
+                        title = "Mastercard",
+                        balance = "${card.balance.toString()} ₼",
+                        cardCodeEnding = "•••• ${card.cardNumber.takeLast(4)}",
+                        expiryDate = card.expiryDate,
+                        backgroundResId = R.drawable.card_background,
+                        cardLogoResId = R.drawable.visa_card,
+                        showVisa = true,
+                        onTopUpClick = { handleTopUpClick(card) },
+                        onPayClick = { handlePayClick(card) },
+                        onTransferClick = { handleTransferClick(card) }
+                    )
+                })
+            }else {
+                cards.addAll(uiCards.map { card ->
+                    BaseCardData.CustomCard(
+                        title = "Mastercard",
+                        balance = "•••• ₼",
+                        cardCodeEnding = "•••• ${card.cardNumber.takeLast(4)}",
+                        expiryDate = card.expiryDate,
+                        backgroundResId = R.drawable.card_background,
+                        cardLogoResId = R.drawable.visa_card,
+                        showVisa = true,
+                        onTopUpClick = { handleTopUpClick(card) },
+                        onPayClick = { handlePayClick(card) },
+                        onTransferClick = { handleTransferClick(card) }
+                    )
+                })
+            }
 
-        cards.addAll(CardProvider.getCards())
+            cards.addAll(CardProvider.getCards())
 
-        cardAdapter.updateItems(cards)
-    }
+            cardAdapter.updateItems(cards)
+        }
 
 
     private fun handleTopUpClick(card: com.nihatmahammadli.abbmobile.domain.model.UiCard) {
@@ -140,7 +170,7 @@ class HomePage : Fragment() {
     }
 
     private fun handleTransferClick(card: com.nihatmahammadli.abbmobile.domain.model.UiCard) {
-        showToast("Köçürmə: ${card.cardNumber.takeLast(4)}")
+        findNavController().navigate(R.id.action_homePage_to_transfer)
     }
 
     private fun showToast(message: String) {
@@ -276,6 +306,40 @@ class HomePage : Fragment() {
             }
         }
     }
+
+    fun changeEyeIcon() {
+        val sharedPref = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE)
+        isSeen = sharedPref.getBoolean("isSeen", false)
+
+        binding.eyeIcon.setImageResource(
+            if (isSeen) R.drawable.eye_open else R.drawable.eye_closed
+        )
+
+        if (!isSeen) {
+            binding.cashBackBtn.text = "••••"
+        } else {
+            val cashbackValue = viewModel.cashbackTotal.value ?: 0.0
+            binding.cashBackBtn.text = "${String.format("%.2f", cashbackValue)} \nCashback₼"
+        }
+
+        binding.eyeIcon.setOnClickListener {
+            isSeen = !isSeen
+            val iconRes = if (isSeen) R.drawable.eye_open else R.drawable.eye_closed
+            binding.eyeIcon.setImageResource(iconRes)
+
+            sharedPref.edit().putBoolean("isSeen", isSeen).apply()
+
+            updateCardAdapter(lastUiCards)
+
+            if (!isSeen) {
+                binding.cashBackBtn.text = "••••"
+            } else {
+                val cashbackValue = viewModel.cashbackTotal.value ?: 0.0
+                binding.cashBackBtn.text = "${String.format("%.2f", cashbackValue)} \nCashback₼"
+            }
+        }
+    }
+
 
     fun goProfile() {
         val clickListener = View.OnClickListener {

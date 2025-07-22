@@ -47,6 +47,7 @@
         android:layout_marginTop="12dp"
         android:text="@string/you_can_enter_with_email_or_fin_number"
         android:textColor="#3C3B3B"
+        android:textAlignment="center"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="@+id/textView10"
         app:layout_constraintStart_toStartOf="@+id/textView10"

@@ -60,7 +60,7 @@ class PaymentsAmount : Fragment() {
                     Toast.makeText(requireContext(), "Məbləğ sıfırdan böyük olmalıdır", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
-                    viewModel.transferAmount(amount)
+                    viewModel.transferAmount(amount,"transfer")
                 }
             }
         }

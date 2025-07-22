@@ -1,5 +1,6 @@
 package com.nihatmahammadli.abbmobile.presentation.viewmodel
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,7 +24,14 @@ class PaymentAmountsViewModel @Inject constructor(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun transferAmount(amount: Double) {
+    companion object {
+        private const val CASHBACK_PERCENTAGE = 0.02
+        private const val MAX_CASHBACK_AMOUNT = 10.0
+        private const val MIN_PAYMENT_FOR_CASHBACK = 5.0
+    }
+
+    @SuppressLint("DefaultLocale")
+    fun transferAmount(amount: Double, paymentType: String = "transfer") {
         if (amount <= 0) {
             _transferResult.value = TransferResult.Error("Məbləğ müsbət olmalıdır")
             return
@@ -39,7 +47,6 @@ class PaymentAmountsViewModel @Inject constructor(
             _isLoading.value = true
 
             try {
-                // Get user's first card
                 val cardsSnapshot = firestore.collection("users")
                     .document(uid)
                     .collection("cards")
@@ -55,7 +62,6 @@ class PaymentAmountsViewModel @Inject constructor(
 
                 val cardId = cardsSnapshot.documents[0].id
 
-                // Get all transactions to calculate balance
                 val transactionsSnapshot = firestore.collection("users")
                     .document(uid)
                     .collection("cards")
@@ -74,12 +80,15 @@ class PaymentAmountsViewModel @Inject constructor(
                     return@launch
                 }
 
-                // Create new transaction
-                val newTransaction = hashMapOf(
+                val paymentTransaction = hashMapOf(
                     "amount" to -amount,
                     "timestamp" to System.currentTimeMillis(),
-                    "type" to "transfer",
-                    "description" to "Transfer əməliyyatı"
+                    "type" to paymentType,
+                    "description" to when(paymentType) {
+                        "payment" -> "Ödəniş əməliyyatı"
+                        "transfer" -> "Transfer əməliyyatı"
+                        else -> "Əməliyyat"
+                    },
                 )
 
                 firestore.collection("users")
@@ -87,17 +96,97 @@ class PaymentAmountsViewModel @Inject constructor(
                     .collection("cards")
                     .document(cardId)
                     .collection("transaction")
-                    .add(newTransaction)
+                    .add(paymentTransaction)
                     .await()
 
-                _transferResult.value = TransferResult.Success("Transfer uğurla tamamlandı")
+                val cashbackAmount = calculateCashback(amount, paymentType)
+                var resultMessage = when(paymentType) {
+                    "payment" -> "Ödəniş uğurla tamamlandı"
+                    "transfer" -> "Transfer uğurla tamamlandı"
+                    else -> "Əməliyyat uğurla tamamlandı"
+                }
+
+                if (cashbackAmount > 0) {
+                    val cashbackTransaction = hashMapOf(
+                        "amount" to cashbackAmount,
+                        "timestamp" to System.currentTimeMillis() + 1000,
+                        "type" to "cashback",
+                        "description" to "Cashback bonus (${String.format("%.1f", getCashbackPercentage(paymentType) * 100)}%)",
+                        "relatedAmount" to amount,
+                        "relatedType" to paymentType
+                    )
+
+                    if (paymentType != "transfer") {
+                        firestore.collection("users")
+                            .document(uid)
+                            .collection("cards")
+                            .document(cardId)
+                            .collection("transaction")
+                            .add(cashbackTransaction)
+                            .await()
+                    }
+
+                    firestore.collection("users")
+                        .document(uid)
+                        .collection("cashbacks")
+                        .add(
+                            mapOf(
+                                "amount" to cashbackAmount,
+                                "timestamp" to System.currentTimeMillis(),
+                                "relatedAmount" to amount,
+                                "relatedType" to paymentType
+                            )
+                        )
+                        .await()
+                }
+
+
+                _transferResult.value = TransferResult.Success(resultMessage)
 
             } catch (e: Exception) {
-                _transferResult.value = TransferResult.Error("Transfer zamanı xəta baş verdi: ${e.message}")
+                _transferResult.value = TransferResult.Error("Əməliyyat zamanı xəta baş verdi: ${e.message}")
             } finally {
                 _isLoading.value = false
             }
         }
+    }
+
+    private fun calculateCashback(amount: Double, paymentType: String): Double {
+        val allowedTypes = listOf("payment", "online_shopping", "utilities", "fuel", "transfer") // transfer əlavə etdim
+        if (paymentType !in allowedTypes || amount < MIN_PAYMENT_FOR_CASHBACK) {
+            return 0.0
+        }
+        val cashbackPercentage = getCashbackPercentage(paymentType)
+        val cashbackAmount = amount * cashbackPercentage
+        return minOf(cashbackAmount, MAX_CASHBACK_AMOUNT)
+    }
+
+    private fun getCashbackPercentage(paymentType: String): Double {
+        return when (paymentType) {
+            "payment" -> CASHBACK_PERCENTAGE
+            "online_shopping" -> 0.03
+            "utilities" -> 0.01
+            "fuel" -> 0.05
+            "transfer" -> CASHBACK_PERCENTAGE
+            else -> 0.0
+        }
+    }
+
+
+    fun makePayment(amount: Double) {
+        transferAmount(amount, "payment")
+    }
+
+    fun makeOnlinePayment(amount: Double) {
+        transferAmount(amount, "online_shopping")
+    }
+
+    fun payUtilities(amount: Double) {
+        transferAmount(amount, "utilities")
+    }
+
+    fun payForFuel(amount: Double) {
+        transferAmount(amount, "fuel")
     }
 
     fun clearResult() {
