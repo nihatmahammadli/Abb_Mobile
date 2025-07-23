@@ -38,8 +38,13 @@ class Payments : Fragment() {
         return binding.root
     }
     fun setUpRecyclerView() {
-        horizontalRcy = PaymentHorizontalAdapter(PaymentDummyData.horizontalList) {
-            findNavController().navigate(R.id.action_payments_to_paymentsAmount)
+        horizontalRcy = PaymentHorizontalAdapter(PaymentDummyData.horizontalList) { selectedItem ->
+            val action = PaymentsDirections.actionPaymentsToPaymentsAmount(
+                fromTransferPage = false,
+                paymentVertical = null,
+                paymentHorizontal = selectedItem
+            )
+            findNavController().navigate(action)
         }
         binding.recyclerViewHorizontal.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -48,14 +53,20 @@ class Payments : Fragment() {
     }
 
     fun setUpVerticalRcy() {
-        verticalRcy = PaymentVerticalAdapter(PaymentDummyData.verticalList){
-            findNavController().navigate(R.id.action_payments_to_paymentsAmount)
+        verticalRcy = PaymentVerticalAdapter(PaymentDummyData.verticalList) { selectedItem ->
+            val action = PaymentsDirections.actionPaymentsToPaymentsAmount(
+                fromTransferPage = false,
+                paymentVertical = selectedItem,
+                paymentHorizontal = null
+            )
+            findNavController().navigate(action)
         }
         binding.recyclerViewVertical.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = verticalRcy
         }
     }
+
 
     fun goBack(){
         binding.leftBtn.setOnClickListener {

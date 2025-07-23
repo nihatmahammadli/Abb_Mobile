@@ -22,9 +22,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
-import java.util.Locale
 
 @AndroidEntryPoint
 class CardView : Fragment() {
@@ -62,19 +59,19 @@ class CardView : Fragment() {
         }
 
         binding.payLayout.setOnClickListener {
-            findNavController().navigate(R.id.action_cardView_to_topUp)
+            findNavController().navigate(R.id.action_cardView_to_payments)
         }
 
         binding.payBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_cardView_to_topUp)
+            findNavController().navigate(R.id.action_cardView_to_payments)
         }
 
         binding.transferLayout.setOnClickListener {
-            findNavController().navigate(R.id.action_cardView_to_topUp)
+            findNavController().navigate(R.id.action_cardView_to_transfer)
         }
 
         binding.transferBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_cardView_to_topUp)
+            findNavController().navigate(R.id.action_cardView_to_transfer)
         }
 
 
@@ -87,7 +84,7 @@ class CardView : Fragment() {
         viewModel.uiCards.observe(viewLifecycleOwner) { cards ->
             if (!cards.isNullOrEmpty()) {
                 val firstCard = cards[0]
-                val formattedBalance = "%.2f".format(firstCard.balance ?: 0.0)
+                val formattedBalance = "%.2f".format(firstCard.balance)
 
                 binding.cardInfoBtn.text = "${firstCard.expiryDate}   •• ${firstCard.cardNumber.takeLast(4)}"
                 binding.amount.text = "$formattedBalance AZN"

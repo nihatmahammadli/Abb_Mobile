@@ -1,6 +1,7 @@
 package com.nihatmahammadli.abbmobile.presentation.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -34,7 +35,8 @@ class PaymentAmountsViewModel @Inject constructor(
         private fun formatAmount(amount: Double): String = "%.2f".format(amount)
     }
 
-    fun transferAmount(amount: Double, paymentType: String = "transfer") {
+    fun transferAmount(amount: Double, paymentType: String = "transfer", applyCashBack: Boolean = true,
+                       paymentFor: String? = null) {
         if (amount <= 0) {
             _transferResult.value = TransferResult.Error("Məbləğ müsbət olmalıdır")
             return
@@ -73,8 +75,13 @@ class PaymentAmountsViewModel @Inject constructor(
                     .get()
                     .await()
 
-                val totalBalance = transactionsSnapshot.documents.sumOf {
-                    it.getDouble("amount") ?: 0.0
+                val totalBalance = transactionsSnapshot.documents
+                    .sumOf { it.getDouble("amount") ?: 0.0 }
+
+                transactionsSnapshot.documents.forEach {
+                    val t = it.getString("type")
+                    val a = it.getDouble("amount")
+                    Log.d("Debug", "Transaction type=$t, amount=$a")
                 }
 
                 if (totalBalance < amount) {
@@ -97,6 +104,10 @@ class PaymentAmountsViewModel @Inject constructor(
                     }
                 )
 
+                if (!paymentFor.isNullOrEmpty()) {
+                    paymentTransaction["paymentFor"] = paymentFor
+                }
+
                 firestore.collection("users")
                     .document(uid)
                     .collection("cards")
@@ -112,29 +123,13 @@ class PaymentAmountsViewModel @Inject constructor(
                     else -> "Əməliyyat uğurla tamamlandı"
                 }
 
-                if (cashbackAmount > 0) {
+                if (applyCashBack && cashbackAmount > 0) {
                     val roundedCashback = cashbackAmount.toRoundedDouble()
-                    val cashbackTransaction = hashMapOf(
-                        "amount" to roundedCashback,
-                        "timestamp" to System.currentTimeMillis() + 1000,
-                        "type" to "cashback",
-                        "description" to "Cashback bonus (${formatAmount(getCashbackPercentage(paymentType) * 100)}%)",
-                        "relatedAmount" to roundedAmount,
-                        "relatedType" to paymentType
-                    )
-
-                    if (paymentType != "transfer") {
-                        firestore.collection("users")
-                            .document(uid)
-                            .collection("cards")
-                            .document(cardId)
-                            .collection("transaction")
-                            .add(cashbackTransaction)
-                            .await()
-                    }
 
                     firestore.collection("users")
                         .document(uid)
+                        .collection("cards")
+                        .document(cardId)
                         .collection("cashbacks")
                         .add(
                             mapOf(
@@ -146,6 +141,7 @@ class PaymentAmountsViewModel @Inject constructor(
                         )
                         .await()
                 }
+
 
                 _transferResult.value = TransferResult.Success(resultMessage)
 
@@ -177,10 +173,6 @@ class PaymentAmountsViewModel @Inject constructor(
         }
     }
 
-    fun makePayment(amount: Double) = transferAmount(amount, "payment")
-    fun makeOnlinePayment(amount: Double) = transferAmount(amount, "online_shopping")
-    fun payUtilities(amount: Double) = transferAmount(amount, "utilities")
-    fun payForFuel(amount: Double) = transferAmount(amount, "fuel")
     fun clearResult() { _transferResult.value = null }
 
     private fun Double.toRoundedDouble(): Double {
@@ -190,5 +182,5 @@ class PaymentAmountsViewModel @Inject constructor(
 
 sealed class TransferResult {
     data class Success(val message: String) : TransferResult()
-    data class Error(val message: String) : TransferResult()  // Fixed: added 'val' for message
+    data class Error(val message: String) : TransferResult()
 }

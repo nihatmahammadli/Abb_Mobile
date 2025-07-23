@@ -189,21 +189,36 @@
 
             viewModelScope.launch {
                 try {
-                    val snapshot = firestore.collection("users")
+                    val cardsSnapshot = firestore.collection("users")
                         .document(uid)
-                        .collection("cashbacks")
+                        .collection("cards")
                         .get()
                         .await()
 
-                    val total = snapshot.documents.sumOf {
-                        it.getDouble("amount") ?: 0.0
+                    var totalCashback = 0.0
+                    for (cardDoc in cardsSnapshot.documents) {
+                        val cardId = cardDoc.id
+                        val cashbackSnapshot = firestore.collection("users")
+                            .document(uid)
+                            .collection("cards")
+                            .document(cardId)
+                            .collection("cashbacks")
+                            .get()
+                            .await()
+
+                        totalCashback += cashbackSnapshot.documents.sumOf {
+                            it.getDouble("amount") ?: 0.0
+                        }
                     }
 
-                    _cashbackTotal.value = total
+                    _cashbackTotal.value = totalCashback
+
                 } catch (e: Exception) {
+                    Log.e("CardViewModel", "Cashback yüklənmədi: ${e.message}")
                 }
             }
         }
+
 
 
 

@@ -186,11 +186,28 @@
     <fragment
         android:id="@+id/paymentsAmount"
         android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.card_transactions.PaymentsAmount"
-        android:label="PaymentsAmount" />
+        android:label="PaymentsAmount" >
+        <argument
+            android:name="fromTransferPage"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="paymentVertical"
+            app:argType="com.nihatmahammadli.abbmobile.presentation.model.PaymentVertical"
+            app:nullable="true"/>
+        <argument
+            android:name="paymentHorizontal"
+            app:argType="com.nihatmahammadli.abbmobile.presentation.model.PaymentHorizontal"
+            app:nullable="true"/>
+    </fragment>
     <fragment
         android:id="@+id/transfer"
         android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.card_transactions.Transfer"
         android:label="fragment_transfer"
-        tools:layout="@layout/fragment_transfer" />
+        tools:layout="@layout/fragment_transfer" >
+        <action
+            android:id="@+id/action_transfer_to_paymentsAmount"
+            app:destination="@id/paymentsAmount" />
+    </fragment>
 
 </navigation>
