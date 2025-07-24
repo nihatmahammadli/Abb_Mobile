@@ -40,7 +40,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcyView"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,22 +67,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Expenses"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/lastDaysTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/arrow_under"
+                android:drawableEnd="@drawable/arrow_down"
                 android:drawablePadding="5dp"
+                android:textColor="#2058BB"
                 android:gravity="center"
+                android:textSize="13sp"
                 android:text="Last 30 days"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView29"
+                android:id="@+id/amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -96,18 +99,18 @@
                 android:id="@+id/progressBar2"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
-                android:layout_height="18dp"
+                android:layout_height="14dp"
                 android:layout_marginTop="10dp"
                 android:max="400"
                 android:progress="0"
                 android:progressDrawable="@drawable/progress_drawable"
-                android:progressTint="@color/black"
+                android:progressTint="#2058BB"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView29" />
+                app:layout_constraintTop_toBottomOf="@+id/amount" />
 
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/seeMoreBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/trans"
@@ -118,23 +121,25 @@
                 app:layout_constraintTop_toBottomOf="@+id/progressBar2" />
 
             <TextView
-                android:id="@+id/textView30"
+                android:id="@+id/seeMoreText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="See more"
-                app:layout_constraintBottom_toBottomOf="@+id/imageButton3"
-                app:layout_constraintStart_toEndOf="@+id/imageButton3"
-                app:layout_constraintTop_toTopOf="@+id/imageButton3" />
+                android:textColor="#2058BB"
+                app:layout_constraintBottom_toBottomOf="@+id/seeMoreBtn"
+                app:layout_constraintStart_toEndOf="@+id/seeMoreBtn"
+                app:layout_constraintTop_toTopOf="@+id/seeMoreBtn" />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/arrow_right"
+                android:src="@drawable/arrow_right_blue"
                 android:background="@color/trans"
-                app:layout_constraintBottom_toBottomOf="@+id/textView30"
+                android:backgroundTint="#2058BB"
+                app:layout_constraintBottom_toBottomOf="@+id/seeMoreText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView30" />
+                app:layout_constraintTop_toTopOf="@+id/seeMoreText" />
 
             <View
                 android:layout_width="wrap_content"
@@ -150,22 +155,22 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView3"
-        app:layout_constraintVertical_bias="0.060000002">
+        app:layout_constraintTop_toBottomOf="@+id/cardView3">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingHorizontal="10dp"
             android:paddingVertical="14dp">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/historyRecyclerView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
