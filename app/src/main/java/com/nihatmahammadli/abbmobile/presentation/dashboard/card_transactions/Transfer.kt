@@ -37,11 +37,15 @@ class Transfer : Fragment() {
     ): View {
         binding = FragmentTransferBinding.inflate(inflater, container, false)
 
+
         binding.transferBtn.setOnClickListener {
+            val cardNumber = binding.cardNumber.text.toString().replace(" ", "")
+
             val action = TransferDirections.actionTransferToPaymentsAmount(
                 fromTransferPage = true,
                 paymentVertical = null,
-                paymentHorizontal = null
+                paymentHorizontal = null,
+                cardNumber = cardNumber
             )
             findNavController().navigate(action)
         }

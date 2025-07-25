@@ -3,8 +3,11 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.nihatmahammadli.abbmobile.databinding.ActivityMainBinding
 import com.nihatmahammadli.abbmobile.presentation.ui.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -12,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
     override fun attachBaseContext(newBase: Context) {
         val lang = LocaleHelper.getSavedLanguage(newBase)
         val context = LocaleHelper.setAppLocale(newBase, lang)
@@ -22,7 +26,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        iconFindForMenu()
+        val bottomNav = binding.bottomNavigationView
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.frgContainerView) as NavHostFragment
+        navController = navHostFragment.navController
+
+
+        bottomNav.setupWithNavController(navController)
+
         menuInFragments()
         addDestinationMenu()
 
@@ -34,20 +45,24 @@ class MainActivity : AppCompatActivity() {
         val fab = binding.fabIcon
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
+
             when (destination.id) {
                 R.id.homePage -> {
                     bottomNav.visibility = View.VISIBLE
                     fab.visibility = View.VISIBLE
+                    bottomNav.menu.findItem(R.id.home)?.isChecked = true
                 }
                 R.id.history -> {
                     bottomNav.visibility = View.VISIBLE
                     fab.visibility = View.VISIBLE
+                    bottomNav.menu.findItem(R.id.history)?.isChecked = true
                 }
                 R.id.forYou -> {
                     bottomNav.visibility = View.VISIBLE
                     fab.visibility = View.VISIBLE
+                    bottomNav.menu.findItem(R.id.for_you)?.isChecked = true
                 }
-                else -> {
+                    else -> {
                     bottomNav.visibility = View.GONE
                     fab.visibility = View.GONE
                 }

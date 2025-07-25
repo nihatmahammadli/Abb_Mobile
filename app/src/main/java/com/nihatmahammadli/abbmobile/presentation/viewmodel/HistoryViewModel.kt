@@ -29,17 +29,16 @@ class HistoryViewModel @Inject constructor(
     private val _paymentSum = MutableLiveData<List<PaymentSummary>>()
     val paymentSum: LiveData<List<PaymentSummary>> = _paymentSum
 
-    private val loading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = loading
+    private val _loading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _loading
 
     private val _totalAmount = MutableLiveData<Double>()
     val totalAmount: LiveData<Double> = _totalAmount
 
-
     @SuppressLint("SuspiciousIndentation")
     fun fetchTotalPayments() {
         val uid = firebaseAuth.currentUser?.uid ?: return
-        loading.value = true
+        _loading.value = true
 
         viewModelScope.launch {
             try {
@@ -64,7 +63,7 @@ class HistoryViewModel @Inject constructor(
                     for (doc in paymentTransaction.documents) {
                         val type = doc.getString("type")
                         val amount = doc.getDouble("amount") ?: 0.0
-                        val paymentFor = doc.getString("paymentFor") ?: "Unknown"
+                        val paymentFor = doc.getString("paymentFor")
 
                         if (type == "payment") {
                             val timestampMillis = doc.getLong("timestamp")
@@ -74,9 +73,19 @@ class HistoryViewModel @Inject constructor(
                                 format.format(date)
                             } ?: "Naməlum"
 
+                            val displayName = when {
+                                paymentFor.isNullOrEmpty() -> "Ümumi ödəniş"
+                                paymentFor.replace(" ", "").length == 16 -> {
+                                    "Transfer: ${formatCardNumber(paymentFor)}"
+                                }
+                                else -> paymentFor
+                            }
+
+                            Log.d("HistoryViewModel", "Payment found - PaymentFor: '$paymentFor', DisplayName: '$displayName', Amount: $amount")
+
                             paymentSumList.add(
                                 PaymentSummary(
-                                    paymentFor = paymentFor,
+                                    paymentFor = displayName,
                                     totalAmount = kotlin.math.abs(amount),
                                     date = formattedDate
                                 )
@@ -85,10 +94,7 @@ class HistoryViewModel @Inject constructor(
                     }
                 }
 
-                paymentSumList.sortByDescending {
-                    SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).parse(it.date)
-                }
-
+                Log.d("HistoryViewModel", "Total payments found: ${paymentSumList.size}")
 
                 val total = paymentSumList.sumOf { it.totalAmount }
                 _totalAmount.value = total
@@ -100,8 +106,17 @@ class HistoryViewModel @Inject constructor(
                 e.printStackTrace()
                 Log.e("HistoryViewModel", "fetchTotalPayments Error: ${e.message}")
             } finally {
-                loading.value = false
+                _loading.value = false
             }
+        }
+    }
+
+    private fun formatCardNumber(cardNumber: String): String {
+        val digitsOnly = cardNumber.replace(" ", "")
+        return if (digitsOnly.length == 16) {
+            " **** **** ${digitsOnly.substring(12, 16)}"
+        } else {
+            cardNumber
         }
     }
 }

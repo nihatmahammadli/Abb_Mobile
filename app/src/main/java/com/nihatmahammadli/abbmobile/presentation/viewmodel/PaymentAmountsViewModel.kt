@@ -35,8 +35,16 @@ class PaymentAmountsViewModel @Inject constructor(
         private fun formatAmount(amount: Double): String = "%.2f".format(amount)
     }
 
-    fun transferAmount(amount: Double, paymentType: String = "transfer", applyCashBack: Boolean = true,
+    fun transferAmount(amount: Double,
+                       paymentType: String = "transfer",
+                       applyCashBack: Boolean = true,
                        paymentFor: String? = null) {
+
+        Log.d("PaymentAmountsViewModel", "transferAmount called with:")
+        Log.d("PaymentAmountsViewModel", "Amount: $amount")
+        Log.d("PaymentAmountsViewModel", "PaymentType: $paymentType")
+        Log.d("PaymentAmountsViewModel", "PaymentFor: '$paymentFor'")
+
         if (amount <= 0) {
             _transferResult.value = TransferResult.Error("Məbləğ müsbət olmalıdır")
             return
@@ -78,12 +86,6 @@ class PaymentAmountsViewModel @Inject constructor(
                 val totalBalance = transactionsSnapshot.documents
                     .sumOf { it.getDouble("amount") ?: 0.0 }
 
-                transactionsSnapshot.documents.forEach {
-                    val t = it.getString("type")
-                    val a = it.getDouble("amount")
-                    Log.d("Debug", "Transaction type=$t, amount=$a")
-                }
-
                 if (totalBalance < amount) {
                     _transferResult.value = TransferResult.Error(
                         "Yetersiz balans! Mövcud balans: ${formatAmount(totalBalance)} AZN"
@@ -104,8 +106,12 @@ class PaymentAmountsViewModel @Inject constructor(
                     }
                 )
 
+                // PaymentFor sahəsini əlavə et (boş olsa belə)
                 if (!paymentFor.isNullOrEmpty()) {
                     paymentTransaction["paymentFor"] = paymentFor
+                    Log.d("PaymentAmountsViewModel", "PaymentFor added to transaction: '$paymentFor'")
+                } else {
+                    Log.d("PaymentAmountsViewModel", "PaymentFor is null or empty")
                 }
 
                 firestore.collection("users")
@@ -115,6 +121,8 @@ class PaymentAmountsViewModel @Inject constructor(
                     .collection("transaction")
                     .add(paymentTransaction)
                     .await()
+
+                Log.d("PaymentAmountsViewModel", "Transaction saved to Firebase successfully")
 
                 val cashbackAmount = calculateCashback(amount, paymentType)
                 val resultMessage = when(paymentType) {
@@ -142,10 +150,10 @@ class PaymentAmountsViewModel @Inject constructor(
                         .await()
                 }
 
-
                 _transferResult.value = TransferResult.Success(resultMessage)
 
             } catch (e: Exception) {
+                Log.e("PaymentAmountsViewModel", "Error in transferAmount: ${e.message}")
                 _transferResult.value = TransferResult.Error("Əməliyyat zamanı xəta baş verdi: ${e.message}")
             } finally {
                 _isLoading.value = false

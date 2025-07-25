@@ -104,6 +104,9 @@
         <action
             android:id="@+id/action_homePage_to_transfer"
             app:destination="@id/transfer" />
+        <action
+            android:id="@+id/action_homePage_to_history"
+            app:destination="@id/history" />
     </fragment>
     <fragment
         android:id="@+id/userInfo"
@@ -199,6 +202,12 @@
             android:name="paymentHorizontal"
             app:argType="com.nihatmahammadli.abbmobile.presentation.model.PaymentHorizontal"
             app:nullable="true"/>
+        <argument
+            android:name="cardNumber"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
+
     </fragment>
     <fragment
         android:id="@+id/transfer"

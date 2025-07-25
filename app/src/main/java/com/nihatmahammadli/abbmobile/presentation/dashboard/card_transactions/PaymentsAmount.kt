@@ -39,6 +39,14 @@
 
                 val paymentVertical = args.paymentVertical
                 val paymentHorizontal = args.paymentHorizontal
+                val cardNumber = args.cardNumber
+
+
+                if (!cardNumber.isNullOrEmpty()) {
+                    Toast.makeText(requireContext(), "Kart nömrəsi: $cardNumber", Toast.LENGTH_SHORT).show()
+                }
+
+
 
                 if (paymentVertical != null) {
                     Toast.makeText(requireContext(), "Vertical seçildi: ${paymentVertical.title}", Toast.LENGTH_SHORT).show()
@@ -68,11 +76,6 @@
                     val amountText = binding.topUpAmount.text.toString().replace(',', '.')
                     val amount = amountText.toDoubleOrNull()
 
-                    val paymentForValue = when {
-                        args.paymentVertical != null -> args.paymentVertical?.title
-                        args.paymentHorizontal != null -> args.paymentHorizontal?.title
-                        else -> null
-                    }
 
                     when {
                         amount == null -> Toast.makeText(requireContext(), "Məbləğ düzgün deyil", Toast.LENGTH_SHORT).show()
@@ -109,6 +112,16 @@
                 })
             }
 
+            private val paymentForValue: String? by lazy {
+                when {
+                    args.paymentVertical != null -> args.paymentVertical?.title
+                    args.paymentHorizontal != null -> args.paymentHorizontal?.title
+                    !args.cardNumber.isNullOrEmpty() -> args.cardNumber
+                    else -> null
+                }
+            }
+
+
             private fun addAmount(amount: Double) {
                 totalAmount += amount
                 totalAmount = (totalAmount * 100.0).roundToInt() / 100.0
@@ -128,6 +141,7 @@
                 binding.topUpAmount.setSelection(binding.topUpAmount.text.length)
             }
 
+            @SuppressLint("SetTextI18n")
             private fun resetAmount() {
                 totalAmount = 0.0
                 binding.topUpAmount.setText("0.00")

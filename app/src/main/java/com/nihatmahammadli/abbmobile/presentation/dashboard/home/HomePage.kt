@@ -27,6 +27,14 @@ import com.nihatmahammadli.abbmobile.presentation.providers.CardProvider
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
+import androidx.core.content.edit
+import androidx.navigation.NavOptions
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.nihatmahammadli.abbmobile.MainActivity
+import com.nihatmahammadli.abbmobile.presentation.model.PaymentSummary
+import com.nihatmahammadli.abbmobile.presentation.viewmodel.HistoryViewModel
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @AndroidEntryPoint
 class HomePage : Fragment() {
@@ -41,6 +49,7 @@ class HomePage : Fragment() {
 
 
     private val viewModel: CardViewModel by activityViewModels()
+    private val historyViewModel: HistoryViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +76,9 @@ class HomePage : Fragment() {
 
     private fun initUI() {
         setupHorizontalRecycler()
-        setupTransactionSection()
+        getHistory()
+        goHistory()
+        goProfile()
         setupQrScan()
         setupCardSection()
         applyViewPagerOverlap()
@@ -89,6 +100,7 @@ class HomePage : Fragment() {
         viewModel.fetchUserNameFromFirebase()
         viewModel.fetchCardsWithBalances()
         viewModel.fetchTotalCashback()
+        historyViewModel.fetchTotalPayments()
     }
 
 
@@ -116,8 +128,26 @@ class HomePage : Fragment() {
             }
         }
 
-    }
+        historyViewModel.paymentSum.observe(viewLifecycleOwner){ list ->
+            val sortedList = list.sortedByDescending {
+                SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).parse(it.date)
+            }
+            val transactions = sortedList.take(10)
 
+            transactionAdapter = TransactionAdapter(transactions)
+
+
+            binding.recyclerViewTransactions.layoutManager = LinearLayoutManager(requireContext())
+            binding.recyclerViewTransactions.adapter = transactionAdapter
+
+            binding.lastestTransaction.setOnClickListener { toggleTransactionList(transactions) }
+
+
+            updateTransactionUI(transactions)
+
+        }
+
+    }
 
         @SuppressLint("DefaultLocale")
         private fun updateCardAdapter(uiCards: List<com.nihatmahammadli.abbmobile.domain.model.UiCard>) {
@@ -158,6 +188,7 @@ class HomePage : Fragment() {
             cards.addAll(CardProvider.getCards())
             cardAdapter.updateItems(cards)
         }
+
     private fun handleTopUpClick(card: com.nihatmahammadli.abbmobile.domain.model.UiCard) {
         findNavController().navigate(R.id.action_homePage_to_topUp)
     }
@@ -187,19 +218,9 @@ class HomePage : Fragment() {
         }
     }
 
-    private fun setupTransactionSection() {
-        val transactions = getDummyTransactions()
-        transactionAdapter = TransactionAdapter(transactions)
 
-        binding.recyclerViewTransactions.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerViewTransactions.adapter = transactionAdapter
 
-        binding.lastestTransaction.setOnClickListener { toggleTransactionList(transactions) }
-
-        updateTransactionUI(transactions)
-    }
-
-    private fun toggleTransactionList(transactions: List<Transaction>) {
+    private fun toggleTransactionList(transactions: List<PaymentSummary>) {
         isExpanded = !isExpanded
         updateArrowIcon()
         updateTransactionUI(transactions)
@@ -210,7 +231,7 @@ class HomePage : Fragment() {
         binding.lastestTransaction.setCompoundDrawablesWithIntrinsicBounds(0, 0, icon, 0)
     }
 
-    private fun updateTransactionUI(transactions: List<Transaction>) {
+    private fun updateTransactionUI(transactions: List<PaymentSummary>) {
         if (isExpanded) {
             if (transactions.isEmpty()) {
                 binding.recyclerViewTransactions.visibility = View.GONE
@@ -225,14 +246,23 @@ class HomePage : Fragment() {
         }
     }
 
-    private fun getDummyTransactions(): List<Transaction> {
-        return listOf(
-            Transaction("Market", 75.5, "10.07.2025"),
-            Transaction("Online alış-veriş", 150.0, "09.07.2025"),
-            Transaction("İşıq pulu", 45.75, "08.07.2025"),
-            Transaction("Taksi", 12.0, "07.07.2025"),
-            Transaction("Restoran", 30.0, "06.07.2025")
-        )
+    private fun getHistory(){
+        historyViewModel.fetchTotalPayments()
+    }
+
+    private fun goHistory(){
+        binding.constraintLayoutTransaction.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_homePage_to_history,
+                null,
+                NavOptions.Builder()
+                    .setPopUpTo(R.id.history, true)
+                    .build()
+            )
+            (activity as MainActivity).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+                .selectedItemId = R.id.history
+
+        }
     }
 
     private fun setupQrScan() {
@@ -304,6 +334,7 @@ class HomePage : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n", "DefaultLocale")
     fun changeEyeIcon() {
         val sharedPref = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE)
         isSeen = sharedPref.getBoolean("isSeen", false)
@@ -332,7 +363,7 @@ class HomePage : Fragment() {
             val iconRes = if (isSeen) R.drawable.eye_open else R.drawable.eye_closed
             binding.eyeIcon.setImageResource(iconRes)
 
-            sharedPref.edit().putBoolean("isSeen", isSeen).apply()
+            sharedPref.edit { putBoolean("isSeen", isSeen) }
 
             updateCardAdapter(lastUiCards)
 
