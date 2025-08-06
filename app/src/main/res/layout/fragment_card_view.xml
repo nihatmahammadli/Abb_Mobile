@@ -10,7 +10,7 @@
     android:layout_height="match_parent"
     android:background="#96EDF1F9"
 
-    tools:context=".presentation.dashboard.card_view.CardView">
+    tools:context=".presentation.screens.CardView">
 
     <ImageButton
         android:id="@+id/leftBtn"

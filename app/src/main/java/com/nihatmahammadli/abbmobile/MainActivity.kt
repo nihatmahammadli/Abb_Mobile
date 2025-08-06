@@ -5,11 +5,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.nihatmahammadli.abbmobile.databinding.ActivityMainBinding
-import com.nihatmahammadli.abbmobile.presentation.ui.LocaleHelper
+import com.nihatmahammadli.abbmobile.presentation.components.sheet.FabDialogFragment
+import com.nihatmahammadli.abbmobile.presentation.components.ui.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         bottomNav.setupWithNavController(navController)
 
+        clickFab()
         menuInFragments()
         addDestinationMenu()
 
@@ -103,7 +104,13 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
 
+    fun clickFab(){
+        binding.fabIcon.setOnClickListener {
+            val bottomSheet = FabDialogFragment()
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+        }
     }
 
 

@@ -8,7 +8,7 @@
             android:background="@color/white"
             android:paddingHorizontal="10dp"
             android:paddingVertical="20dp"
-            tools:context=".presentation.dashboard.onboarding.CustomerTypeSelection">
+            tools:context=".presentation.screens.CustomerTypeSelection">
 
             <ImageView
                 android:id="@+id/imageView"

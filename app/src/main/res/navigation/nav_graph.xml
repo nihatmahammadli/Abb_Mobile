@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/signUp"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.sign.sign_up.SignUp"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.SignUp"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/enterDateOfBirth"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.sign.sign_up.EnterDateOfBirth"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.EnterDateOfBirth"
         android:label="fragment_enter_date_of_birth"
         tools:layout="@layout/fragment_enter_date_of_birth" >
 
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpWithFin"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.sign.sign_up.SignUpWithFin"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.SignUpWithFin"
         android:label="fragment_sign_up_with_fin"
         tools:layout="@layout/fragment_sign_up_with_fin" >
         <action
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.MainFragment"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -58,16 +58,16 @@
     </fragment>
     <fragment
         android:id="@+id/customerTypeSelection"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.CustomerTypeSelection"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.CustomerTypeSelection"
         android:label="fragment_customer_type_selection"
         tools:layout="@layout/fragment_customer_type_selection" />
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.MenuFragment"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.MenuFragment"
         android:label="MenuFragment" />
     <fragment
         android:id="@+id/signIn"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.sign.sign_in.SignIn"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.SignIn"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
@@ -78,7 +78,7 @@
     </fragment>
     <fragment
         android:id="@+id/homePage"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.home.HomePage"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.HomePage"
         android:label="fragment_home_page"
         tools:layout="@layout/fragment_home_page" >
         <action
@@ -110,7 +110,7 @@
     </fragment>
     <fragment
         android:id="@+id/userInfo"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.sign.user_info.UserInfo"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.UserInfo"
         android:label="fragment_user_info"
         tools:layout="@layout/fragment_user_info" >
         <action
@@ -119,17 +119,17 @@
     </fragment>
     <fragment
         android:id="@+id/history"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.history.History"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.History"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/forYou"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.for_you.ForYou"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.ForYou"
         android:label="fragment_for_you"
         tools:layout="@layout/fragment_for_you" />
     <dialog
         android:id="@+id/cardOrderSheet"
-        android:name="com.nihatmahammadli.abbmobile.presentation.components.CardOrderSheet"
+        android:name="com.nihatmahammadli.abbmobile.presentation.components.sheet.CardOrderSheet"
         android:label="fragment_card_order_sheet"
         tools:layout="@layout/fragment_card_order_sheet" >
 
@@ -139,7 +139,7 @@
     </dialog>
     <fragment
         android:id="@+id/orderNewCard"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.order_card.OrderNewCard"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.OrderNewCard"
         android:label="fragment_order_new_card"
         tools:layout="@layout/fragment_order_new_card" >
         <action
@@ -148,7 +148,7 @@
     </fragment>
     <fragment
         android:id="@+id/profile"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.profile.Profile"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.Profile"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -156,15 +156,18 @@
             app:destination="@id/customerTypeSelection"
             app:popUpTo="@id/profile"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profile_to_addNumber"
+            app:destination="@id/addNumber" />
     </fragment>
     <fragment
         android:id="@+id/topUp"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.card_transactions.TopUp"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.TopUp"
         android:label="fragment_top_up"
         tools:layout="@layout/fragment_top_up" />
     <fragment
         android:id="@+id/cardView"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.card_view.CardView"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.CardView"
         android:label="fragment_card_view"
         tools:layout="@layout/fragment_card_view" >
         <action
@@ -176,10 +179,13 @@
         <action
             android:id="@+id/action_cardView_to_transfer"
             app:destination="@id/transfer" />
+        <action
+            android:id="@+id/action_cardView_to_showMyCard"
+            app:destination="@id/showMyCard" />
     </fragment>
     <fragment
         android:id="@+id/payments"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.card_transactions.Payments"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.Payments"
         android:label="fragment_payments"
         tools:layout="@layout/fragment_payments" >
         <action
@@ -188,7 +194,7 @@
     </fragment>
     <fragment
         android:id="@+id/paymentsAmount"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.card_transactions.PaymentsAmount"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.PaymentsAmount"
         android:label="PaymentsAmount" >
         <argument
             android:name="fromTransferPage"
@@ -211,12 +217,22 @@
     </fragment>
     <fragment
         android:id="@+id/transfer"
-        android:name="com.nihatmahammadli.abbmobile.presentation.dashboard.card_transactions.Transfer"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.Transfer"
         android:label="fragment_transfer"
         tools:layout="@layout/fragment_transfer" >
         <action
             android:id="@+id/action_transfer_to_paymentsAmount"
             app:destination="@id/paymentsAmount" />
     </fragment>
+    <fragment
+        android:id="@+id/addNumber"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.AddNumber"
+        android:label="fragment_add_number"
+        tools:layout="@layout/fragment_add_number" />
+    <fragment
+        android:id="@+id/showMyCard"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.ShowMyCard"
+        android:label="fragment_show_my_card"
+        tools:layout="@layout/fragment_show_my_card" />
 
 </navigation>

@@ -2,7 +2,7 @@ package com.nihatmahammadli.abbmobile
 
 import android.app.Application
 import android.content.Context
-import com.nihatmahammadli.abbmobile.presentation.ui.LocaleHelper
+import com.nihatmahammadli.abbmobile.presentation.components.ui.LocaleHelper
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp

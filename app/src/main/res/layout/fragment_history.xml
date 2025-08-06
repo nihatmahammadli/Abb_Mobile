@@ -7,7 +7,7 @@
     android:paddingVertical="40dp"
     android:paddingHorizontal="20dp"
     android:background="#F2F0F0"
-    tools:context=".presentation.dashboard.history.History">
+    tools:context=".presentation.screens.History">
 
 
     <TextView

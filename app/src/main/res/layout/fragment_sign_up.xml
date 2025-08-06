@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingVertical="40dp"
     android:paddingHorizontal="20dp"
-    tools:context=".presentation.dashboard.onboarding.sign.sign_up.SignUp">
+    tools:context=".presentation.screens.SignUp">
 
         <ImageView
             android:id="@+id/leftBtn"

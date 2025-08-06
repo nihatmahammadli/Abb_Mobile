@@ -2,8 +2,8 @@ package com.nihatmahammadli.abbmobile.presentation.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.CustomerTypeSelection
-import com.nihatmahammadli.abbmobile.presentation.dashboard.onboarding.MenuFragment
+import com.nihatmahammadli.abbmobile.presentation.screens.CustomerTypeSelection
+import com.nihatmahammadli.abbmobile.presentation.screens.MenuFragment
 
 
 class MyPagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment){

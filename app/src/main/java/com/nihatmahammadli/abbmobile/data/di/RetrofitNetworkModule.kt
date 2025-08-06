@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @InstallIn(SingletonComponent::class)
 class RetrofitNetworkModule {
     @Provides
-    fun provideBaseUrl() = "https://fakecardapi.onrender.com"
+    fun provideBaseUrl() = " https://fakecardapi-1.onrender.com/"
 
     @Provides
     @Singleton

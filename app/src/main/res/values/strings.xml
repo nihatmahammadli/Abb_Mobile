@@ -30,7 +30,7 @@
     <string name="name">Name</string>
     <string name="surname">Surname</string>
     <string name="more">More</string>
-    <string name="for_you">For You</string>
+    <string name="for_you">For you</string>
     <string name="history">History</string>
     <string name="home">Home</string>
     <string name="see_all">See all</string>
@@ -83,4 +83,9 @@
     <string name="_3_azn_2_miles_0_6667">3 AZN = 2 MILES (0.6667)</string>
     <string name="between_my_cards_and_account">Between my cards and account</string>
     <string name="sender_ncard_ac">Sender \nCard/Ac..</string>
+    <string name="username">Username</string>
+    <string name="e_mail">E-mail</string>
+    <string name="add_mobile_number">Add mobile number</string>
+    <string name="date">Date</string>
+    <string name="press_and_hold_to_copy_card_number">Press and hold to copy card number</string>
 </resources>

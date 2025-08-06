@@ -6,7 +6,7 @@
     android:paddingHorizontal="20dp"
     android:paddingVertical="40dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.dashboard.onboarding.sign.sign_up.SignUpWithFin">
+    tools:context=".presentation.screens.SignUpWithFin">
 
     <ImageView
         android:id="@+id/leftBtn"

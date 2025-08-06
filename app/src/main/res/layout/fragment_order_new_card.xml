@@ -7,7 +7,7 @@
     android:paddingHorizontal="20dp"
     android:background="#F2F0F0"
     android:paddingVertical="20dp"
-    tools:context=".presentation.dashboard.order_card.OrderNewCard">
+    tools:context=".presentation.screens.OrderNewCard">
 
     <ImageButton
         android:id="@+id/leftBtn"

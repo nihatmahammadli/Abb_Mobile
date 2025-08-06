@@ -6,7 +6,7 @@
     android:paddingVertical="40dp"
     android:paddingHorizontal="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.dashboard.onboarding.sign.sign_up.EnterDateOfBirth">
+    tools:context=".presentation.screens.EnterDateOfBirth">
 
 
     <ImageView

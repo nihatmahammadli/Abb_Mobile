@@ -9,7 +9,7 @@
     android:paddingTop="8dp"
     android:background="@drawable/bottomsheet_background"
     android:orientation="vertical"
-    tools:context=".presentation.components.CardOrderSheet">
+    tools:context=".presentation.components.sheet.CardOrderSheet">
 
     <View
         android:layout_width="33dp"

@@ -69,7 +69,7 @@ dependencies {
     implementation(libs.okhttp)
 
     // Material Design, Glide, Swipe
-    implementation ("com.google.android.material:material:1.11.0")
+    implementation ("com.google.android.material:material:1.12.0")
     implementation(libs.swiperefreshlayout)
     implementation(libs.glide)
 

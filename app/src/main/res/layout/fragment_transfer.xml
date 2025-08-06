@@ -8,7 +8,7 @@
     android:background="#F2F0F0"
 
     android:paddingHorizontal="20dp"
-    tools:context=".presentation.dashboard.card_transactions.Transfer">
+    tools:context=".presentation.screens.Transfer">
 
     <ImageButton
         android:id="@+id/leftBtn"

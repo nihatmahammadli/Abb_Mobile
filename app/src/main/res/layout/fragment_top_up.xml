@@ -7,7 +7,7 @@
     android:paddingHorizontal="20dp"
     android:background="#F2F0F0"
     android:paddingVertical="40dp"
-    tools:context=".presentation.dashboard.card_transactions.TopUp">
+    tools:context=".presentation.screens.TopUp">
 
     <ImageView
         android:id="@+id/transferIcon"
