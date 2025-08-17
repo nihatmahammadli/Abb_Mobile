@@ -1,7 +1,6 @@
 package com.nihatmahammadli.abbmobile.presentation.screens
 
 import android.annotation.SuppressLint
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,8 +9,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentCustomerTypeSelectionBinding
-
-
 
 class CustomerTypeSelection : Fragment() {
     private var _binding: FragmentCustomerTypeSelectionBinding? = null
@@ -30,6 +27,7 @@ class CustomerTypeSelection : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         goSignUp()
         goSignIn()
+        hideSwipe()
     }
 
     fun goSignUp(){
@@ -44,11 +42,23 @@ class CustomerTypeSelection : Fragment() {
         }
     }
 
+    fun showSwipeUp() {
+        if (_binding != null) {
+            binding.arrow.visibility = View.VISIBLE
+            binding.swipeText.visibility = View.VISIBLE
+            binding.swipeText.text = getString(R.string.swipe_for_menu)
+        }
+    }
+
+    fun hideSwipe() {
+        if (_binding != null) {
+            binding.arrow.visibility = View.GONE
+            binding.swipeText.visibility = View.GONE
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 }
-
-
-

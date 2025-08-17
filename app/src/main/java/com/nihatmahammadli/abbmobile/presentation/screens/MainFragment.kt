@@ -15,6 +15,7 @@ import com.nihatmahammadli.abbmobile.presentation.adapters.MyPagerAdapter
 class MainFragment : Fragment() {
     private var isRedirected = false
     private lateinit var binding: FragmentMainBinding
+    private lateinit var adapter: MyPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,9 +35,43 @@ class MainFragment : Fragment() {
             isRedirected = true
             findNavController().navigate(R.id.action_mainFragment_to_homePage)
         } else {
-            val adapter = MyPagerAdapter(this)
+            adapter = MyPagerAdapter(this)
             binding.viewPager.adapter = adapter
-            binding.viewPager.orientation = ViewPager2.ORIENTATION_VERTICAL
+
+            binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    updateSwipeIndicators(position)
+                }
+            })
+
+            binding.viewPager.post {
+                updateSwipeIndicators(0)
+            }
+        }
+    }
+
+    private fun updateSwipeIndicators(position: Int) {
+        binding.viewPager.post {
+            val fragmentTag = "f$position"
+            val currentFragment = childFragmentManager.findFragmentByTag(fragmentTag)
+
+            when (position) {
+                0 -> {
+                    (currentFragment as? CustomerTypeSelection)?.showSwipeUp()
+
+                    val nextFragmentTag = "f1"
+                    val nextFragment = childFragmentManager.findFragmentByTag(nextFragmentTag)
+                    (nextFragment as? MenuFragment)?.hideSwipe()
+                }
+                1 -> {
+                    (currentFragment as? MenuFragment)?.showSwipeDown()
+
+                    val prevFragmentTag = "f0"
+                    val prevFragment = childFragmentManager.findFragmentByTag(prevFragmentTag)
+                    (prevFragment as? CustomerTypeSelection)?.hideSwipe()
+                }
+            }
         }
     }
 

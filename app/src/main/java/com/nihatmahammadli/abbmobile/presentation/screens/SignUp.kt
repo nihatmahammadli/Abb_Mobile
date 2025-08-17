@@ -61,7 +61,33 @@ class SignUp : Fragment() {
             binding.btnContinue.isEnabled = enabled
             binding.btnContinue.alpha = if (enabled) 1f else 0.5f
         }
+
+        signUpViewModel.fcmToken.observe(viewLifecycleOwner) { token ->
+            token?.let {
+                sendLocalNotification()
+            }
+        }
     }
+
+    private fun sendLocalNotification() {
+        val channelId = "sign_up_channel"
+        val notificationManager = requireContext().getSystemService(android.app.NotificationManager::class.java)
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            val channel = android.app.NotificationChannel(channelId, "SignUp Notifications", android.app.NotificationManager.IMPORTANCE_HIGH)
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        val notification = androidx.core.app.NotificationCompat.Builder(requireContext(), channelId)
+            .setContentTitle("Xoş gəlmisiniz!")
+            .setContentText("Qeydiyyatınız uğurla tamamlandı.")
+            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .build()
+
+        notificationManager.notify(1, notification)
+    }
+
+
 
 
     private fun observeSignUpResult() {

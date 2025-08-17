@@ -64,11 +64,13 @@
             app:layout_constraintTop_toBottomOf="@+id/textView11"
             app:layout_constraintBottom_toTopOf="@+id/btnContinue"
             app:layout_constraintStart_toStartOf="parent"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintVertical_bias="0.1">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/emailText"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_grey"
@@ -86,6 +88,7 @@
             app:layout_constraintBottom_toTopOf="@+id/btnContinue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:endIconMode="password_toggle"
             app:layout_constraintTop_toBottomOf="@+id/emailInputLayout"
             app:layout_constraintVertical_bias="0.01999998">
 
@@ -94,7 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_grey"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPassword"
                     android:padding="16dp" />
         </com.google.android.material.textfield.TextInputLayout>
         <Button

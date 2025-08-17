@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="20dp"
     android:background="#F2F0F0"
-    android:paddingVertical="20dp"
+    android:paddingVertical="40dp"
     tools:context=".presentation.screens.OrderNewCard">
 
     <ImageButton

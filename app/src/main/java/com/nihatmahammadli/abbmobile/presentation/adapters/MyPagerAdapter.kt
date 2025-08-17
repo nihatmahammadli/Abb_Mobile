@@ -5,8 +5,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.nihatmahammadli.abbmobile.presentation.screens.CustomerTypeSelection
 import com.nihatmahammadli.abbmobile.presentation.screens.MenuFragment
 
+class MyPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+    override fun getItemCount(): Int = 2
 
-class MyPagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment){
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> CustomerTypeSelection()
@@ -14,5 +15,4 @@ class MyPagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment){
             else -> CustomerTypeSelection()
         }
     }
-    override fun getItemCount(): Int = 2
 }

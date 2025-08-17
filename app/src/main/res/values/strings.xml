@@ -88,4 +88,5 @@
     <string name="add_mobile_number">Add mobile number</string>
     <string name="date">Date</string>
     <string name="press_and_hold_to_copy_card_number">Press and hold to copy card number</string>
+    <string name="swipe_down_to_close">Swipe down to close</string>
 </resources>

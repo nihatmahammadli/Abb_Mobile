@@ -87,6 +87,9 @@ dependencies {
     // Circle indicator
     implementation("me.relex:circleindicator:2.1.6")
 
+    // FCM
+    implementation("com.google.firebase:firebase-messaging:23.2.1")
+
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

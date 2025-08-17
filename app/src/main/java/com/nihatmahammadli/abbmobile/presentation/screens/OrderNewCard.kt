@@ -40,10 +40,8 @@ class OrderNewCard : Fragment() {
             setupObservers()
         }
         viewPagerOverlapEffect()
-
-
-
         viewModel.fetchSingleCardFromApi()
+        goBack()
     }
 
     private fun setupAdapter() {
@@ -106,5 +104,11 @@ class OrderNewCard : Fragment() {
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun goBack(){
+        binding.leftBtn.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 }

@@ -8,25 +8,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentMenuBinding
 import com.nihatmahammadli.abbmobile.presentation.components.ui.LocaleHelper
 
 class MenuFragment : Fragment() {
     private lateinit var binding: FragmentMenuBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentMenuBinding.inflate(inflater,container,false)
+    ): View {
+        binding = FragmentMenuBinding.inflate(inflater, container, false)
+
         callClick()
         changeLanguageAz()
         changeLanguageEn()
         changeLanguageRu()
+        hideSwipe() // Əvvəlcə gizlət
+
         return binding.root
     }
 
@@ -61,5 +65,14 @@ class MenuFragment : Fragment() {
         }
     }
 
+    fun showSwipeDown() {
+        binding.arrow.visibility = View.VISIBLE
+        binding.textView4.visibility = View.VISIBLE
+        binding.textView4.text = getString(R.string.swipe_for_menu)
+    }
 
+    fun hideSwipe() {
+        binding.arrow.visibility = View.GONE
+        binding.textView4.visibility = View.GONE
+    }
 }

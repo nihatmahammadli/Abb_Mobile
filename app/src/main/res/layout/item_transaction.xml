@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:layout_marginTop="10dp">
 
     <TextView
         android:id="@+id/titleTextView"
@@ -24,7 +25,7 @@
         android:layout_height="wrap_content"
         android:text="100 AZN"
         android:textSize="16sp"
-        android:textColor="@android:color/holo_green_dark"
+        android:textColor="#2058BB"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />

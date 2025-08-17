@@ -2,6 +2,7 @@ package com.nihatmahammadli.abbmobile.data.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,5 +23,11 @@ object NetworkModule {
     @Singleton
     fun providesFireStore(): FirebaseFirestore {
         return FirebaseFirestore.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun providesFirebaseMessaging(): FirebaseMessaging{
+        return FirebaseMessaging.getInstance()
     }
 }
