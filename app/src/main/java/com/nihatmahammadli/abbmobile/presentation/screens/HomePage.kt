@@ -30,6 +30,7 @@ import androidx.core.content.edit
 import androidx.navigation.NavOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.nihatmahammadli.abbmobile.MainActivity
+import com.nihatmahammadli.abbmobile.presentation.components.notification.NotificationHelper
 import com.nihatmahammadli.abbmobile.presentation.model.PaymentSummary
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.HistoryViewModel
 import java.text.SimpleDateFormat
@@ -71,6 +72,16 @@ class HomePage : Fragment() {
             viewModel.fetchTotalCashback()
         }
     }
+
+//    fun testNotification(){
+//        binding.createAutoPayment.setOnClickListener {
+//            NotificationHelper.generateNotification(
+//                requireContext(),
+//                "Welcome to ABB Mobile",
+//                "You have successfully signed up",
+//            )
+//        }
+//    }
 
 
     private fun initUI() {

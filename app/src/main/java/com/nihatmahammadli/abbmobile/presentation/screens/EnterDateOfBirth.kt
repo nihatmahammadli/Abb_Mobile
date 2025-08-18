@@ -19,6 +19,8 @@ import com.nihatmahammadli.abbmobile.databinding.FragmentEnterDateOfBirthBinding
 import java.time.LocalDate
 import androidx.core.content.edit
 import androidx.navigation.NavOptions
+import com.nihatmahammadli.abbmobile.presentation.components.notification.MyFirebaseMessagingService
+import com.nihatmahammadli.abbmobile.presentation.components.notification.NotificationHelper
 
 class EnterDateOfBirth : Fragment() {
     private lateinit var binding: FragmentEnterDateOfBirthBinding
@@ -104,6 +106,13 @@ class EnterDateOfBirth : Fragment() {
                         .setPopUpTo(R.id.nav_graph, true)
                         .build()
                 )
+
+                NotificationHelper.generateNotification(
+                    requireContext(),
+                    "Welcome to ABB Mobile",
+                    "You have successfully signed up",
+                    )
+
             } else {
                 when {
                     user == null -> Toast.makeText(requireContext(), "Please sign in", Toast.LENGTH_SHORT).show()
