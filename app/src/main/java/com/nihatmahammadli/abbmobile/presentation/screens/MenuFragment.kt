@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentMenuBinding
 import com.nihatmahammadli.abbmobile.presentation.components.ui.LocaleHelper
@@ -29,7 +30,8 @@ class MenuFragment : Fragment() {
         changeLanguageAz()
         changeLanguageEn()
         changeLanguageRu()
-        hideSwipe() // Əvvəlcə gizlət
+        hideSwipe()
+        goServiceNetwork()
 
         return binding.root
     }
@@ -74,5 +76,11 @@ class MenuFragment : Fragment() {
     fun hideSwipe() {
         binding.arrow.visibility = View.GONE
         binding.textView4.visibility = View.GONE
+    }
+
+    fun goServiceNetwork(){
+        binding.serviceNetwork.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_serviceNetwork)
+        }
     }
 }

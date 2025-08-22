@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
     id("kotlin-parcelize")
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
@@ -56,6 +57,7 @@ dependencies {
     //Dagger
     implementation("com.google.dagger:hilt-android:2.56.2")
     implementation(libs.androidx.recyclerview)
+    implementation(libs.play.services.maps)
     ksp("com.google.dagger:hilt-android-compiler:2.56.2")
 
     // Firebase

@@ -55,6 +55,9 @@
             app:destination="@id/homePage"
             app:popUpTo="@id/mainFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_mainFragment_to_serviceNetwork"
+            app:destination="@id/serviceNetwork" />
     </fragment>
     <fragment
         android:id="@+id/customerTypeSelection"
@@ -234,5 +237,10 @@
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.ShowMyCard"
         android:label="fragment_show_my_card"
         tools:layout="@layout/fragment_show_my_card" />
+    <fragment
+        android:id="@+id/serviceNetwork"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.ServiceNetwork"
+        android:label="fragment_service_network"
+        tools:layout="@layout/fragment_service_network" />
 
 </navigation>
