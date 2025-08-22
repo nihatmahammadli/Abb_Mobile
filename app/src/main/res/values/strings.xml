@@ -89,4 +89,6 @@
     <string name="date">Date</string>
     <string name="press_and_hold_to_copy_card_number">Press and hold to copy card number</string>
     <string name="swipe_down_to_close">Swipe down to close</string>
+    <string name="landline_number">Landline number</string>
+    <string name="short_number">Short number</string>
 </resources>

@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_mainFragment_to_serviceNetwork"
             app:destination="@id/serviceNetwork" />
+        <action
+            android:id="@+id/action_mainFragment_to_contact"
+            app:destination="@id/contact" />
     </fragment>
     <fragment
         android:id="@+id/customerTypeSelection"
@@ -67,7 +70,8 @@
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.MenuFragment"
-        android:label="MenuFragment" />
+        android:label="MenuFragment"
+        tools:layout="@layout/fragment_menu"/>
     <fragment
         android:id="@+id/signIn"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.SignIn"
@@ -198,7 +202,8 @@
     <fragment
         android:id="@+id/paymentsAmount"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.PaymentsAmount"
-        android:label="PaymentsAmount" >
+        android:label="PaymentsAmount"
+        tools:layout="@layout/fragment_payments_amount">
         <argument
             android:name="fromTransferPage"
             app:argType="boolean"
@@ -242,5 +247,10 @@
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.ServiceNetwork"
         android:label="fragment_service_network"
         tools:layout="@layout/fragment_service_network" />
+    <fragment
+        android:id="@+id/contact"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.Contact"
+        android:label="fragment_contact"
+        tools:layout="@layout/fragment_contact" />
 
 </navigation>

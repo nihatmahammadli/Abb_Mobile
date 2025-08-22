@@ -26,14 +26,19 @@ class MenuFragment : Fragment() {
     ): View {
         binding = FragmentMenuBinding.inflate(inflater, container, false)
 
+        initUi()
+
+        return binding.root
+    }
+
+    fun initUi(){
         callClick()
         changeLanguageAz()
         changeLanguageEn()
         changeLanguageRu()
         hideSwipe()
         goServiceNetwork()
-
-        return binding.root
+        goContact()
     }
 
     @SuppressLint("UseKtx")
@@ -81,6 +86,12 @@ class MenuFragment : Fragment() {
     fun goServiceNetwork(){
         binding.serviceNetwork.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_serviceNetwork)
+        }
+    }
+
+    fun goContact(){
+        binding.contact.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_contact)
         }
     }
 }
