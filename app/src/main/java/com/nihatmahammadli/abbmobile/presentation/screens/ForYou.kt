@@ -10,7 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentForYouBinding
 import com.nihatmahammadli.abbmobile.presentation.adapters.ForYouButtonAdapter
+import com.nihatmahammadli.abbmobile.presentation.adapters.HorizontalImageAdapter
 import com.nihatmahammadli.abbmobile.presentation.adapters.NewsAdapter
+import com.nihatmahammadli.abbmobile.presentation.adapters.OffersAdapter
+import com.nihatmahammadli.abbmobile.presentation.components.decoration.FirstItemSpacingDecoration
+import com.nihatmahammadli.abbmobile.presentation.components.dummyData.ImageListDummy
 import com.nihatmahammadli.abbmobile.presentation.model.ForYouButton
 import com.nihatmahammadli.abbmobile.presentation.model.NewsItem
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.ForYouViewModel
@@ -21,39 +25,22 @@ class ForYou : Fragment() {
     private lateinit var binding: FragmentForYouBinding
     private lateinit var newsAdapter: NewsAdapter
     private lateinit var buttonsAdapter: ForYouButtonAdapter
-
+    private lateinit var offersAdapter: OffersAdapter
     private val viewModel: ForYouViewModel by viewModels()
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    val newsImageList = ImageListDummy.newsImageList
+    val imageList = ImageListDummy.offersImageList
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentForYouBinding.inflate(inflater, container, false)
-        setUpNewsAdapter()
         setUpButtonAdapter()
+        setUpAdapters()
 
         return binding.root
     }
-
-    fun setUpNewsAdapter() {
-        newsAdapter = NewsAdapter( mutableListOf(
-            NewsItem(0,"Xəbərlər",R.drawable.news_1),
-            NewsItem(1,"Sığorta",R.drawable.news_2),
-            NewsItem(2,"Tətbiqdə yeniliklər",R.drawable.news_3),
-            NewsItem(3,"Bilirdinizmi?",R.drawable.news_4),
-            NewsItem(4,"İnvestisiya xəbərləri",R.drawable.news_5),
-            NewsItem(5,"Partnyor endirimləri",R.drawable.news_6)
-        ))
-        binding.newRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.newRecyclerView.adapter = newsAdapter
-    }
-
-
 
     fun setUpButtonAdapter() {
         buttonsAdapter = ForYouButtonAdapter()
@@ -66,14 +53,27 @@ class ForYou : Fragment() {
                 ForYouButton("Cashback", "$cashback ₼", R.drawable.finance_ic),
                 ForYouButton("ƏDV", "0.0 ₼", R.drawable.qr_ic),
                 ForYouButton("Miles", "Order", R.drawable.miles_ic),
-
                 )
 
             buttonsAdapter.setData(buttonList)
         }
     }
 
+    fun setUpAdapters(){
+        offersAdapter = OffersAdapter(imageList)
+        newsAdapter = NewsAdapter(newsImageList)
 
+        binding.offersRcyView.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = offersAdapter
+
+            val spacing = resources.getDimensionPixelSize(R.dimen.item_spacing)
+            addItemDecoration(FirstItemSpacingDecoration(spacing))
+        }
+
+        binding.newRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.newRecyclerView.adapter = newsAdapter
+    }
 
 
 }

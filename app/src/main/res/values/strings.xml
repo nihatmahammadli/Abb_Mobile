@@ -91,4 +91,9 @@
     <string name="swipe_down_to_close">Swipe down to close</string>
     <string name="landline_number">Landline number</string>
     <string name="short_number">Short number</string>
+    <string name="all_offers">All Offers</string>
+    <string name="you_have_2_active_offers">You have 2 active offers</string>
+    <string name="quot_faydal_quot_club">\"Faydalı\" club</string>
+    <string name="tamkart_partners">TamKart partners</string>
+    <string name="partner_services">Partner services</string>
 </resources>
