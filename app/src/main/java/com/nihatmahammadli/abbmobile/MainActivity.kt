@@ -101,6 +101,12 @@ class MainActivity : AppCompatActivity() {
                     }
                     true
                 }
+                R.id.more -> {
+                    if (navController.currentDestination?.id != R.id.more){
+                        navController.navigate(R.id.more,null,navOptions)
+                    }
+                    true
+                }
                 else -> false
             }
         }

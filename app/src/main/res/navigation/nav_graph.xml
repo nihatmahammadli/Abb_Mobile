@@ -252,5 +252,10 @@
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.Contact"
         android:label="fragment_contact"
         tools:layout="@layout/fragment_contact" />
+    <fragment
+        android:id="@+id/more"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.More"
+        android:label="fragment_more"
+        tools:layout="@layout/fragment_more" />
 
 </navigation>

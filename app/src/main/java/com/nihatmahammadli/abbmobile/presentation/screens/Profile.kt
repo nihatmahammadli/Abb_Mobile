@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.nihatmahammadli.abbmobile.MainActivity
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentProfileBinding
+import com.nihatmahammadli.abbmobile.presentation.components.sheet.LogOutBottomSheet
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,7 +38,9 @@ class Profile : Fragment() {
     }
 
     fun initUI(){
-        logOut()
+        binding.logOut.setOnClickListener {
+            showLogOutBottomSheet()
+        }
         goBack()
         setUserInfos()
         copyText()
@@ -81,20 +84,25 @@ class Profile : Fragment() {
     }
 
 
-    fun logOut() {
-        binding.logOut.setOnClickListener {
-            profileViewModel.logOut()
-
-            val sharedPref = requireActivity().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-            sharedPref.edit { putBoolean("isLoggedIn", false) }
-
-            val intent = Intent(requireActivity(), MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            requireActivity().finish()
+    private fun showLogOutBottomSheet() {
+        val bottomSheet = LogOutBottomSheet {
+            performLogOut()
         }
-
+        bottomSheet.show(parentFragmentManager, "LogOutBottomSheet")
     }
+
+    private fun performLogOut() {
+        profileViewModel.logOut()
+
+        val sharedPref = requireActivity().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        sharedPref.edit { putBoolean("isLoggedIn", false) }
+
+        val intent = Intent(requireActivity(), MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        requireActivity().finish()
+    }
+
 
     fun copyText(){
         binding.customerIdText.setOnClickListener {
