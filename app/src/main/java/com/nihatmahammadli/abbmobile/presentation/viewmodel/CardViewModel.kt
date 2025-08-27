@@ -42,6 +42,8 @@
         private val _cashbackTotal = MutableLiveData<Double>()
         val cashbackTotal: LiveData<Double> = _cashbackTotal
 
+
+
         var hasFetchedCards = false
         var hasFetchedUserName = false
 
@@ -329,5 +331,8 @@
                     }
                 }
         }
+
+
+
 
     }

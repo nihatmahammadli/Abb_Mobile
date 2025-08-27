@@ -47,7 +47,6 @@ class HomePage : Fragment() {
     private var isExpanded = false
     private var isSeen = false
 
-
     private val viewModel: CardViewModel by activityViewModels()
     private val historyViewModel: HistoryViewModel by activityViewModels()
 
@@ -69,9 +68,9 @@ class HomePage : Fragment() {
             viewModel.fetchCardsWithBalances()
             viewModel.fetchUserNameFromFirebase()
             viewModel.fetchCardsFromFirebase()
-            viewModel.fetchTotalCashback()
         }
         viewModel.listenToCardTransactions()
+        viewModel.fetchTotalCashback()
     }
 
 //    fun testNotification(){

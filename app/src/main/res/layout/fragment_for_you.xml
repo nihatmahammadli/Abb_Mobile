@@ -131,7 +131,8 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+                app:layout_constraintTop_toBottomOf="@+id/cardView4"
+                tools:ignore="HardcodedText" />
 
             <ImageView
                 android:id="@+id/imageView8"
@@ -149,7 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Special offers for you"
+                android:text="@string/special_offers_for_you"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -235,7 +236,8 @@
                             android:fontFamily="@font/abril_fatface"
                             android:text="tam."
                             android:textSize="14sp"
-                            android:textColor="#2058BB" />
+                            android:textColor="#2058BB"
+                            tools:ignore="HardcodedText" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -298,7 +300,7 @@
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Online services"
+                        android:text="@string/online_services"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -323,7 +325,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Randevu"
+                            android:text="@string/randevu"
                             android:textSize="18sp"
                             android:textColor="@color/black"
                             android:layout_marginStart="16dp"/>
@@ -353,7 +355,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:text="Card order"
+                            android:text="@string/card_order"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
@@ -377,7 +379,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Loan order"
+                            android:text="@string/loan_order"
                             android:textSize="18sp"
                             android:textColor="@color/black"
                             android:layout_marginStart="15dp"/>

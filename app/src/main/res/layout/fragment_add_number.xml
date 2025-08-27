@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:text="You see the registered mobile number"
+        android:text="@string/you_see_the_registered_mobile_number"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,8 @@
             android:background="@drawable/edit_text_white"
             android:inputType="phone"
             android:maxLength="13"
-            android:padding="16dp" />
+            android:padding="16dp"
+            tools:ignore="HardcodedText" />
     </com.google.android.material.textfield.TextInputLayout>
 
 

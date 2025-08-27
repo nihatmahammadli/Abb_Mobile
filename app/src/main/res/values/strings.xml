@@ -96,4 +96,22 @@
     <string name="quot_faydal_quot_club">\"Faydalı\" club</string>
     <string name="tamkart_partners">TamKart partners</string>
     <string name="partner_services">Partner services</string>
+    <string name="you_see_the_registered_mobile_number">You see the registered mobile number</string>
+    <string name="special_offers_for_you">Special offers for you</string>
+    <string name="online_services">Online services</string>
+    <string name="randevu">Randevu</string>
+    <string name="card_order">Card order</string>
+    <string name="loan_order">Loan order</string>
+    <string name="expenses">Expenses</string>
+    <string name="last_30_days">Last 30 days</string>
+    <string name="see_more">See more</string>
+    <string name="your_history_is_currently_empty">Your history is currently empty</string>
+    <string name="to_other_card">To other card</string>
+    <string name="with_number_to_card">With number to card</string>
+    <string name="enter_card_number">Enter card number</string>
+    <string name="other_transfers">Other transfers</string>
+    <string name="between_my_cards_and_accounts">Between my cards and accounts</string>
+    <string name="are_you_sure_to_log_out_of_the_n_device">Are you sure to log out of the \n device?</string>
+    <string name="when_you_exit_the_mobile_app_you_will_need_to_nregister_again">When you exit the mobile app, you will need to \nregister again.</string>
+    <string name="cancel">Cancel</string>
 </resources>

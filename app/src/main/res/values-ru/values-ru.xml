@@ -51,9 +51,9 @@
     <string name="select_relevant_option">Выберите соответствующий вариант</string>
     <string name="order_new_card">Заказать новую карту</string>
     <string name="add_other_bank_s_card">Добавить карту другого банка</string>
-    <string name="top_up">Пополнить</string>
-    <string name="pay">Оплатить</string>
-    <string name="transfer">Перевести</string>
+    <string name="top_up">Попол</string>
+    <string name="pay">Оплат</string>
+    <string name="transfer">Перев</string>
     <string name="you_don_t_have_any_auto_payment_or_template_yet">У вас еще нет автоплатежей или шаблонов</string>
     <string name="auto_payment_transfer_and_templates">Автоплатежи/переводы и шаблоны</string>
     <string name="no_transactions_yet">Пока нет транзакций</string>
@@ -83,5 +83,36 @@
     <string name="_3_azn_2_miles_0_6667">3 AZN = 2 мили (0.6667)</string>
     <string name="between_my_cards_and_account">Между моими картами и счетом</string>
     <string name="sender_ncard_ac">Отправитель \nКарта/счет</string>
+    <string name="username">Имя</string>
+    <string name="e_mail">E-mail</string>
+    <string name="add_mobile_number">Добавить тел</string>
+    <string name="date">Дата</string>
+    <string name="press_and_hold_to_copy_card_number">Удержать для копии</string>
+    <string name="swipe_down_to_close">Смахнуть вниз</string>
+    <string name="landline_number">Городской тел</string>
+    <string name="short_number">Короткий №</string>
+    <string name="all_offers">Все предложения</string>
+    <string name="you_have_2_active_offers">2 активных предложения</string>
+    <string name="quot_faydal_quot_club">Клуб “Faydalı”</string>
+    <string name="tamkart_partners">Партнеры TamKart</string>
+    <string name="partner_services">Услуги партнера</string>
+    <string name="you_see_the_registered_mobile_number">Вы видите\nзарегистр. номер</string>
+    <string name="special_offers_for_you">Спецпредложения</string>
+    <string name="online_services">Онлайн сервисы</string>
+    <string name="randevu">Randevu</string>
+    <string name="card_order">Заказ карты</string>
+    <string name="loan_order">Заказ кредита</string>
+    <string name="expenses">Расходы</string>
+    <string name="last_30_days">Последние 30 дней</string>
+    <string name="see_more">Смотреть ещё</string>
+    <string name="your_history_is_currently_empty">История пуста</string>
+    <string name="to_other_card">На другую карту</string>
+    <string name="with_number_to_card">С номером на карту</string>
+    <string name="enter_card_number">Введите номер карты</string>
+    <string name="other_transfers">Другие переводы</string>
+    <string name="between_my_cards_and_accounts">Между моими картами и счетами</string>
+    <string name="are_you_sure_to_log_out_of_the_n_device">Вы точно выйти\nс устройства?</string>
+    <string name="when_you_exit_the_mobile_app_you_will_need_to_nregister_again">При выходе из приложения\nнужно будет зарегистрироваться снова</string>
+    <string name="cancel">Отмена</string>
 
 </resources>

@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.edit
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nihatmahammadli.abbmobile.MainActivity
@@ -22,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class Profile : Fragment() {
    private lateinit var binding: FragmentProfileBinding
-   private val profileViewModel: ProfileViewModel by viewModels()
+   private val profileViewModel: ProfileViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,6 +35,11 @@ class Profile : Fragment() {
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         initUI()
+
+        if (!profileViewModel.hasFetchedData) {
+            profileViewModel.getCustomerInfoFirebase()
+        }
+
         return binding.root
     }
 
@@ -45,7 +51,22 @@ class Profile : Fragment() {
         setUserInfos()
         copyText()
         goAddNumber()
+        setUpSwipeToRefresh()
     }
+
+    private fun setUpSwipeToRefresh(){
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            refreshData()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
+    private fun refreshData(){
+        profileViewModel.hasFetchedData = false  // flag sıfırlanır
+        profileViewModel.getCustomerInfoFirebase() // veri tekrar çekilir
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
+
 
     fun goAddNumber(){
         binding.arrowMobile.setOnClickListener {
@@ -80,7 +101,6 @@ class Profile : Fragment() {
         profileViewModel.mobileNumber.observe(viewLifecycleOwner){
             binding.mobileNumber.text = profileViewModel.mobileNumber.value
         }
-        profileViewModel.getCustomerInfoFirebase()
     }
 
 

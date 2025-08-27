@@ -77,5 +77,4 @@ class History : Fragment() {
         binding.rcyView.adapter = filterAdapter
     }
 
-
 }

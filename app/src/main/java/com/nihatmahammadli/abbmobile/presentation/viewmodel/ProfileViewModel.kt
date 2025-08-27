@@ -21,6 +21,8 @@ class ProfileViewModel @Inject constructor(
     val customerId = MutableLiveData<String>()
     val mobileNumber = MutableLiveData<String>()
 
+    var hasFetchedData = false
+
     val userFullName = MediatorLiveData<String>().apply {
         addSource(name) { combineNameAndSurname() }
         addSource(surName) { combineNameAndSurname() }
@@ -47,6 +49,7 @@ class ProfileViewModel @Inject constructor(
                     email.value = doc.getString("email")
                     mobileNumber.value = doc.getString("mobileNumber")
                 }
+                hasFetchedData = true
             }
     }
 

@@ -81,5 +81,36 @@
     <string name="_3_azn_2_miles_0_6667">3 AZN = 2 MİL (0.6667)</string>
     <string name="between_my_cards_and_account">Kartlarım və hesabım arasında</string>
     <string name="sender_ncard_ac">Göndərən \nKart/hesab</string>
+    <string name="username">İstifadəçi</string>
+    <string name="e_mail">E-poçt</string>
+    <string name="add_mobile_number">Mobil nömrə</string>
+    <string name="date">Tarix</string>
+    <string name="press_and_hold_to_copy_card_number">Kart nömrəsini\nsaxla basıb</string>
+    <string name="swipe_down_to_close">Aşağı sürüşdür</string>
+    <string name="landline_number">Telefon xəti</string>
+    <string name="short_number">Qısa nömrə</string>
+    <string name="all_offers">Bütün təkliflər</string>
+    <string name="you_have_2_active_offers">2 aktiv təklifiniz var</string>
+    <string name="quot_faydal_quot_club">“Faydalı” klubu</string>
+    <string name="tamkart_partners">TamKart tərəfdaşlar</string>
+    <string name="partner_services">Tərəfdaş xidmətlər</string>
+    <string name="you_see_the_registered_mobile_number">Qeydiyyatdan keçmiş\nnömrə görünür</string>
+    <string name="special_offers_for_you">Xüsusi təkliflər</string>
+    <string name="online_services">Onlayn xidmətlər</string>
+    <string name="randevu">Randevu</string>
+    <string name="card_order">Kart sifarişi</string>
+    <string name="loan_order">Kredit sifarişi</string>
+    <string name="expenses">Xərclər</string>
+    <string name="last_30_days">Son 30 gün</string>
+    <string name="see_more">Daha çox</string>
+    <string name="your_history_is_currently_empty">Tarixçəniz boşdur</string>
+    <string name="to_other_card">Başqa karta</string>
+    <string name="with_number_to_card">Nömrə ilə karta</string>
+    <string name="enter_card_number">Kart nömrəsi daxil edin</string>
+    <string name="other_transfers">Digər köçürmələr</string>
+    <string name="between_my_cards_and_accounts">Kartlar və hesablar arasında</string>
+    <string name="are_you_sure_to_log_out_of_the_n_device">Həqiqətən çıxmaq\nistəyirsiniz?</string>
+    <string name="when_you_exit_the_mobile_app_you_will_need_to_nregister_again">Tətbiqi bağlayanda\nyenidən qeydiyyatdan keçməlisiniz</string>
+    <string name="cancel">Ləğv et</string>
 
 </resources>

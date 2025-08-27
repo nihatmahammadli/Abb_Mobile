@@ -66,7 +66,7 @@
                 android:id="@+id/textView28"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Expenses"
+                android:text="@string/expenses"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -80,9 +80,10 @@
                 android:textColor="#2058BB"
                 android:gravity="center"
                 android:textSize="13sp"
-                android:text="Last 30 days"
+                android:text="@string/last_30_days"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UseCompatTextViewDrawableXml" />
 
             <TextView
                 android:id="@+id/amount"
@@ -93,7 +94,8 @@
                 android:textColor="@color/black"
                 android:textSize="25sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView28" />
+                app:layout_constraintTop_toBottomOf="@+id/textView28"
+                tools:ignore="HardcodedText" />
 
             <ProgressBar
                 android:id="@+id/progressBar2"
@@ -125,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="See more"
+                android:text="@string/see_more"
                 android:textColor="#2058BB"
                 app:layout_constraintBottom_toBottomOf="@+id/seeMoreBtn"
                 app:layout_constraintStart_toEndOf="@+id/seeMoreBtn"
@@ -182,7 +184,7 @@
                 android:id="@+id/emptyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your history is currently empty"
+                android:text="@string/your_history_is_currently_empty"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp"
