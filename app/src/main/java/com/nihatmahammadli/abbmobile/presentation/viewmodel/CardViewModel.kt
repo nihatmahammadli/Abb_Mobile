@@ -66,7 +66,6 @@
                         _cards.value = listOf(validCard)
                         saveSingleCardToFirebase(validCard)
 
-                        // 🔥 Firestore-da orderedCard = true qeyd et:
                         val uid = FirebaseAuth.getInstance().currentUser?.uid
                         uid?.let {
                             FirebaseFirestore.getInstance()
@@ -295,4 +294,40 @@
                 }
             }
         }
+
+        fun listenToCardTransactions() {
+            val uid = firebaseAuth.currentUser?.uid ?: return
+
+            firestore.collection("users")
+                .document(uid)
+                .collection("cards")
+                .addSnapshotListener { cardSnapshots, e ->
+                    if (e != null || cardSnapshots == null) return@addSnapshotListener
+
+                    for (cardDoc in cardSnapshots.documents) {
+                        val cardId = cardDoc.id
+
+                        firestore.collection("users")
+                            .document(uid)
+                            .collection("cards")
+                            .document(cardId)
+                            .collection("transaction")
+                            .addSnapshotListener { transSnapshots, _ ->
+                                if (transSnapshots == null) return@addSnapshotListener
+
+                                val totalAmount = transSnapshots.documents
+                                    .sumOf { it.getDouble("amount") ?: 0.0 }
+
+                                val updatedCards = _uiCards.value?.map { uiCard ->
+                                    if (uiCard.cardNumber == cardDoc.getString("cardNumber")) {
+                                        uiCard.copy(balance = totalAmount)
+                                    } else uiCard
+                                } ?: emptyList()
+
+                                _uiCards.value = updatedCards
+                            }
+                    }
+                }
+        }
+
     }

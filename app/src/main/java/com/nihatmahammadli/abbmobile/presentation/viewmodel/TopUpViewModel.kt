@@ -63,8 +63,7 @@
 
                     val cardId = cardsSnapshot.documents[0].id
 
-                    // Format the amount to 2 decimal places
-                    val formattedAmount = "%.2f".format(amount).toDouble()
+                    val formattedAmount = (amount * 100).roundToInt() / 100.0
 
                     val topUp = TopUpModel(
                         amount = formattedAmount,

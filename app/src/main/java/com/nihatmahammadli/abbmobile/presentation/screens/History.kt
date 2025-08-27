@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nihatmahammadli.abbmobile.databinding.FragmentHistoryBinding
 import com.nihatmahammadli.abbmobile.presentation.adapters.HistoryFilterAdapter
 import com.nihatmahammadli.abbmobile.presentation.adapters.HistoryPaymentsAdapter
+import com.nihatmahammadli.abbmobile.presentation.model.PaymentSummary
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.HistoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -52,10 +53,19 @@ class History : Fragment() {
             val sortedList = list.sortedByDescending {
                 SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).parse(it.date)
             }
+            if (list.isNullOrEmpty()){
+                binding.historyRecyclerView.visibility = View.GONE
+                binding.emptyIcon.visibility = View.VISIBLE
+                binding.emptyText.visibility = View.VISIBLE
+            }else {
+                historyAdapter = HistoryPaymentsAdapter(sortedList)
+                binding.historyRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                binding.historyRecyclerView.adapter = historyAdapter
 
-            historyAdapter = HistoryPaymentsAdapter(sortedList)
-            binding.historyRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            binding.historyRecyclerView.adapter = historyAdapter
+                binding.historyRecyclerView.visibility = View.VISIBLE
+                binding.emptyIcon.visibility = View.GONE
+                binding.emptyText.visibility = View.GONE
+            }
         }
     }
 
@@ -66,4 +76,6 @@ class History : Fragment() {
         binding.rcyView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rcyView.adapter = filterAdapter
     }
+
+
 }

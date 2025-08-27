@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import kotlin.math.min
+import kotlin.math.round
 
 @HiltViewModel
 class PaymentAmountsViewModel @Inject constructor(
@@ -106,7 +107,6 @@ class PaymentAmountsViewModel @Inject constructor(
                     }
                 )
 
-                // PaymentFor sahəsini əlavə et (boş olsa belə)
                 if (!paymentFor.isNullOrEmpty()) {
                     paymentTransaction["paymentFor"] = paymentFor
                     Log.d("PaymentAmountsViewModel", "PaymentFor added to transaction: '$paymentFor'")
@@ -183,9 +183,11 @@ class PaymentAmountsViewModel @Inject constructor(
 
     fun clearResult() { _transferResult.value = null }
 
+
     private fun Double.toRoundedDouble(): Double {
-        return "%.2f".format(this).toDouble()
+        return (round(this * 100) / 100)
     }
+
 }
 
 sealed class TransferResult {

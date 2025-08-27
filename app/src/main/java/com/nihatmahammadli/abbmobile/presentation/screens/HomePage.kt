@@ -71,6 +71,7 @@ class HomePage : Fragment() {
             viewModel.fetchCardsFromFirebase()
             viewModel.fetchTotalCashback()
         }
+        viewModel.listenToCardTransactions()
     }
 
 //    fun testNotification(){
@@ -156,6 +157,8 @@ class HomePage : Fragment() {
             updateTransactionUI(transactions)
 
         }
+
+
 
     }
 
