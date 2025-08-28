@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(platform(libs.firebase.bom))
     implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-messaging:23.2.1")
 
     // Retrofit
     implementation(libs.retrofit)
@@ -71,7 +72,9 @@ dependencies {
     implementation(libs.okhttp)
 
     // Material Design, Glide, Swipe
-    implementation ("com.google.android.material:material:1.12.0")
+    implementation (libs.material)
+
+
     implementation(libs.swiperefreshlayout)
     implementation(libs.glide)
 
@@ -88,9 +91,6 @@ dependencies {
 
     // Circle indicator
     implementation("me.relex:circleindicator:2.1.6")
-
-    // FCM
-    implementation("com.google.firebase:firebase-messaging:23.2.1")
 
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.lifecycle.livedata.ktx)

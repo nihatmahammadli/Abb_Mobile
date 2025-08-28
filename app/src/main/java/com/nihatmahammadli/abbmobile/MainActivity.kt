@@ -63,6 +63,11 @@ class MainActivity : AppCompatActivity() {
                     fab.visibility = View.VISIBLE
                     bottomNav.menu.findItem(R.id.for_you)?.isChecked = true
                 }
+                R.id.more -> {
+                    bottomNav.visibility = View.VISIBLE
+                    fab.visibility = View.VISIBLE
+                    bottomNav.menu.findItem(R.id.more)?.isChecked = true
+                }
                     else -> {
                     bottomNav.visibility = View.GONE
                     fab.visibility = View.GONE

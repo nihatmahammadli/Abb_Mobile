@@ -2,6 +2,8 @@ package com.nihatmahammadli.abbmobile.presentation.screens
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,7 +16,9 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentSignInBinding
+import com.nihatmahammadli.abbmobile.presentation.components.ui.SimpleTextWatcher
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.SignInViewModel
+import com.nihatmahammadli.abbmobile.presentation.viewmodel.viewmodel.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -22,6 +26,7 @@ import javax.inject.Inject
 class SignIn : Fragment() {
     private lateinit var binding: FragmentSignInBinding
     private val viewModel: SignInViewModel by viewModels()
+    private val signUpViewModel: SignUpViewModel by viewModels()
 
     @Inject
     lateinit var auth: FirebaseAuth
@@ -34,19 +39,46 @@ class SignIn : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSignInBinding.inflate(inflater,container,false)
+        signInWithEmail()
+        signIn()
+        setUpListeners()
+        observeViewModel()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        signInWithEmail()
-        goBack()
 
 
+    }
+
+
+     fun setUpListeners(){
+        binding.emailText.addTextChangedListener(SimpleTextWatcher{
+            signUpViewModel.onFixTextChangedEmail(it.trim())
+        })
+        binding.passwordText.addTextChangedListener(SimpleTextWatcher{
+            signUpViewModel.onFixTextChangedPasswordForEmail(it.trim())
+        })
+        binding.leftBtn.setOnClickListener {
+            binding.emailText.text?.clear()
+            binding.passwordText.text?.clear()
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun observeViewModel(){
+        signUpViewModel.isButtonEnabled.observe(viewLifecycleOwner) {enabled ->
+            binding.btnContinue.isEnabled = enabled
+            binding.btnContinue.alpha = if (enabled) 1f else 0.5f
+        }
+    }
+
+
+
+    fun signIn(){
         viewModel.signInStatus.observe(viewLifecycleOwner) { result ->
             result.onSuccess {
-                Log.d("TEST", "ProgressBar exists: ${binding.progressBar != null}")
-
                 binding.progressBar.visibility = View.GONE
 
                 val sharedPref = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
@@ -63,13 +95,6 @@ class SignIn : Fragment() {
     }
 
 
-    fun goBack(){
-        binding.leftBtn.setOnClickListener {
-            findNavController().popBackStack()
-        }
-    }
-
-
 
 
     fun signInWithEmail() {
@@ -79,7 +104,11 @@ class SignIn : Fragment() {
 
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(requireContext(), "Email and password cannot be empty!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Email and password cannot be empty!",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
             Log.d("TEST", "ProgressBar exists: visible")
@@ -88,6 +117,4 @@ class SignIn : Fragment() {
             viewModel.signIn(email, password)
         }
     }
-
-
 }

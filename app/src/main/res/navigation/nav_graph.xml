@@ -152,6 +152,9 @@
         <action
             android:id="@+id/action_orderNewCard_to_homePage"
             app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_orderNewCard_to_cardOrderLoading"
+            app:destination="@id/cardOrderLoading" />
     </fragment>
     <fragment
         android:id="@+id/profile"
@@ -257,5 +260,14 @@
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.More"
         android:label="fragment_more"
         tools:layout="@layout/fragment_more" />
+    <fragment
+        android:id="@+id/cardOrderLoading"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.CardOrderLoading"
+        android:label="fragment_card_order_loading"
+        tools:layout="@layout/fragment_card_order_loading" >
+        <action
+            android:id="@+id/action_cardOrderLoading_to_homePage"
+            app:destination="@id/homePage" />
+    </fragment>
 
 </navigation>

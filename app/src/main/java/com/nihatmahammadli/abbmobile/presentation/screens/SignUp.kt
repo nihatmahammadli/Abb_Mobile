@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentSignUpBinding
+import com.nihatmahammadli.abbmobile.presentation.components.ui.SimpleTextWatcher
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.viewmodel.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -93,7 +94,6 @@ class SignUp : Fragment() {
     private fun observeSignUpResult() {
         signUpViewModel.signUpResult.observe(viewLifecycleOwner) { success ->
             success?.let {
-
                 if (it) {
                     binding.progressBar.visibility = View.GONE
 
@@ -108,13 +108,5 @@ class SignUp : Fragment() {
             }
         }
     }
-
 }
 
-class SimpleTextWatcher(private val onAfterTextChanged: (String) -> Unit) : TextWatcher {
-    override fun afterTextChanged(s: Editable?) {
-        onAfterTextChanged(s.toString())
-    }
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-}
