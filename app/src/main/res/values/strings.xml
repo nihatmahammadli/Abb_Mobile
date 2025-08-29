@@ -114,4 +114,5 @@
     <string name="are_you_sure_to_log_out_of_the_n_device">Are you sure to log out of the \n device?</string>
     <string name="when_you_exit_the_mobile_app_you_will_need_to_nregister_again">When you exit the mobile app, you will need to \nregister again.</string>
     <string name="cancel">Cancel</string>
+    <string name="your_card_order_is_made">Your card order is made</string>
 </resources>
