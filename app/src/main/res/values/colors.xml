@@ -5,6 +5,7 @@
     <color name="white_grey">#C3C2C2</color>
     <color name="trans">#00000000 </color>
     <color name="gray">#615C5C</color>
+    <color name="blue">#2058BB</color>
     <color name="close_button_bg">#80000000</color>
     <color name="card_details_bg">#2d2d2d</color>
     <color name="card_bg_dark">#1a1a1a</color>

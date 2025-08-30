@@ -115,4 +115,8 @@
     <string name="when_you_exit_the_mobile_app_you_will_need_to_nregister_again">When you exit the mobile app, you will need to \nregister again.</string>
     <string name="cancel">Cancel</string>
     <string name="your_card_order_is_made">Your card order is made</string>
+    <string name="profile_and_parameters">Profile and parameters</string>
+    <string name="bank_services">Bank Services</string>
+    <string name="support">Support</string>
+    <string name="documents">Documents</string>
 </resources>
