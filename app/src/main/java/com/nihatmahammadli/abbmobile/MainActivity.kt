@@ -1,12 +1,13 @@
 package com.nihatmahammadli.abbmobile
+
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import com.nihatmahammadli.abbmobile.databinding.ActivityMainBinding
 import com.nihatmahammadli.abbmobile.presentation.components.sheet.FabDialogFragment
 import com.nihatmahammadli.abbmobile.presentation.components.ui.LocaleHelper
@@ -16,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+
     override fun attachBaseContext(newBase: Context) {
         val lang = LocaleHelper.getSavedLanguage(newBase)
         val context = LocaleHelper.setAppLocale(newBase, lang)
@@ -26,27 +28,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val bottomNav = binding.bottomNavigationView
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.frgContainerView) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.frgContainerView) as NavHostFragment
         navController = navHostFragment.navController
 
 
-        bottomNav.setupWithNavController(navController)
 
+        // binding.bottomNavigationView.setupWithNavController(navController)
+
+        onBack()
         clickFab()
         menuInFragments()
         addDestinationMenu()
-
     }
-    fun menuInFragments(){
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.frgContainerView) as NavHostFragment
-        val navController = navHostFragment.navController
+
+
+    private fun menuInFragments() {
         val bottomNav = binding.bottomNavigationView
         val fab = binding.fabIcon
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-
             when (destination.id) {
                 R.id.homePage -> {
                     bottomNav.visibility = View.VISIBLE
@@ -68,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                     fab.visibility = View.VISIBLE
                     bottomNav.menu.findItem(R.id.more)?.isChecked = true
                 }
-                    else -> {
+                else -> {
                     bottomNav.visibility = View.GONE
                     fab.visibility = View.GONE
                 }
@@ -76,14 +78,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun addDestinationMenu(){
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.frgContainerView) as NavHostFragment
-        val navController = navHostFragment.navController
-
-
+    private fun addDestinationMenu() {
         binding.bottomNavigationView.setOnItemSelectedListener {
             val navOptions = NavOptions.Builder()
-                .setPopUpTo(navController.graph.startDestinationId, false)  // startDestination-dən əvvəlki backstack-i təmizlə
+                .setPopUpTo(navController.graph.startDestinationId, true) // ✅ stack-i təmizlə
                 .setLaunchSingleTop(true)
                 .build()
 
@@ -107,8 +105,8 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.more -> {
-                    if (navController.currentDestination?.id != R.id.more){
-                        navController.navigate(R.id.more,null,navOptions)
+                    if (navController.currentDestination?.id != R.id.more) {
+                        navController.navigate(R.id.more, null, navOptions)
                     }
                     true
                 }
@@ -117,7 +115,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun clickFab(){
+    private fun clickFab() {
         binding.fabIcon.setOnClickListener {
             val bottomSheet = FabDialogFragment()
             bottomSheet.show(supportFragmentManager, bottomSheet.tag)
@@ -125,4 +123,15 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    fun onBack(){
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (navController.currentDestination?.id == R.id.homePage) {
+                    finish()
+                } else {
+                    navController.popBackStack()
+                }
+            }
+        })
+    }
 }

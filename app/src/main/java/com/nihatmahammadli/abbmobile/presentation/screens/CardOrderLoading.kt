@@ -39,9 +39,9 @@ class CardOrderLoading : Fragment() {
 
     private fun setupObservers() {
         viewModel.cards.observe(viewLifecycleOwner) { cards ->
-            if (cards.isNotEmpty()) {
-                showToast("${cards.size} kart mövcuddur")
-            }
+//            if (cards.isNotEmpty()) {
+//                showToast("${cards.size} kart mövcuddur")
+//            }
         }
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressCircular.visibility = if (isLoading) View.VISIBLE else View.GONE
