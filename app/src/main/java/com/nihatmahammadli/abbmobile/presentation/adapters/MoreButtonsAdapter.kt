@@ -15,6 +15,14 @@ class MoreButtonsAdapter(
 
     private var selectedPosition = 0
 
+
+    fun setSelected(position: Int){
+        val previousPosition = selectedPosition
+        selectedPosition = position
+        notifyItemChanged(previousPosition)
+        notifyItemChanged(selectedPosition)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemMoreButtonsBinding.inflate(
             LayoutInflater.from(parent.context), parent, false

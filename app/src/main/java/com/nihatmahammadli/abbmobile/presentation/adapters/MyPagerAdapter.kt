@@ -15,4 +15,5 @@ class MyPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
             else -> CustomerTypeSelection()
         }
     }
+
 }

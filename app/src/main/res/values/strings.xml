@@ -119,4 +119,11 @@
     <string name="bank_services">Bank Services</string>
     <string name="support">Support</string>
     <string name="documents">Documents</string>
+    <string name="transaction_history">Transaction history</string>
+    <string name="filter_direction">Direction</string>
+    <string name="filter_period">Period</string>
+    <string name="filter_type">Type</string>
+    <string name="filter_cards">Cards</string>
+    <string name="filter_calculation">Calculation</string>
+    <string name="hello_user">Hello %1$s</string>
 </resources>

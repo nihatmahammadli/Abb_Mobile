@@ -112,5 +112,16 @@
     <string name="are_you_sure_to_log_out_of_the_n_device">Həqiqətən çıxmaq\nistəyirsiniz?</string>
     <string name="when_you_exit_the_mobile_app_you_will_need_to_nregister_again">Tətbiqi bağlayanda\nyenidən qeydiyyatdan keçməlisiniz</string>
     <string name="cancel">Ləğv et</string>
-
+    <string name="your_card_order_is_made">Sizin kart sifarişiniz edilib</string>
+    <string name="profile_and_parameters">Profil və parametrlər</string>
+    <string name="bank_services">Bank Xidmətləri</string>
+    <string name="support">Dəstək</string>
+    <string name="documents">Sənədlər</string>
+    <string name="transaction_history">Əməliyyat tarixçəsi</string>
+    <string name="filter_direction">İstiqamət</string>
+    <string name="filter_period">Dövr</string>
+    <string name="filter_type">Növ</string>
+    <string name="filter_cards">Kartlar</string>
+    <string name="filter_calculation">Hesablama</string>
+    <string name="hello_user">Salam %1$s</string>
 </resources>

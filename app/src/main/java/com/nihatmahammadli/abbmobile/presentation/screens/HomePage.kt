@@ -127,7 +127,7 @@ class HomePage : Fragment() {
         }
 
         viewModel.userName.observe(viewLifecycleOwner) { name ->
-            binding.txtName.text = "Hello $name"
+            binding.txtName.text = getString(R.string.hello_user, name)
         }
 
         viewModel.cashbackTotal.observe(viewLifecycleOwner) { cashback ->
@@ -357,16 +357,20 @@ class HomePage : Fragment() {
 
         if (!isSeen) {
             binding.cashBackBtn.text = "••••"
+            binding.qrButton.text = "••••"
         } else {
             val cashbackValue = viewModel.cashbackTotal.value ?: 0.0
             binding.cashBackBtn.text = "${String.format("%.2f", cashbackValue)} \nCashback₼"
+            binding.qrButton.text = getString(R.string._0_npending_edv)
         }
 
         viewModel.cashbackTotal.observe(viewLifecycleOwner) { cashback ->
             if (isSeen) {
-                binding.cashBackBtn.text = "${"%.2f".format(cashback)} \nCashback₼"  // Format to 2 decimal places
+                binding.cashBackBtn.text = "${"%.2f".format(cashback)} \nCashback₼"
+                binding.qrButton.text = getString(R.string._0_npending_edv)
             } else {
                 binding.cashBackBtn.text = "••••"
+                binding.qrButton.text = "••••"
             }
         }
 
@@ -381,9 +385,11 @@ class HomePage : Fragment() {
 
             if (!isSeen) {
                 binding.cashBackBtn.text = "••••"
+                binding.qrButton.text = "••••"
             } else {
                 val cashbackValue = viewModel.cashbackTotal.value ?: 0.0
-                binding.cashBackBtn.text = "${"%.2f".format(cashbackValue)} \nCashback₼"  // Format to 2 decimal places
+                binding.cashBackBtn.text = "${"%.2f".format(cashbackValue)} \nCashback₼"
+                binding.qrButton.text = getString(R.string._0_npending_edv)
             }
         }
     }

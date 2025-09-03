@@ -62,8 +62,8 @@ class Profile : Fragment() {
     }
 
     private fun refreshData(){
-        profileViewModel.hasFetchedData = false  // flag sıfırlanır
-        profileViewModel.getCustomerInfoFirebase() // veri tekrar çekilir
+        profileViewModel.hasFetchedData = false
+        profileViewModel.getCustomerInfoFirebase()
         binding.swipeRefreshLayout.isRefreshing = false
     }
 

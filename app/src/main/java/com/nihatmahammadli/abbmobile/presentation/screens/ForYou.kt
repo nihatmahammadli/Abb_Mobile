@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nihatmahammadli.abbmobile.R
@@ -17,7 +18,7 @@ import com.nihatmahammadli.abbmobile.presentation.components.decoration.FirstIte
 import com.nihatmahammadli.abbmobile.presentation.components.dummyData.ImageListDummy
 import com.nihatmahammadli.abbmobile.presentation.model.ForYouButton
 import com.nihatmahammadli.abbmobile.presentation.model.NewsItem
-import com.nihatmahammadli.abbmobile.presentation.viewmodel.ForYouViewModel
+import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,7 +27,7 @@ class ForYou : Fragment() {
     private lateinit var newsAdapter: NewsAdapter
     private lateinit var buttonsAdapter: ForYouButtonAdapter
     private lateinit var offersAdapter: OffersAdapter
-    private val viewModel: ForYouViewModel by viewModels()
+    private val cardViewModel: CardViewModel by activityViewModels()
 
     val newsImageList = ImageListDummy.newsImageList
     val imageList = ImageListDummy.offersImageList
@@ -39,6 +40,7 @@ class ForYou : Fragment() {
         setUpButtonAdapter()
         setUpAdapters()
 
+
         return binding.root
     }
 
@@ -47,10 +49,12 @@ class ForYou : Fragment() {
         binding.secondRecyclerView.adapter = buttonsAdapter
         binding.secondRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        viewModel.fetchTotalCashback()
-        viewModel.cashbackTotal.observe(viewLifecycleOwner) { cashback ->
+        cardViewModel.fetchTotalCashback()
+        cardViewModel.cashbackTotal.observe(viewLifecycleOwner) { cashback ->
+            val formattedCashback = "${String.format("%.2f", cashback)}"
+
             val buttonList = listOf(
-                ForYouButton("Cashback", "$cashback ₼", R.drawable.finance_ic),
+                ForYouButton("Cashback", "$formattedCashback ₼", R.drawable.finance_ic),
                 ForYouButton("ƏDV", "0.0 ₼", R.drawable.qr_ic),
                 ForYouButton("Miles", "Order", R.drawable.miles_ic),
                 )

@@ -35,6 +35,8 @@ class HistoryViewModel @Inject constructor(
     private val _totalAmount = MutableLiveData<Double>()
     val totalAmount: LiveData<Double> = _totalAmount
 
+    var hasRefreshed = false
+
     @SuppressLint("SuspiciousIndentation")
     fun fetchTotalPayments() {
         val uid = firebaseAuth.currentUser?.uid ?: return
@@ -100,6 +102,7 @@ class HistoryViewModel @Inject constructor(
                 _totalAmount.value = total
                 _paymentSum.value = paymentSumList
                 _result.value = true
+                hasRefreshed = true
 
             } catch (e: Exception) {
                 _result.value = false

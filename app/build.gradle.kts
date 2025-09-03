@@ -58,6 +58,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.56.2")
     implementation(libs.androidx.recyclerview)
     implementation(libs.play.services.maps)
+    implementation(libs.androidx.viewpager2)
     ksp("com.google.dagger:hilt-android-compiler:2.56.2")
 
     // Firebase
