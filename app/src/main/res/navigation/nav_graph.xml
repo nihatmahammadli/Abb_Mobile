@@ -265,7 +265,11 @@
         android:id="@+id/more"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.More"
         android:label="fragment_more"
-        tools:layout="@layout/fragment_more" />
+        tools:layout="@layout/fragment_more" >
+        <action
+            android:id="@+id/action_more_to_profile"
+            app:destination="@id/profile" />
+    </fragment>
     <fragment
         android:id="@+id/cardOrderLoading"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.CardOrderLoading"

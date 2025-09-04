@@ -114,8 +114,6 @@
             return doc.getBoolean("orderedCard") ?: false
         }
 
-
-
         private fun saveSingleCardToFirebase(card: CardInfo) {
             val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
             val firestore = FirebaseFirestore.getInstance()

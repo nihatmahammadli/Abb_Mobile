@@ -41,6 +41,7 @@ class CardOrderLoading : Fragment() {
         viewModel.cards.observe(viewLifecycleOwner) { cards ->
 //            if (cards.isNotEmpty()) {
 //                showToast("${cards.size} kart mövcuddur")
+            "Salamlar"
 //            }
         }
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->

@@ -28,6 +28,9 @@
         private val _isLoading = MutableLiveData<Boolean>()
         val isLoading: LiveData<Boolean> = _isLoading
 
+        private val _totalBalance = MutableLiveData<Double>(0.0)
+        val totalBalance: LiveData<Double> = _totalBalance
+
         fun setSenderSelected(selected: Boolean) {
             _senderSelected.value = selected
         }
@@ -93,6 +96,47 @@
         fun clearResult() {
             _topUpResult.value = null
         }
+
+        private val cardBalances = mutableMapOf<String, Double>()
+
+        fun listenToAmount() {
+            val uid = firebaseAuth.currentUser?.uid ?: return
+
+            firebase.collection("users")
+                .document(uid)
+                .collection("cards")
+                .addSnapshotListener { cardSnapshots, e ->
+                    if (e != null || cardSnapshots == null) return@addSnapshotListener
+
+                    if (cardSnapshots.isEmpty) {
+                        _totalBalance.postValue(0.0)
+                        return@addSnapshotListener
+                    }
+
+                    for (cardDoc in cardSnapshots.documents) {
+                        val cardId = cardDoc.id
+
+                        firebase.collection("users")
+                            .document(uid)
+                            .collection("cards")
+                            .document(cardId)
+                            .collection("transaction")
+                            .addSnapshotListener { transSnapshots, _ ->
+                                if (transSnapshots == null) return@addSnapshotListener
+
+                                val cardBalance = transSnapshots.documents
+                                    .sumOf { it.getDouble("amount") ?: 0.0 }
+
+                                cardBalances[cardId] = cardBalance
+
+                                val total = cardBalances.values.sum()
+                                _totalBalance.postValue(total)
+                            }
+                    }
+                }
+        }
+
+
     }
 
     sealed class TopUpResult {

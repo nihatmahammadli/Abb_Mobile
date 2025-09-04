@@ -206,8 +206,8 @@
                         <ImageButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/umbrella_icon"
-                            android:background="@color/trans"/>
+                            android:background="@color/trans"
+                            android:src="@drawable/umbrella_icon" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -319,7 +319,7 @@
                         <ImageButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/umbrella_icon"
+                            android:src="@drawable/queue_icon"
                             android:background="@color/trans"/>
 
                         <TextView
@@ -343,19 +343,18 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/line3" >
 
-                        <TextView
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/abril_fatface"
-                            android:text="tam."
-                            android:textSize="14sp"
-                            android:textColor="#2058BB" />
+
+                            android:src="@drawable/cash_icon"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:text="@string/card_order"
+                            android:layout_marginTop="5dp"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
@@ -373,7 +372,7 @@
                         <ImageButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/faydali_club_icon"
+                            android:src="@drawable/loan_icon"
                             android:background="@color/trans"/>
 
                         <TextView

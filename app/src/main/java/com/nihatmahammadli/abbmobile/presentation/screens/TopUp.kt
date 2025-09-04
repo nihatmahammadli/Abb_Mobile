@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nihatmahammadli.abbmobile.R
@@ -17,6 +18,7 @@ import com.nihatmahammadli.abbmobile.databinding.FragmentTopUpBinding
 import com.nihatmahammadli.abbmobile.presentation.components.sheet.CardOrderSheet
 import com.nihatmahammadli.abbmobile.presentation.components.sheet.ItemMyCardSheet
 import com.nihatmahammadli.abbmobile.presentation.components.sheet.SelectTopUpSheet
+import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.TopUpViewModel
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.TopUpResult
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +31,6 @@ class TopUp : Fragment() {
     private lateinit var binding: FragmentTopUpBinding
     private var lastSelectedOption: String? = null
     private val topUpViewModel: TopUpViewModel by viewModels()
-
     private var totalAmount = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,13 +43,27 @@ class TopUp : Fragment() {
     ): View? {
         binding = FragmentTopUpBinding.inflate(inflater, container, false)
 
+
+        initUI()
+        return binding.root
+    }
+
+    fun initUI(){
         setupClickListeners()
         setupAmountButtons()
         observeViewModel()
         disableBottomSection()
-
-        return binding.root
+        fetchAmountFromFirebase()
     }
+
+    @SuppressLint("SetTextI18n", "DefaultLocale")
+        fun fetchAmountFromFirebase(){
+            topUpViewModel.listenToAmount()
+
+            topUpViewModel.totalBalance.observe(viewLifecycleOwner){total ->
+                binding.masterCardBalance.text = String.format("%,.2f AZN", total)
+            }
+        }
 
     private fun setupClickListeners() {
         binding.transferBtn.setOnClickListener {

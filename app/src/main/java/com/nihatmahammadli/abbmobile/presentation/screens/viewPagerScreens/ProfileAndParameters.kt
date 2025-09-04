@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentProfileAndParametersBinding
 
@@ -21,7 +22,7 @@ class ProfileAndParameters : Fragment() {
     ): View? {
         binding = FragmentProfileAndParametersBinding.inflate(inflater,container,false)
         return binding.root
-    }
+    } 
 
 
 

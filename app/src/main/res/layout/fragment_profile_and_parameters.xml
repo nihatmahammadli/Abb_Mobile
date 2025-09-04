@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
-    android:paddingVertical="10dp"
-    android:paddingHorizontal="12dp"
     tools:context=".presentation.screens.viewPagerScreens.ProfileAndParameters">
 
     <androidx.cardview.widget.CardView
@@ -19,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/goProfile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingHorizontal="14dp"
@@ -70,7 +70,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:elevation="0dp"
         android:layout_marginTop="24dp"
         app:cardCornerRadius="8dp"
@@ -80,7 +80,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
             android:paddingHorizontal="14dp"
             android:paddingVertical="12dp">
 
@@ -107,7 +107,7 @@
                 android:id="@+id/textView41"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="24dp"
                 android:paddingStart="10dp"
                 android:text="Transfer requests"
                 android:textColor="@color/black"
@@ -126,6 +126,52 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView12"
                 app:layout_constraintTop_toBottomOf="@+id/textView41" />
+
+
+            <TextView
+                android:id="@+id/textView43"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ani\npay"
+                android:textColor="@color/blue"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/imageView12"
+                app:layout_constraintStart_toStartOf="@+id/imageView12"
+                app:layout_constraintTop_toBottomOf="@+id/imageView12"
+                app:layout_constraintVertical_bias="0.62" />
+
+            <TextView
+                android:id="@+id/textView44"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="AniPay"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView43"
+                app:layout_constraintStart_toEndOf="@+id/textView43"
+                app:layout_constraintTop_toBottomOf="@+id/textView42"
+                app:layout_constraintVertical_bias="0.68" />
+
+            <TextView
+                android:id="@+id/textView45"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Easy one-time transfers"
+                app:layout_constraintStart_toStartOf="@+id/textView44"
+                app:layout_constraintTop_toBottomOf="@+id/textView44" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Activate"
+                android:textSize="16sp"
+                android:textColor="@color/blue"
+                app:layout_constraintBottom_toBottomOf="@+id/textView45"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView44" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
