@@ -9,10 +9,10 @@
     tools:context=".presentation.screens.CardOrderLoading">
 
     <TextView
-        android:id="@+id/textView40"
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/your_card_order_is_made"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:indicatorSize="48dp"
-        app:layout_constraintTop_toBottomOf="@id/textView40"
+        app:layout_constraintTop_toBottomOf="@id/text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"

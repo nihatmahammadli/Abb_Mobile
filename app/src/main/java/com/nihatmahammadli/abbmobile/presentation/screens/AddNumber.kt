@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentAddNumberBinding
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.AddNumberViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -107,6 +109,7 @@ class AddNumber : Fragment() {
         viewModel.result.observe(viewLifecycleOwner) { success ->
             val msg = if (success) "Mobil nömrə əlavə olundu" else "Xəta baş verdi"
             Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+            findNavController().navigateUp()
         }
         viewModel.fetchNumberFromFirebase()
     }

@@ -114,7 +114,6 @@
     <string name="are_you_sure_to_log_out_of_the_n_device">Вы точно выйти\nс устройства?</string>
     <string name="when_you_exit_the_mobile_app_you_will_need_to_nregister_again">При выходе из приложения\nнужно будет зарегистрироваться снова</string>
     <string name="cancel">Отмена</string>
-    <string name="your_card_order_is_made">Ваш заказ карты сделан</string>
     <string name="profile_and_parameters">Профиль и параметры</string>
     <string name="bank_services">Банк Сервисы</string>
     <string name="support">Поддержка</string>
@@ -126,4 +125,7 @@
     <string name="filter_cards">Карты</string>
     <string name="filter_calculation">Расчет</string>
     <string name="hello_user">Привет %1$s</string>
+    <string name="loading_card_order">Ваша карта заказывается..</string>
+    <string name="loading_checking">Ваши данные проверяются..</string>
+    <string name="loading_preparing">Ваша карта готовится</string>
 </resources>

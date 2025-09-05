@@ -114,7 +114,9 @@
     <string name="are_you_sure_to_log_out_of_the_n_device">Are you sure to log out of the \n device?</string>
     <string name="when_you_exit_the_mobile_app_you_will_need_to_nregister_again">When you exit the mobile app, you will need to \nregister again.</string>
     <string name="cancel">Cancel</string>
-    <string name="your_card_order_is_made">Your card order is made</string>
+    <string name="loading_card_order">Your card order is being processed..</string>
+    <string name="loading_checking">Your information is being verified..</string>
+    <string name="loading_preparing">Your card is being prepared</string>
     <string name="profile_and_parameters">Profile and parameters</string>
     <string name="bank_services">Bank Services</string>
     <string name="support">Support</string>

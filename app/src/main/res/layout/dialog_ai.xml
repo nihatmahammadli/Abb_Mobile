@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="20dp">
+
+    <!-- Back button -->
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:background="@color/trans"
+        android:src="@drawable/arrow_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:background="@color/trans"
+        android:layout_marginStart="10dp"
+        android:src="@mipmap/abb_logo_asset_foreground"
+        app:layout_constraintStart_toEndOf="@id/imageButton4"
+        app:layout_constraintTop_toTopOf="@id/imageButton4"
+        app:layout_constraintBottom_toBottomOf="@id/imageButton4" />
+
+    <ImageButton
+        android:id="@+id/cancelBtn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@color/trans"
+        android:src="@drawable/cancel_icon"
+        app:layout_constraintTop_toTopOf="@id/imageButton4"
+        app:layout_constraintBottom_toBottomOf="@id/imageButton4"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/abbTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ABB Support"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView13"
+        app:layout_constraintTop_toTopOf="@+id/imageView13" />
+
+    <TextView
+        android:id="@+id/textView46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="7/24 Online"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/abbTitle"
+        app:layout_constraintTop_toBottomOf="@+id/abbTitle" />
+
+    <LinearLayout
+        android:id="@+id/inputContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/ai_input_background"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
+        android:elevation="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/aiInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="Write a reply.."
+            android:padding="8dp"
+            android:inputType="text" />
+
+        <ImageButton
+            android:id="@+id/sendBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/arrow_up_ai" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/responseAi"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/inputContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView46" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

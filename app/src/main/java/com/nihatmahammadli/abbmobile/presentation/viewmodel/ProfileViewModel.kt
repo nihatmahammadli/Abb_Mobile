@@ -1,6 +1,7 @@
 package com.nihatmahammadli.abbmobile.presentation.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,9 +20,13 @@ class ProfileViewModel @Inject constructor(
     val surName = MutableLiveData<String>()
     val email = MutableLiveData<String>()
     val customerId = MutableLiveData<String>()
-    val mobileNumber = MutableLiveData<String>()
+    private val _mobileNumber = MutableLiveData<String>()
+    val mobileNumber: LiveData<String> = _mobileNumber
+
 
     var hasFetchedData = false
+
+
 
     val userFullName = MediatorLiveData<String>().apply {
         addSource(name) { combineNameAndSurname() }
@@ -47,7 +52,7 @@ class ProfileViewModel @Inject constructor(
                     name.value = doc.getString("name")
                     surName.value = doc.getString("surname")
                     email.value = doc.getString("email")
-                    mobileNumber.value = doc.getString("mobileNumber")
+                    _mobileNumber.value = doc.getString("mobileNumber")
                 }
                 hasFetchedData = true
             }
@@ -65,12 +70,24 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    fun observePhoneNumber() {
+        val uid = firebaseAuth.currentUser?.uid ?: return
+        firestore.collection("users")
+            .document(uid)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) return@addSnapshotListener
+                if (snapshot != null && snapshot.exists()) {
+                    _mobileNumber.value = snapshot.getString("mobileNumber") ?: ""
+                }
+            }
+    }
+
     private fun clearUserData() {
         name.value = ""
         surName.value = ""
         email.value = ""
         customerId.value = ""
-        mobileNumber.value = ""
+        _mobileNumber.value = ""
     }
 
 }

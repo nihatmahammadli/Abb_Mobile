@@ -8,56 +8,82 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentCardOrderLoadingBinding
+import com.nihatmahammadli.abbmobile.presentation.components.dummyData.LoadingTexts
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.getValue
 
 @AndroidEntryPoint
 class CardOrderLoading : Fragment() {
-    private lateinit var binding: FragmentCardOrderLoadingBinding
-
+    private var _binding: FragmentCardOrderLoadingBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: CardViewModel by activityViewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentCardOrderLoadingBinding.inflate(inflater,container,false)
+    ): View {
+        _binding = FragmentCardOrderLoadingBinding.inflate(inflater, container, false)
         binding.progressCircular.show()
-        setupObservers()
-        viewModel.fetchSingleCardFromApi()
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupObservers()
+        viewModel.fetchSingleCardFromApi()
+        changeLoading()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     private fun setupObservers() {
-        viewModel.cards.observe(viewLifecycleOwner) { cards ->
-//            if (cards.isNotEmpty()) {
-//                showToast("${cards.size} kart mövcuddur")
-            "Salamlar"
-//            }
-        }
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressCircular.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
 
         viewModel.cardFetchResult.observe(viewLifecycleOwner) { success ->
-            if (success) {
-                findNavController().navigate(R.id.action_cardOrderLoading_to_homePage)
-            } else {
-                showToast("Kartınız mövcuddur.")
-                findNavController().navigate(R.id.action_cardOrderLoading_to_homePage)
-            }
+           viewLifecycleOwner.lifecycleScope.launch {
+               if (success) {
+                   findNavController().navigate(R.id.action_cardOrderLoading_to_homePage)
+               } else {
+                   showToast("Kartınız mövcuddur.")
+                   findNavController().navigate(R.id.action_cardOrderLoading_to_homePage)
+               }
+           }
         }
     }
+
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
+
+
+    private fun changeLoading() {
+        val texts = LoadingTexts.getTexts(requireContext())
+        var i = 0
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                binding.text.text = texts[i % texts.size]
+                while (true) {
+                    delay(5000)
+                    i++
+                    binding.text.text = texts[i % texts.size]
+                }
+            }
+        }
+    }
+
 }

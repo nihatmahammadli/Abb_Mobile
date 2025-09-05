@@ -24,10 +24,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class Profile : Fragment() {
    private lateinit var binding: FragmentProfileBinding
    private val profileViewModel: ProfileViewModel by activityViewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +35,7 @@ class Profile : Fragment() {
         if (!profileViewModel.hasFetchedData) {
             profileViewModel.getCustomerInfoFirebase()
         }
+        profileViewModel.observePhoneNumber()
 
         return binding.root
     }
@@ -123,7 +120,7 @@ class Profile : Fragment() {
         requireActivity().finish()
     }
 
-
+//    L7Z0of7
     fun copyText(){
         binding.customerIdText.setOnClickListener {
             val fullText = binding.customerIdText.text.toString()

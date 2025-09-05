@@ -31,6 +31,7 @@ import androidx.navigation.NavOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.nihatmahammadli.abbmobile.MainActivity
 import com.nihatmahammadli.abbmobile.presentation.components.notification.NotificationHelper
+import com.nihatmahammadli.abbmobile.presentation.components.sheet.AiChatDialogFragment
 import com.nihatmahammadli.abbmobile.presentation.model.PaymentSummary
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.HistoryViewModel
 import java.text.SimpleDateFormat
@@ -84,6 +85,8 @@ class HomePage : Fragment() {
 //    }
 
 
+
+
     private fun initUI() {
         setupHorizontalRecycler()
         getHistory()
@@ -95,10 +98,17 @@ class HomePage : Fragment() {
         goProfile()
         setupSwipeToRefresh()
         changeEyeIcon()
+        supportAI()
     }
     private fun setupSwipeToRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             refreshData()
+        }
+    }
+    fun supportAI(){
+        binding.fabSupport.setOnClickListener {
+            val dialog = AiChatDialogFragment()
+            dialog.show(childFragmentManager,"AIChat")
         }
     }
 
