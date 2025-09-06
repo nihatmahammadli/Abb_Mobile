@@ -1,0 +1,31 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="38dp"
+    android:height="38dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Sadə dairə fonu -->
+    <path
+        android:fillColor="#C850C0"
+        android:pathData="M12,12 m-12,0 a12,12 0 1,0 24,0 a12,12 0 1,0 -24,0"/>
+
+    <!-- Scan küncləri -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M6,9 L6,6 L9,6
+                          M15,6 L18,6 L18,9
+                          M9,18 L6,18 L6,15
+                          M18,15 L18,18 L15,18"/>
+
+    <!-- QR blokları -->
+    <path android:fillColor="#FFFFFFFF" android:pathData="M7.2,7.2 h4 v4 h-4 z"/>
+    <path android:fillColor="#FFFFFFFF" android:pathData="M12.8,7.2 h4 v4 h-4 z"/>
+    <path android:fillColor="#FFFFFFFF" android:pathData="M7.2,12.8 h4 v4 h-4 z"/>
+    <path android:fillColor="#FFFFFFFF" android:pathData="M13.2,13.2 h2 v2 h-2 z"/>
+    <path android:fillColor="#FFFFFFFF" android:pathData="M16.2,13.2 h1.2 v1.2 h-1.2 z"/>
+    <path android:fillColor="#FFFFFFFF" android:pathData="M13.2,16 h1.2 v1.2 h-1.2 z"/>
+</vector>

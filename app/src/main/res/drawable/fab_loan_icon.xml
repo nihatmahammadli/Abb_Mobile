@@ -1,0 +1,43 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="38dp"
+    android:height="38dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Mor dairə fon -->
+    <path
+        android:fillColor="#800080"
+        android:pathData="M12,12 m-12,0 a12,12 0 1,0 24,0 a12,12 0 1,0 -24,0"/>
+
+    <!-- Ağ icon (kiçildilmiş) -->
+    <group
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:translateX="2.4"
+        android:translateY="2.4">
+
+        <path
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:fillColor="@android:color/transparent"
+            android:pathData="M3 10L3 8C3 6.89543 3.89543 6 5 6L7 6M3 10C4.33333 10 7 9.2 7 6M3 10L3 14M21 10V8C21 6.89543 20.1046 6 19 6H17M21 10C19.6667 10 17 9.2 17 6M21 10V12M7 6L17 6M3 14L3 16C3 17.1046 3.89543 18 5 18H7M3 14C4.33333 14 7 14.8 7 18M7 18H11"/>
+
+        <path
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:fillColor="@android:color/transparent"
+            android:pathData="M12,10 a2,2 0 1,0 0,4 a2,2 0 1,0 0,-4z"/>
+
+        <path
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:fillColor="@android:color/transparent"
+            android:pathData="M18 15V18M18 21V18M18 18H15M18 18H21"/>
+    </group>
+</vector>
