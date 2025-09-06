@@ -7,8 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.journeyapps.barcodescanner.CaptureActivity
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanOptions
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FabBottomSheetBinding
 import com.nihatmahammadli.abbmobile.presentation.adapters.FabBtnAdapter
@@ -62,12 +67,38 @@ class FabDialogFragment : DialogFragment() {
 
     fun setUpRecyclerView() {
         val list = FabBtnDummyData.list
-        adapter = FabBtnAdapter(list)
+        adapter = FabBtnAdapter(list){pos, clickedItem ->
+            when (pos) {
+                0 -> {
+                    setupQrScan()
+                }
+                1 -> {
+                    findNavController().navigate(R.id.action_homePage_to_payments)
+                }
+                2 -> { findNavController().navigate(R.id.action_homePage_to_transfer) }
+            }
+            dismiss()
+        }
 
         binding.recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun setupQrScan() {
+            val options = ScanOptions().apply {
+                setPrompt("QR kodu oxudun")
+                setBeepEnabled(true)
+                setOrientationLocked(true)
+                setCaptureActivity(CaptureActivity::class.java)
+            }
+            barcodeLauncher.launch(options)
+    }
+
+    private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
+        val msg = result.contents ?: "Ləğv edildi"
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
     }
 
 

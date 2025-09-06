@@ -415,4 +415,6 @@ class HomePage : Fragment() {
         binding.textView13.setOnClickListener(clickListener)
     }
 
+
+
 }
