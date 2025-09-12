@@ -12,11 +12,11 @@ import jakarta.inject.Inject
 @HiltViewModel
 class UserInfoViewModel @Inject constructor(
     private val fireStore: FirebaseFirestore,
-): ViewModel() {
-    private val _nameInput= MutableLiveData<String>("")
+) : ViewModel() {
+    private val _nameInput = MutableLiveData<String>("")
     val nameInput: LiveData<String> = _nameInput
 
-    private val _surNameInput= MutableLiveData<String>("")
+    private val _surNameInput = MutableLiveData<String>("")
     val surNameInput: LiveData<String> = _surNameInput
 
     private val _isButtonEnabled = MutableLiveData<Boolean>(false)
@@ -25,12 +25,12 @@ class UserInfoViewModel @Inject constructor(
     private val _signUpResult = MutableLiveData<Boolean?>()
     val signUpResult: LiveData<Boolean?> = _signUpResult
 
-    fun onFixChangedName(text: String){
+    fun onFixChangedName(text: String) {
         _nameInput.value = text
         updateButtonStateForTexts()
     }
 
-    fun onFixChangedSurname(text: String){
+    fun onFixChangedSurname(text: String) {
         _surNameInput.value = text
         updateButtonStateForTexts()
     }
@@ -45,7 +45,7 @@ class UserInfoViewModel @Inject constructor(
         _signUpResult.value = null
     }
 
-    fun personalInfo(){
+    fun personalInfo() {
         val name = nameInput.value ?: return
         val surName = surNameInput.value ?: return
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
@@ -56,7 +56,7 @@ class UserInfoViewModel @Inject constructor(
         )
 
         fireStore.collection("users").document(uid)
-            .set(userMap, SetOptions.merge() )
+            .set(userMap, SetOptions.merge())
             .addOnCompleteListener {
                 _signUpResult.value = true
             }.addOnFailureListener {

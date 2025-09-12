@@ -4,20 +4,22 @@
     android:viewportWidth="24"
     android:viewportHeight="24">
 
-  <!-- Normal dairə -->
+  <!-- Dairə - gradient effektli -->
   <path
-      android:fillColor="#B0B0B0"
+      android:fillColor="#FF6E6E6E"
       android:pathData="M12,0
                           A12,12 0 1,1 11.999,0z" />
 
-  <!-- Kiçildilmiş icon -->
+  <!-- İkonu ortada saxlayırıq -->
   <group
-      android:scaleX="0.8"
-      android:scaleY="0.8"
-      android:translateX="2.4"
-      android:translateY="2.4">
+      android:scaleX="0.65"
+      android:scaleY="0.65"
+      android:translateX="4.2"
+      android:translateY="4.2">
+
+    <!-- İkon (ağ rənglə daha aydın) -->
     <path
-        android:fillColor="#FF000000"
+        android:fillColor="#FFFFFFFF"
         android:pathData="M11,5.828l-6.071,6.071l-1.414,-1.414l8.485,-8.485l0.707,0.707l7.778,7.778l-1.414,1.414l-6.071,-6.071l0,16.172l-2,0l0,-16.172z"/>
   </group>
 </vector>

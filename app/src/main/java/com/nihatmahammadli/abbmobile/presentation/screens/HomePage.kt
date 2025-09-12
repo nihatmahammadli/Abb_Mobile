@@ -8,34 +8,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.journeyapps.barcodescanner.CaptureActivity
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
+import com.nihatmahammadli.abbmobile.MainActivity
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentHomePageBinding
 import com.nihatmahammadli.abbmobile.domain.model.UiCard
-import com.nihatmahammadli.abbmobile.presentation.adapters.*
+import com.nihatmahammadli.abbmobile.presentation.adapters.CardAdapter
+import com.nihatmahammadli.abbmobile.presentation.adapters.HorizontalImageAdapter
+import com.nihatmahammadli.abbmobile.presentation.adapters.TransactionAdapter
+import com.nihatmahammadli.abbmobile.presentation.components.providers.CardProvider
+import com.nihatmahammadli.abbmobile.presentation.components.sheet.AiChatDialogFragment
 import com.nihatmahammadli.abbmobile.presentation.components.sheet.CardOrderSheet
 import com.nihatmahammadli.abbmobile.presentation.model.BaseCardData
-import com.nihatmahammadli.abbmobile.presentation.components.providers.CardProvider
-import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.abs
-import androidx.core.content.edit
-import androidx.navigation.NavOptions
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.nihatmahammadli.abbmobile.MainActivity
-import com.nihatmahammadli.abbmobile.presentation.components.notification.NotificationHelper
-import com.nihatmahammadli.abbmobile.presentation.components.sheet.AiChatDialogFragment
 import com.nihatmahammadli.abbmobile.presentation.model.PaymentSummary
+import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.HistoryViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Locale
+import kotlin.math.abs
 
 @AndroidEntryPoint
 class HomePage : Fragment() {
@@ -85,8 +86,6 @@ class HomePage : Fragment() {
 //    }
 
 
-
-
     private fun initUI() {
         setupHorizontalRecycler()
         getHistory()
@@ -100,15 +99,17 @@ class HomePage : Fragment() {
         changeEyeIcon()
         supportAI()
     }
+
     private fun setupSwipeToRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             refreshData()
         }
     }
-    fun supportAI(){
+
+    fun supportAI() {
         binding.fabSupport.setOnClickListener {
             val dialog = AiChatDialogFragment()
-            dialog.show(childFragmentManager,"AIChat")
+            dialog.show(childFragmentManager, "AIChat")
         }
     }
 
@@ -129,7 +130,10 @@ class HomePage : Fragment() {
         viewModel.uiCards.observe(viewLifecycleOwner) { uiCards ->
             Log.d("HomePage", "Data gəldi, kartların sayı: ${uiCards.size}")
             uiCards.forEachIndexed { index, card ->
-                Log.d("HomePage", "Card #$index: Number=${card.cardNumber}, Expiry=${card.expiryDate}, CVV=${card.cvv}")
+                Log.d(
+                    "HomePage",
+                    "Card #$index: Number=${card.cardNumber}, Expiry=${card.expiryDate}, CVV=${card.cvv}"
+                )
             }
             lastUiCards = uiCards
             updateCardAdapter(uiCards)
@@ -148,7 +152,7 @@ class HomePage : Fragment() {
             }
         }
 
-        historyViewModel.paymentSum.observe(viewLifecycleOwner){ list ->
+        historyViewModel.paymentSum.observe(viewLifecycleOwner) { list ->
             val sortedList = list.sortedByDescending {
                 SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).parse(it.date)
             }
@@ -168,48 +172,47 @@ class HomePage : Fragment() {
         }
 
 
-
     }
 
-        @SuppressLint("DefaultLocale")
-        private fun updateCardAdapter(uiCards: List<UiCard>) {
-            val cards = mutableListOf<BaseCardData>()
+    @SuppressLint("DefaultLocale")
+    private fun updateCardAdapter(uiCards: List<UiCard>) {
+        val cards = mutableListOf<BaseCardData>()
 
-            if (isSeen) {
-                cards.addAll(uiCards.map { card ->
-                    BaseCardData.CustomCard(
-                        title = "Mastercard",
-                        balance = "${"%.2f".format(card.balance)} ₼",  // Format balance to 2 decimal places
-                        cardCodeEnding = "•••• ${card.cardNumber.takeLast(4)}",
-                        expiryDate = card.expiryDate,
-                        backgroundResId = R.drawable.card_background,
-                        cardLogoResId = R.drawable.visa_card,
-                        showVisa = true,
-                        onTopUpClick = { handleTopUpClick(card) },
-                        onPayClick = { handlePayClick(card) },
-                        onTransferClick = { handleTransferClick(card) }
-                    )
-                })
-            } else {
-                cards.addAll(uiCards.map { card ->
-                    BaseCardData.CustomCard(
-                        title = "Mastercard",
-                        balance = "•••• ₼",
-                        cardCodeEnding = "•••• ${card.cardNumber.takeLast(4)}",
-                        expiryDate = card.expiryDate,
-                        backgroundResId = R.drawable.card_background,
-                        cardLogoResId = R.drawable.visa_card,
-                        showVisa = true,
-                        onTopUpClick = { handleTopUpClick(card) },
-                        onPayClick = { handlePayClick(card) },
-                        onTransferClick = { handleTransferClick(card) }
-                    )
-                })
-            }
-
-            cards.addAll(CardProvider.getCards())
-            cardAdapter.updateItems(cards)
+        if (isSeen) {
+            cards.addAll(uiCards.map { card ->
+                BaseCardData.CustomCard(
+                    title = "Mastercard",
+                    balance = "${"%.2f".format(card.balance)} ₼",  // Format balance to 2 decimal places
+                    cardCodeEnding = "•••• ${card.cardNumber.takeLast(4)}",
+                    expiryDate = card.expiryDate,
+                    backgroundResId = R.drawable.card_background,
+                    cardLogoResId = R.drawable.visa_card,
+                    showVisa = true,
+                    onTopUpClick = { handleTopUpClick(card) },
+                    onPayClick = { handlePayClick(card) },
+                    onTransferClick = { handleTransferClick(card) }
+                )
+            })
+        } else {
+            cards.addAll(uiCards.map { card ->
+                BaseCardData.CustomCard(
+                    title = "Mastercard",
+                    balance = "•••• ₼",
+                    cardCodeEnding = "•••• ${card.cardNumber.takeLast(4)}",
+                    expiryDate = card.expiryDate,
+                    backgroundResId = R.drawable.card_background,
+                    cardLogoResId = R.drawable.visa_card,
+                    showVisa = true,
+                    onTopUpClick = { handleTopUpClick(card) },
+                    onPayClick = { handlePayClick(card) },
+                    onTransferClick = { handleTransferClick(card) }
+                )
+            })
         }
+
+        cards.addAll(CardProvider.getCards())
+        cardAdapter.updateItems(cards)
+    }
 
     private fun handleTopUpClick(card: UiCard) {
         findNavController().navigate(R.id.action_homePage_to_topUp)
@@ -235,11 +238,11 @@ class HomePage : Fragment() {
         )
         imageAdapter = HorizontalImageAdapter(imageList)
         binding.horizontalRecyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = imageAdapter
         }
     }
-
 
 
     private fun toggleTransactionList(transactions: List<PaymentSummary>) {
@@ -268,11 +271,11 @@ class HomePage : Fragment() {
         }
     }
 
-    private fun getHistory(){
+    private fun getHistory() {
         historyViewModel.fetchTotalPayments()
     }
 
-    private fun goHistory(){
+    private fun goHistory() {
         binding.constraintLayoutTransaction.setOnClickListener {
             findNavController().navigate(
                 R.id.action_homePage_to_history,
@@ -305,7 +308,8 @@ class HomePage : Fragment() {
     }
 
     private fun setupCardSection() {
-        cardAdapter = CardAdapter(mutableListOf(),
+        cardAdapter = CardAdapter(
+            mutableListOf(),
             onCardButtonClick = { position ->
                 if (position == 1 || position == 0) {
                     showCardOrderBottomSheet()
@@ -350,6 +354,7 @@ class HomePage : Fragment() {
                         page.scaleY = scale
                         page.alpha = 1 - 0.3f * abs(position)
                     }
+
                     else -> page.alpha = 0f
                 }
             }
@@ -414,7 +419,6 @@ class HomePage : Fragment() {
         binding.txtName.setOnClickListener(clickListener)
         binding.textView13.setOnClickListener(clickListener)
     }
-
 
 
 }

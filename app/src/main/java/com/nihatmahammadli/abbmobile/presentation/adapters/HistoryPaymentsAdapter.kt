@@ -8,12 +8,13 @@ import com.nihatmahammadli.abbmobile.presentation.model.PaymentSummary
 
 class HistoryPaymentsAdapter(
     private val list: List<PaymentSummary>
-): RecyclerView.Adapter<HistoryPaymentsAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<HistoryPaymentsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val binding = ItemHistoryPaymentsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding =
+            ItemHistoryPaymentsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -31,5 +32,6 @@ class HistoryPaymentsAdapter(
         return list.size
     }
 
-    inner class ViewHolder(val binding: ItemHistoryPaymentsBinding): RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemHistoryPaymentsBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

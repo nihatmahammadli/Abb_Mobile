@@ -4,13 +4,12 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nihatmahammadli.abbmobile.R
@@ -18,9 +17,8 @@ import com.nihatmahammadli.abbmobile.databinding.FragmentTopUpBinding
 import com.nihatmahammadli.abbmobile.presentation.components.sheet.CardOrderSheet
 import com.nihatmahammadli.abbmobile.presentation.components.sheet.ItemMyCardSheet
 import com.nihatmahammadli.abbmobile.presentation.components.sheet.SelectTopUpSheet
-import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
-import com.nihatmahammadli.abbmobile.presentation.viewmodel.TopUpViewModel
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.TopUpResult
+import com.nihatmahammadli.abbmobile.presentation.viewmodel.TopUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -48,7 +46,7 @@ class TopUp : Fragment() {
         return binding.root
     }
 
-    fun initUI(){
+    fun initUI() {
         setupClickListeners()
         setupAmountButtons()
         observeViewModel()
@@ -57,13 +55,13 @@ class TopUp : Fragment() {
     }
 
     @SuppressLint("SetTextI18n", "DefaultLocale")
-        fun fetchAmountFromFirebase(){
-            topUpViewModel.listenToAmount()
+    fun fetchAmountFromFirebase() {
+        topUpViewModel.listenToAmount()
 
-            topUpViewModel.totalBalance.observe(viewLifecycleOwner){total ->
-                binding.masterCardBalance.text = String.format("%,.2f AZN", total)
-            }
+        topUpViewModel.totalBalance.observe(viewLifecycleOwner) { total ->
+            binding.masterCardBalance.text = String.format("%,.2f AZN", total)
         }
+    }
 
     private fun setupClickListeners() {
         binding.transferBtn.setOnClickListener {
@@ -91,17 +89,20 @@ class TopUp : Fragment() {
                     resetAmount()
                     topUpViewModel.clearResult()
                 }
+
                 is TopUpResult.Error -> {
                     Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
                     topUpViewModel.clearResult()
                 }
+
                 null -> {
                 }
             }
         }
 
         topUpViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.transferBtn.isEnabled = !isLoading && (topUpViewModel.senderSelected.value == true)
+            binding.transferBtn.isEnabled =
+                !isLoading && (topUpViewModel.senderSelected.value == true)
             binding.transferBtn.text = if (isLoading) "Əlavə edilir..." else "Əlavə et"
 
             setAmountControlsEnabled(!isLoading)
@@ -119,7 +120,12 @@ class TopUp : Fragment() {
                     else R.drawable.credit_cart_icon
 
                     val newIcon = ContextCompat.getDrawable(requireContext(), iconRes)
-                    binding.senderBtn.setCompoundDrawablesWithIntrinsicBounds(newIcon, null, null, null)
+                    binding.senderBtn.setCompoundDrawablesWithIntrinsicBounds(
+                        newIcon,
+                        null,
+                        null,
+                        null
+                    )
 
                     topUpViewModel.setSenderSelected(true)
                 }
@@ -185,6 +191,7 @@ class TopUp : Fragment() {
                 val parsedAmount = text.toDoubleOrNull() ?: 0.0
                 totalAmount = (parsedAmount * 100.0).roundToInt() / 100.0
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
@@ -230,7 +237,8 @@ class TopUp : Fragment() {
         }
 
         if (amount <= 0.0) {
-            Toast.makeText(requireContext(), "Məbləğ sıfırdan böyük olmalıdır", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Məbləğ sıfırdan böyük olmalıdır", Toast.LENGTH_SHORT)
+                .show()
             return
         }
 

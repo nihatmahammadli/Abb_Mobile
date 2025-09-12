@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="10dp"
+    android:background="@drawable/dialog_background"
     android:paddingVertical="20dp">
 
     <!-- Back button -->
@@ -79,10 +80,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="@drawable/edittext_background"
             android:hint="Write a reply.."
-            android:padding="8dp"
+            android:padding="12dp"
             android:inputType="text" />
+
 
         <ImageButton
             android:id="@+id/sendBtn"

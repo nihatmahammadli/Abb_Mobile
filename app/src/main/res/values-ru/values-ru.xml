@@ -128,4 +128,26 @@
     <string name="loading_card_order">Ваша карта заказывается..</string>
     <string name="loading_checking">Ваши данные проверяются..</string>
     <string name="loading_preparing">Ваша карта готовится</string>
+    <string name="app_language">Язык приложения</string>
+    <string name="carbon_footprint">Углеродный след</string>
+    <string name="carbon_footprint_action">Активировать</string>
+    <string name="interface_mode">Режим интерфейса</string>
+    <string name="interface_mode_value">Светлый</string>
+    <string name="application_language">Язык приложения</string>
+    <string name="application_language_value">Русский</string>
+    <string name="notification_settings">Настройки уведомлений</string>
+    <string name="notification_settings_value">Активно 6 типов уведомлений</string>
+    <string name="application_icon">Иконка приложения</string>
+    <string name="stickers">Стикеры</string>
+    <string name="menu_profile">Профиль и параметры</string>
+    <string name="menu_services">Банковские услуги</string>
+    <string name="menu_support">Поддержка</string>
+    <string name="menu_documents">Документы</string>
+    <string name="rate_us">Оцените нас</string>
+    <string name="transfer_requests">Запросы на перевод</string>
+    <string name="requests_transfers_and_split_the_bill">Запросы, переводы и разделение счета</string>
+    <string name="easy_one_time_transfers">Легкие одноразовые переводы</string>
+    <string name="activate">Активировать</string>
+    <string name="products_and_operations">Продукты и операции</string>
+    <string name="qr_and_my_personal_information">QR и моя личная информация</string>
 </resources>

@@ -19,7 +19,7 @@ import kotlin.math.round
 class PaymentAmountsViewModel @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val firebaseAuth: FirebaseAuth
-): ViewModel() {
+) : ViewModel() {
 
     private val _transferResult = MutableLiveData<TransferResult>()
     val transferResult: LiveData<TransferResult> = _transferResult
@@ -36,10 +36,12 @@ class PaymentAmountsViewModel @Inject constructor(
         private fun formatAmount(amount: Double): String = "%.2f".format(amount)
     }
 
-    fun transferAmount(amount: Double,
-                       paymentType: String = "transfer",
-                       applyCashBack: Boolean = true,
-                       paymentFor: String? = null) {
+    fun transferAmount(
+        amount: Double,
+        paymentType: String = "transfer",
+        applyCashBack: Boolean = true,
+        paymentFor: String? = null
+    ) {
 
         Log.d("PaymentAmountsViewModel", "transferAmount called with:")
         Log.d("PaymentAmountsViewModel", "Amount: $amount")
@@ -100,7 +102,7 @@ class PaymentAmountsViewModel @Inject constructor(
                     "amount" to roundedAmount,
                     "timestamp" to System.currentTimeMillis(),
                     "type" to paymentType,
-                    "description" to when(paymentType) {
+                    "description" to when (paymentType) {
                         "payment" -> "Ödəniş əməliyyatı"
                         "transfer" -> "Transfer əməliyyatı"
                         else -> "Əməliyyat"
@@ -109,7 +111,10 @@ class PaymentAmountsViewModel @Inject constructor(
 
                 if (!paymentFor.isNullOrEmpty()) {
                     paymentTransaction["paymentFor"] = paymentFor
-                    Log.d("PaymentAmountsViewModel", "PaymentFor added to transaction: '$paymentFor'")
+                    Log.d(
+                        "PaymentAmountsViewModel",
+                        "PaymentFor added to transaction: '$paymentFor'"
+                    )
                 } else {
                     Log.d("PaymentAmountsViewModel", "PaymentFor is null or empty")
                 }
@@ -125,7 +130,7 @@ class PaymentAmountsViewModel @Inject constructor(
                 Log.d("PaymentAmountsViewModel", "Transaction saved to Firebase successfully")
 
                 val cashbackAmount = calculateCashback(amount, paymentType)
-                val resultMessage = when(paymentType) {
+                val resultMessage = when (paymentType) {
                     "payment" -> "Ödəniş uğurla tamamlandı"
                     "transfer" -> "Transfer uğurla tamamlandı"
                     else -> "Əməliyyat uğurla tamamlandı"
@@ -154,7 +159,8 @@ class PaymentAmountsViewModel @Inject constructor(
 
             } catch (e: Exception) {
                 Log.e("PaymentAmountsViewModel", "Error in transferAmount: ${e.message}")
-                _transferResult.value = TransferResult.Error("Əməliyyat zamanı xəta baş verdi: ${e.message}")
+                _transferResult.value =
+                    TransferResult.Error("Əməliyyat zamanı xəta baş verdi: ${e.message}")
             } finally {
                 _isLoading.value = false
             }
@@ -181,7 +187,9 @@ class PaymentAmountsViewModel @Inject constructor(
         }
     }
 
-    fun clearResult() { _transferResult.value = null }
+    fun clearResult() {
+        _transferResult.value = null
+    }
 
 
     private fun Double.toRoundedDouble(): Double {

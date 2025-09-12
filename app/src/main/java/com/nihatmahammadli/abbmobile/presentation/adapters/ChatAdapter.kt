@@ -55,25 +55,4 @@ class ChatAdapter(private val messages: MutableList<ChatMessage>)
             binding.aiMessage.text = msg.text
         }
     }
-
-    fun updateMessages(newMessages: List<ChatMessage>) {
-        val diffCallback = object : DiffUtil.Callback() {
-            override fun getOldListSize() = messages.size
-            override fun getNewListSize() = newMessages.size
-
-            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                return messages[oldItemPosition] === newMessages[newItemPosition]
-            }
-
-            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                return messages[oldItemPosition] == newMessages[newItemPosition]
-            }
-        }
-
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        messages.clear()
-        messages.addAll(newMessages)
-        diffResult.dispatchUpdatesTo(this)
-    }
-
 }

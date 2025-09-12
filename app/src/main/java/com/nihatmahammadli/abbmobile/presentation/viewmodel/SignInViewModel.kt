@@ -11,18 +11,17 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val auth: FirebaseAuth
-): ViewModel() {
+) : ViewModel() {
 
     private val _signInStatus = MutableLiveData<Result<FirebaseUser>>()
     val signInStatus: LiveData<Result<FirebaseUser>> get() = _signInStatus
 
 
-
-    fun signIn(email: String,password: String){
-        auth.signInWithEmailAndPassword(email,password)
+    fun signIn(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
                 val user = auth.currentUser
-                if (user != null){
+                if (user != null) {
                     _signInStatus.value = Result.success(user)
                 } else {
                     _signInStatus.value = Result.failure(Exception("User not found"))

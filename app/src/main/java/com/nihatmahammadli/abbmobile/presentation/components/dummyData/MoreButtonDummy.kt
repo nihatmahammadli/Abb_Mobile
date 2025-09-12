@@ -5,9 +5,9 @@ import com.nihatmahammadli.abbmobile.presentation.model.MoreButton
 
 object MoreButtonDummy {
     val btnList = listOf(
-        MoreButton(R.string.profile_and_parameters),
-        MoreButton(R.string.bank_services),
-        MoreButton(R.string.support),
-        MoreButton(R.string.documents)
+        MoreButton(R.string.menu_profile),
+        MoreButton(R.string.menu_services),
+        MoreButton(R.string.menu_support),
+        MoreButton(R.string.menu_documents)
     )
 }

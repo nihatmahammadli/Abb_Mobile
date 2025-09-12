@@ -1,13 +1,12 @@
 package com.nihatmahammadli.abbmobile.presentation.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
-import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentMoreBinding
 import com.nihatmahammadli.abbmobile.presentation.adapters.MoreButtonsAdapter
 import com.nihatmahammadli.abbmobile.presentation.adapters.MorePagerAdapter
@@ -22,30 +21,32 @@ class More : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMoreBinding.inflate(inflater,container,false)
+        binding = FragmentMoreBinding.inflate(inflater, container, false)
 
         initUI()
         return binding.root
     }
 
-    fun initUI(){
+    fun initUI() {
         setUpAdapter()
     }
-    fun setUpAdapter(){
+
+    fun setUpAdapter() {
         pagerAdapter = MorePagerAdapter(this)
         binding.viewPager.adapter = pagerAdapter
 
         adapter = MoreButtonsAdapter(MoreButtonDummy.btnList) { position ->
-            binding.viewPager.setCurrentItem(position,true)
+            binding.viewPager.setCurrentItem(position, true)
         }
         binding.buttonsRcyView.adapter = adapter
-        binding.buttonsRcyView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+        binding.buttonsRcyView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 adapter.setSelected(position)
             }
-    })
+        })
     }
 }

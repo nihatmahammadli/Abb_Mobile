@@ -5,12 +5,23 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/mainFragment">
 
+    <action
+        android:id="@+id/action_global_homePage"
+        app:destination="@id/homePage" />
+
+    <action
+        android:id="@+id/action_global_enterPinCode"
+        app:destination="@id/enterPinCode" />
+
+    <action
+        android:id="@+id/action_global_setPinCode"
+        app:destination="@id/setPinCode" />
 
     <fragment
         android:id="@+id/signUp"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.SignUp"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" >
+        tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/action_signUp_to_signUpWithFin"
             app:destination="@id/signUpWithFin" />
@@ -18,32 +29,37 @@
             android:id="@+id/action_signUp_to_userInfo"
             app:destination="@id/userInfo" />
     </fragment>
+
+    <!-- DOB -->
     <fragment
         android:id="@+id/enterDateOfBirth"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.EnterDateOfBirth"
         android:label="fragment_enter_date_of_birth"
-        tools:layout="@layout/fragment_enter_date_of_birth" >
+        tools:layout="@layout/fragment_enter_date_of_birth">
 
+        <!-- Default olaraq Home-a yox, SetPinCode-a yönləndiririk -->
         <action
-            android:id="@+id/action_enterDateOfBirth_to_homePage"
-            app:destination="@id/homePage"
-            app:popUpTo="@id/enterDateOfBirth"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_enterDateOfBirth_to_setPinCode"
+            app:destination="@id/setPinCode" />
     </fragment>
+
+    <!-- SignUp with FIN -->
     <fragment
         android:id="@+id/signUpWithFin"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.SignUpWithFin"
         android:label="fragment_sign_up_with_fin"
-        tools:layout="@layout/fragment_sign_up_with_fin" >
+        tools:layout="@layout/fragment_sign_up_with_fin">
         <action
             android:id="@+id/action_signUpWithFin_to_userInfo"
             app:destination="@id/userInfo" />
     </fragment>
+
+    <!-- Main Fragment -->
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_signIn"
             app:destination="@id/signIn" />
@@ -51,48 +67,53 @@
             android:id="@+id/action_mainFragment_to_signUp"
             app:destination="@id/signUp" />
         <action
-            android:id="@+id/action_mainFragment_to_homePage"
-            app:destination="@id/homePage"
-            app:popUpTo="@id/mainFragment"
-            app:popUpToInclusive="true" />
-        <action
             android:id="@+id/action_mainFragment_to_serviceNetwork"
             app:destination="@id/serviceNetwork" />
         <action
             android:id="@+id/action_mainFragment_to_contact"
             app:destination="@id/contact" />
+        <!-- ❌ Buradakı homePage action-ları silindi -->
     </fragment>
+
     <fragment
         android:id="@+id/customerTypeSelection"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.CustomerTypeSelection"
         android:label="fragment_customer_type_selection"
         tools:layout="@layout/fragment_customer_type_selection" />
+
+    <!-- Menu -->
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.MenuFragment"
         android:label="MenuFragment"
-        tools:layout="@layout/fragment_menu"/>
+        tools:layout="@layout/fragment_menu" />
+
+    <!-- SignIn -->
     <fragment
         android:id="@+id/signIn"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.SignIn"
         android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" >
+        tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signIn_to_homePage"
             app:destination="@id/homePage"
             app:popUpTo="@id/signIn"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_signIn_to_enterPinCode"
+            app:destination="@id/enterPinCode" />
+        <action
+            android:id="@+id/action_signIn_to_setPinCode"
+            app:destination="@id/setPinCode" />
     </fragment>
+
+    <!-- HomePage -->
     <fragment
         android:id="@+id/homePage"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.HomePage"
         android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" >
-        <action
-            android:id="@+id/action_homePage_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:popUpTo="@id/mainFragment"
-            app:popUpToInclusive="true" />
+        tools:layout="@layout/fragment_home_page">
+        <!-- ❌ action_homePage_to_mainFragment silindi -->
         <action
             android:id="@+id/action_homePage_to_orderNewCard"
             app:destination="@id/orderNewCard"
@@ -117,42 +138,46 @@
             android:id="@+id/action_homePage_to_history"
             app:destination="@id/history" />
     </fragment>
+
     <fragment
         android:id="@+id/userInfo"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.UserInfo"
         android:label="fragment_user_info"
-        tools:layout="@layout/fragment_user_info" >
+        tools:layout="@layout/fragment_user_info">
         <action
             android:id="@+id/action_userInfo_to_enterDateOfBirth"
             app:destination="@id/enterDateOfBirth" />
     </fragment>
+
     <fragment
         android:id="@+id/history"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.History"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
+
     <fragment
         android:id="@+id/forYou"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.ForYou"
         android:label="fragment_for_you"
         tools:layout="@layout/fragment_for_you" />
+
     <dialog
         android:id="@+id/cardOrderSheet"
         android:name="com.nihatmahammadli.abbmobile.presentation.components.sheet.CardOrderSheet"
         android:label="fragment_card_order_sheet"
-        tools:layout="@layout/fragment_card_order_sheet" >
-
+        tools:layout="@layout/fragment_card_order_sheet">
         <action
             android:id="@+id/action_cardOrderSheet_to_orderNewCard"
             app:destination="@id/orderNewCard"
             app:popUpTo="@id/cardOrderSheet"
             app:popUpToInclusive="true" />
     </dialog>
+
     <fragment
         android:id="@+id/orderNewCard"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.OrderNewCard"
         android:label="fragment_order_new_card"
-        tools:layout="@layout/fragment_order_new_card" >
+        tools:layout="@layout/fragment_order_new_card">
         <action
             android:id="@+id/action_orderNewCard_to_homePage"
             app:destination="@id/homePage" />
@@ -162,11 +187,12 @@
             app:popUpTo="@id/orderNewCard"
             app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/profile"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.Profile"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profile_to_customerTypeSelection"
             app:destination="@id/customerTypeSelection"
@@ -176,16 +202,18 @@
             android:id="@+id/action_profile_to_addNumber"
             app:destination="@id/addNumber" />
     </fragment>
+
     <fragment
         android:id="@+id/topUp"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.TopUp"
         android:label="fragment_top_up"
         tools:layout="@layout/fragment_top_up" />
+
     <fragment
         android:id="@+id/cardView"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.CardView"
         android:label="fragment_card_view"
-        tools:layout="@layout/fragment_card_view" >
+        tools:layout="@layout/fragment_card_view">
         <action
             android:id="@+id/action_cardView_to_topUp"
             app:destination="@id/topUp" />
@@ -199,15 +227,17 @@
             android:id="@+id/action_cardView_to_showMyCard"
             app:destination="@id/showMyCard" />
     </fragment>
+
     <fragment
         android:id="@+id/payments"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.Payments"
         android:label="fragment_payments"
-        tools:layout="@layout/fragment_payments" >
+        tools:layout="@layout/fragment_payments">
         <action
             android:id="@+id/action_payments_to_paymentsAmount"
             app:destination="@id/paymentsAmount" />
     </fragment>
+
     <fragment
         android:id="@+id/paymentsAmount"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.PaymentsAmount"
@@ -215,66 +245,74 @@
         tools:layout="@layout/fragment_payments_amount">
         <argument
             android:name="fromTransferPage"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
         <argument
             android:name="paymentVertical"
             app:argType="com.nihatmahammadli.abbmobile.presentation.model.PaymentVertical"
-            app:nullable="true"/>
+            app:nullable="true" />
         <argument
             android:name="paymentHorizontal"
             app:argType="com.nihatmahammadli.abbmobile.presentation.model.PaymentHorizontal"
-            app:nullable="true"/>
+            app:nullable="true" />
         <argument
             android:name="cardNumber"
-            app:nullable="true"
-            android:defaultValue="@null" />
-
-
+            android:defaultValue="@null"
+            app:nullable="true" />
     </fragment>
+
     <fragment
         android:id="@+id/transfer"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.Transfer"
         android:label="fragment_transfer"
-        tools:layout="@layout/fragment_transfer" >
+        tools:layout="@layout/fragment_transfer">
         <action
             android:id="@+id/action_transfer_to_paymentsAmount"
             app:destination="@id/paymentsAmount" />
     </fragment>
+
     <fragment
         android:id="@+id/addNumber"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.AddNumber"
         android:label="fragment_add_number"
         tools:layout="@layout/fragment_add_number" />
+
     <fragment
         android:id="@+id/showMyCard"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.ShowMyCard"
         android:label="fragment_show_my_card"
         tools:layout="@layout/fragment_show_my_card" />
+
     <fragment
         android:id="@+id/serviceNetwork"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.ServiceNetwork"
         android:label="fragment_service_network"
         tools:layout="@layout/fragment_service_network" />
+
     <fragment
         android:id="@+id/contact"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.Contact"
         android:label="fragment_contact"
         tools:layout="@layout/fragment_contact" />
+
     <fragment
         android:id="@+id/more"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.More"
         android:label="fragment_more"
-        tools:layout="@layout/fragment_more" >
+        tools:layout="@layout/fragment_more">
         <action
             android:id="@+id/action_more_to_profile"
             app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_more_to_changeLanguage"
+            app:destination="@id/changeLanguage" />
     </fragment>
+
     <fragment
         android:id="@+id/cardOrderLoading"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.CardOrderLoading"
         android:label="fragment_card_order_loading"
-        tools:layout="@layout/fragment_card_order_loading" >
+        tools:layout="@layout/fragment_card_order_loading">
         <action
             android:id="@+id/action_cardOrderLoading_to_homePage"
             app:destination="@id/homePage"
@@ -282,4 +320,21 @@
             app:popUpToInclusive="true" />
     </fragment>
 
+    <fragment
+        android:id="@+id/changeLanguage"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.ChangeLanguage"
+        android:label="fragment_change_language"
+        tools:layout="@layout/fragment_change_language" />
+
+    <fragment
+        android:id="@+id/setPinCode"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.SetPinCode"
+        android:label="fragment_set_pin_code"
+        tools:layout="@layout/fragment_set_pin_code" />
+
+    <fragment
+        android:id="@+id/enterPinCode"
+        android:name="com.nihatmahammadli.abbmobile.presentation.screens.EnterPinCode"
+        android:label="EnterPinCode"
+        tools:layout="@layout/fragment_enter_pin_code" />
 </navigation>

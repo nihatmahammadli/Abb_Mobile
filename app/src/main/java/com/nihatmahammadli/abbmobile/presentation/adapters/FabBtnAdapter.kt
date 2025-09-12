@@ -2,7 +2,6 @@ package com.nihatmahammadli.abbmobile.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nihatmahammadli.abbmobile.databinding.ItemFabRecyclerBinding
 import com.nihatmahammadli.abbmobile.presentation.model.FabBtnRecyclerItems
@@ -13,7 +12,8 @@ class FabBtnAdapter(
 ) : RecyclerView.Adapter<FabBtnAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemFabRecyclerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemFabRecyclerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 

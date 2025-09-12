@@ -2,10 +2,10 @@ package com.nihatmahammadli.abbmobile.presentation.screens
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nihatmahammadli.abbmobile.R
@@ -16,7 +16,7 @@ import com.nihatmahammadli.abbmobile.presentation.model.PaymentSummary
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.HistoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 @AndroidEntryPoint
 class History : Fragment() {
@@ -45,14 +45,14 @@ class History : Fragment() {
         }
     }
 
-    private fun initUI(){
+    private fun initUI() {
         setObservers()
         setupSwipeRefresh()
         setUpAdapters()
         setupRecyclerView()
     }
 
-    private fun setupSwipeRefresh(){
+    private fun setupSwipeRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.fetchTotalPayments()
         }
@@ -68,7 +68,7 @@ class History : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun setObservers() {
-        viewModel.isLoading.observe(viewLifecycleOwner){ loading ->
+        viewModel.isLoading.observe(viewLifecycleOwner) { loading ->
             binding.swipeRefreshLayout.isRefreshing = loading
         }
 

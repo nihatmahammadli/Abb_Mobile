@@ -12,28 +12,29 @@ import jakarta.inject.Inject
 class SignUpWithFinViewModel @Inject constructor(
     private val auth: FirebaseAuth,
     private val fireStore: FirebaseFirestore
-): ViewModel() {
+) : ViewModel() {
 
     private val _finInput = MutableLiveData<String>()
-    val finInput : LiveData<String> = _finInput
+    val finInput: LiveData<String> = _finInput
 
     private val _isButtonEnabled = MutableLiveData<Boolean>(false)
-    val isButtonEnable : LiveData<Boolean> = _isButtonEnabled
+    val isButtonEnable: LiveData<Boolean> = _isButtonEnabled
 
     private val _passwordInput = MutableLiveData<String>()
     val passwordInput: LiveData<String> = _passwordInput
 
     private val _signUpResult = MutableLiveData<Boolean>()
-    val signUpResult : LiveData<Boolean> = _signUpResult
+    val signUpResult: LiveData<Boolean> = _signUpResult
 
-    fun onFixTextChangedEmail(text: String){
+    fun onFixTextChangedEmail(text: String) {
         _finInput.value = text
         val newText = _passwordInput.value
         if (newText != null) {
             _isButtonEnabled.value = text.length == 7 && newText.isNotEmpty()
         }
     }
-    fun onFixTextChangedPassword(text: String){
+
+    fun onFixTextChangedPassword(text: String) {
         _passwordInput.value = text
         _isButtonEnabled.value = text.length >= 6
     }

@@ -19,9 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
-    private val firestore: FirebaseFirestore,
-    private val firebaseAuth: FirebaseAuth
-): ViewModel() {
+    private val firestore: FirebaseFirestore, private val firebaseAuth: FirebaseAuth
+) : ViewModel() {
 
     private val _result = MutableLiveData<Boolean>()
     val result: LiveData<Boolean> = _result
@@ -44,23 +43,16 @@ class HistoryViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val cardSnapshot = firestore.collection("users")
-                    .document(uid)
-                    .collection("cards")
-                    .get()
-                    .await()
+                val cardSnapshot =
+                    firestore.collection("users").document(uid).collection("cards").get().await()
 
                 val paymentSumList = mutableListOf<PaymentSummary>()
 
                 for (cardDoc in cardSnapshot) {
                     val cardId = cardDoc.id
-                    val paymentTransaction = firestore.collection("users")
-                        .document(uid)
-                        .collection("cards")
-                        .document(cardId)
-                        .collection("transaction")
-                        .get()
-                        .await()
+                    val paymentTransaction =
+                        firestore.collection("users").document(uid).collection("cards")
+                            .document(cardId).collection("transaction").get().await()
 
                     for (doc in paymentTransaction.documents) {
                         val type = doc.getString("type")
@@ -80,10 +72,14 @@ class HistoryViewModel @Inject constructor(
                                 paymentFor.replace(" ", "").length == 16 -> {
                                     "Transfer: ${formatCardNumber(paymentFor)}"
                                 }
+
                                 else -> paymentFor
                             }
 
-                            Log.d("HistoryViewModel", "Payment found - PaymentFor: '$paymentFor', DisplayName: '$displayName', Amount: $amount")
+                            Log.d(
+                                "HistoryViewModel",
+                                "Payment found - PaymentFor: '$paymentFor', DisplayName: '$displayName', Amount: $amount"
+                            )
 
                             paymentSumList.add(
                                 PaymentSummary(

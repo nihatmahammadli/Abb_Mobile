@@ -30,6 +30,7 @@ class SignIn : Fragment() {
 
     @Inject
     lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -38,7 +39,7 @@ class SignIn : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSignInBinding.inflate(inflater,container,false)
+        binding = FragmentSignInBinding.inflate(inflater, container, false)
         signInWithEmail()
         signIn()
         setUpListeners()
@@ -48,16 +49,13 @@ class SignIn : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
     }
 
-
-     fun setUpListeners(){
-        binding.emailText.addTextChangedListener(SimpleTextWatcher{
+    private fun setUpListeners() {
+        binding.emailText.addTextChangedListener(SimpleTextWatcher {
             signUpViewModel.onFixTextChangedEmail(it.trim())
         })
-        binding.passwordText.addTextChangedListener(SimpleTextWatcher{
+        binding.passwordText.addTextChangedListener(SimpleTextWatcher {
             signUpViewModel.onFixTextChangedPasswordForEmail(it.trim())
         })
         binding.leftBtn.setOnClickListener {
@@ -67,41 +65,52 @@ class SignIn : Fragment() {
         }
     }
 
-    private fun observeViewModel(){
-        signUpViewModel.isButtonEnabled.observe(viewLifecycleOwner) {enabled ->
+    private fun observeViewModel() {
+        signUpViewModel.isButtonEnabled.observe(viewLifecycleOwner) { enabled ->
             binding.btnContinue.isEnabled = enabled
             binding.btnContinue.alpha = if (enabled) 1f else 0.5f
         }
     }
 
-
-
-    fun signIn(){
+    private fun signIn() {
         viewModel.signInStatus.observe(viewLifecycleOwner) { result ->
             result.onSuccess {
                 binding.progressBar.visibility = View.GONE
 
-                val sharedPref = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-                sharedPref.edit { putBoolean("isLoggedIn", true) }
-
-                findNavController().navigate(R.id.action_signIn_to_homePage)
+                // Uğurlu giriş sonrası PIN yoxlaması
+                handleSuccessfulSignIn()
             }
             result.onFailure {
                 binding.progressBar.visibility = View.GONE
-
                 Toast.makeText(requireContext(), "User not found!", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+    private fun handleSuccessfulSignIn() {
+        val sharedPref = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
 
+        val pinSetupComplete = sharedPref.getBoolean("pin_setup_complete", false)
 
+        if (!pinSetupComplete) {
+            Log.d("SignIn", "PIN not set up, navigating to set PIN")
+            findNavController().navigate(R.id.action_signIn_to_setPinCode)
+        } else {
+            Log.d("SignIn", "PIN already set up, navigating to enter PIN")
 
-    fun signInWithEmail() {
+            sharedPref.edit {
+                putBoolean("isLoggedIn", false)
+                putLong("last_login_time", System.currentTimeMillis())
+            }
+
+            findNavController().navigate(R.id.action_signIn_to_enterPinCode)
+        }
+    }
+
+    private fun signInWithEmail() {
         binding.btnContinue.setOnClickListener {
             val email = binding.emailText.text.toString().trim()
             val password = binding.passwordText.text.toString().trim()
-
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(
@@ -111,8 +120,8 @@ class SignIn : Fragment() {
                 ).show()
                 return@setOnClickListener
             }
-            Log.d("TEST", "ProgressBar exists: visible")
 
+            Log.d("TEST", "ProgressBar exists: visible")
             binding.progressBar.visibility = View.VISIBLE
             viewModel.signIn(email, password)
         }

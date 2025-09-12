@@ -26,7 +26,6 @@ class EnterDateOfBirth : Fragment() {
     private lateinit var binding: FragmentEnterDateOfBirthBinding
     private var isValidAge = false
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +34,6 @@ class EnterDateOfBirth : Fragment() {
         binding = FragmentEnterDateOfBirthBinding.inflate(inflater, container, false)
 
         updateButtonState()
-
         setupListeners()
         return binding.root
     }
@@ -97,21 +95,21 @@ class EnterDateOfBirth : Fragment() {
             val user = FirebaseAuth.getInstance().currentUser
             if (user != null && isValidAge && binding.selectDate.text?.isNotEmpty() == true) {
 
+                // Save date of birth to SharedPreferences
                 val sharedPref = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-                sharedPref.edit { putBoolean("isLoggedIn", true) }
+                sharedPref.edit {
+                    putString("date_of_birth", binding.selectDate.text.toString())
+                    putBoolean("date_of_birth_complete", true)
+                }
 
-                findNavController().navigate(
-                    R.id.homePage, null,
-                    NavOptions.Builder()
-                        .setPopUpTo(R.id.nav_graph, true)
-                        .build()
-                )
+                // Navigate to PIN setup instead of home page
+                findNavController().navigate(R.id.setPinCode)
 
                 NotificationHelper.generateNotification(
                     requireContext(),
                     "Welcome to ABB Mobile",
-                    "You have successfully signed up",
-                    )
+                    "Please set up your PIN code to secure your account",
+                )
 
             } else {
                 when {

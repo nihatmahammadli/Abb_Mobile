@@ -33,12 +33,13 @@ class MainFragment : Fragment() {
 
         if (isLoggedIn) {
             isRedirected = true
-            findNavController().navigate(R.id.action_mainFragment_to_homePage)
+            findNavController().navigate(R.id.action_global_homePage)
         } else {
             adapter = MyPagerAdapter(this)
             binding.viewPager.adapter = adapter
 
-            binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            binding.viewPager.registerOnPageChangeCallback(object :
+                ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     updateSwipeIndicators(position)
@@ -64,6 +65,7 @@ class MainFragment : Fragment() {
                     val nextFragment = childFragmentManager.findFragmentByTag(nextFragmentTag)
                     (nextFragment as? MenuFragment)?.hideSwipe()
                 }
+
                 1 -> {
                     (currentFragment as? MenuFragment)?.showSwipeDown()
 

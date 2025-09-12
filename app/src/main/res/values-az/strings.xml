@@ -126,4 +126,26 @@
     <string name="loading_card_order">Kartınız sifariş edilir..</string>
     <string name="loading_checking">Məlumatlar yoxlanılır..</string>
     <string name="loading_preparing">Kartınız hazırlanır</string>
+    <string name="app_language">Tətbiq dili</string>
+    <string name="carbon_footprint">Karbon izi</string>
+    <string name="carbon_footprint_action">Aktiv et</string>
+    <string name="interface_mode">İnterfeys rejimi</string>
+    <string name="interface_mode_value">Açıq</string>
+    <string name="application_language">Tətbiq dili</string>
+    <string name="application_language_value">Azərbaycan dili</string>
+    <string name="notification_settings">Bildiriş ayarları</string>
+    <string name="notification_settings_value">6 bildiriş növü aktivdir</string>
+    <string name="application_icon">Tətbiq ikonu</string>
+    <string name="stickers">Stikerlər</string>
+    <string name="menu_profile">Profil və Parametrlər</string>
+    <string name="menu_services">Bank xidmətləri</string>
+    <string name="menu_support">Dəstək</string>
+    <string name="menu_documents">Sənədlər</string>
+    <string name="rate_us">Bizi qiymətləndir</string>
+    <string name="transfer_requests">Köçürmə sorğuları</string>
+    <string name="requests_transfers_and_split_the_bill">Sorğular, köçürmələr və hesabın bölüşdürülməsi</string>
+    <string name="easy_one_time_transfers">Asan birdəfəlik köçürmələr</string>
+    <string name="activate">Aktiv et</string>
+    <string name="products_and_operations">Məhsullar və əməliyyatlar</string>
+    <string name="qr_and_my_personal_information">QR və şəxsi məlumatlarım</string>
 </resources>

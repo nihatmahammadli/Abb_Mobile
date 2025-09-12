@@ -16,10 +16,6 @@ import com.nihatmahammadli.abbmobile.presentation.components.ui.LocaleHelper
 class MenuFragment : Fragment() {
     private lateinit var binding: FragmentMenuBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
