@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentChangeLanguageBinding
 import com.nihatmahammadli.abbmobile.presentation.components.ui.LocaleHelper
 

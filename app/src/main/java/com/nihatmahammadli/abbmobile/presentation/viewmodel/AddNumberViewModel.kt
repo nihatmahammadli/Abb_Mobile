@@ -12,13 +12,13 @@ import javax.inject.Inject
 class AddNumberViewModel @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val firebaseAuth: FirebaseAuth
-): ViewModel() {
+) : ViewModel() {
 
     private val _result = MutableLiveData<Boolean>()
     val result: LiveData<Boolean> = _result
 
     private val _number = MutableLiveData<String>()
-    val number: LiveData<String>  = _number
+    val number: LiveData<String> = _number
 
     fun addNumberFirebase() {
         val uid = firebaseAuth.currentUser?.uid
@@ -41,17 +41,17 @@ class AddNumberViewModel @Inject constructor(
             }
     }
 
-    fun fetchNumberFromFirebase(){
-        val uid= firebaseAuth.currentUser?.uid ?: return
+    fun fetchNumberFromFirebase() {
+        val uid = firebaseAuth.currentUser?.uid ?: return
 
 
         firestore.collection("users")
             .document(uid)
             .get()
             .addOnSuccessListener { doc ->
-                if (doc.exists()){
+                if (doc.exists()) {
                     _number.value = doc.getString("mobileNumber")
-                }else {
+                } else {
                     _number.value = ""
                 }
             }.addOnFailureListener {

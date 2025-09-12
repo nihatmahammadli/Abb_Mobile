@@ -1,7 +1,7 @@
 package com.nihatmahammadli.abbmobile.data.di
 
-import com.nihatmahammadli.abbmobile.domain.repository.CardRepository
 import com.nihatmahammadli.abbmobile.data.repository.CardRepositoryImpl
+import com.nihatmahammadli.abbmobile.domain.repository.CardRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

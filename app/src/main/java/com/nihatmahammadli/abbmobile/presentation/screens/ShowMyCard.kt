@@ -100,7 +100,8 @@ class ShowMyCard : Fragment() {
 
     private fun copyCardNumber() {
         viewModel.uiCards.value?.firstOrNull()?.let { card ->
-            val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipboard =
+                requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("Card Number", card.cardNumber)
             clipboard.setPrimaryClip(clip)
 
@@ -192,24 +193,28 @@ class ShowMyCard : Fragment() {
             start()
         }
 
-        val flashAnimator = ObjectAnimator.ofFloat(binding.cardNumberFull, "alpha", 1f, 0.5f, 1f).apply {
-            duration = 300
-        }
+        val flashAnimator =
+            ObjectAnimator.ofFloat(binding.cardNumberFull, "alpha", 1f, 0.5f, 1f).apply {
+                duration = 300
+            }
         flashAnimator.start()
     }
 
     private fun animateCvvToggle() {
-        val rotateAnimator = ObjectAnimator.ofFloat(binding.cvvVisibilityToggle, "rotation", 0f, 360f).apply {
-            duration = 300
-            interpolator = DecelerateInterpolator()
-        }
+        val rotateAnimator =
+            ObjectAnimator.ofFloat(binding.cvvVisibilityToggle, "rotation", 0f, 360f).apply {
+                duration = 300
+                interpolator = DecelerateInterpolator()
+            }
 
-        val scaleAnimator = ObjectAnimator.ofFloat(binding.cvvVisibilityToggle, "scaleX", 1f, 1.2f, 1f).apply {
-            duration = 300
-        }
-        val scaleYAnimator = ObjectAnimator.ofFloat(binding.cvvVisibilityToggle, "scaleY", 1f, 1.2f, 1f).apply {
-            duration = 300
-        }
+        val scaleAnimator =
+            ObjectAnimator.ofFloat(binding.cvvVisibilityToggle, "scaleX", 1f, 1.2f, 1f).apply {
+                duration = 300
+            }
+        val scaleYAnimator =
+            ObjectAnimator.ofFloat(binding.cvvVisibilityToggle, "scaleY", 1f, 1.2f, 1f).apply {
+                duration = 300
+            }
 
         AnimatorSet().apply {
             playTogether(rotateAnimator, scaleAnimator, scaleYAnimator)

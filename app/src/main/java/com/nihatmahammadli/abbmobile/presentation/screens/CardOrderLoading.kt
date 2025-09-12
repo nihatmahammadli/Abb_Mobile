@@ -1,13 +1,12 @@
 package com.nihatmahammadli.abbmobile.presentation.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -19,7 +18,6 @@ import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.getValue
 
 @AndroidEntryPoint
 class CardOrderLoading : Fragment() {
@@ -54,14 +52,14 @@ class CardOrderLoading : Fragment() {
         }
 
         viewModel.cardFetchResult.observe(viewLifecycleOwner) { success ->
-           viewLifecycleOwner.lifecycleScope.launch {
-               if (success) {
-                   findNavController().navigate(R.id.action_cardOrderLoading_to_homePage)
-               } else {
-                   showToast("Kartınız mövcuddur.")
-                   findNavController().navigate(R.id.action_cardOrderLoading_to_homePage)
-               }
-           }
+            viewLifecycleOwner.lifecycleScope.launch {
+                if (success) {
+                    findNavController().navigate(R.id.action_cardOrderLoading_to_homePage)
+                } else {
+                    showToast("Kartınız mövcuddur.")
+                    findNavController().navigate(R.id.action_cardOrderLoading_to_homePage)
+                }
+            }
         }
     }
 

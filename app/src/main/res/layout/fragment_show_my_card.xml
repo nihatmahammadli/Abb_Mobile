@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.screens.ShowMyCard"
-    android:clickable="true"
     android:background="@drawable/modal_background_blur"
-    android:focusable="true">
-
+    android:clickable="true"
+    android:focusable="true"
+    tools:context=".presentation.screens.ShowMyCard">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/closeButton"
@@ -51,16 +50,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardVisual"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                app:cardBackgroundColor="@color/card_bg_dark"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="8dp"
-                app:cardBackgroundColor="@color/card_bg_dark">
+                app:cardElevation="8dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -91,12 +89,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
+                        android:fontFamily="monospace"
+                        android:letterSpacing="0.1"
                         android:text="5522 0993 8519 3099"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:letterSpacing="0.1"
-                        android:fontFamily="monospace"
                         app:layout_constraintBottom_toTopOf="@+id/cardDetailsSection"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -125,11 +123,11 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:letterSpacing="0.05"
                                 android:text="@string/date"
                                 android:textColor="@color/card_text_secondary"
                                 android:textSize="12sp"
-                                android:textStyle="bold"
-                                android:letterSpacing="0.05" />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/cardExpiry"
@@ -148,43 +146,42 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:orientation="vertical"
-                            >
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:letterSpacing="0.05"
                                 android:text="CVV/CVC"
                                 android:textColor="@color/card_text_secondary"
                                 android:textSize="12sp"
-                                android:textStyle="bold"
-                                android:letterSpacing="0.05" />
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
-                                android:orientation="horizontal"
-                                android:gravity="center_vertical">
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/cardCvv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginEnd="8dp"
                                     android:text="•••"
                                     android:textColor="@color/white"
                                     android:textSize="16sp"
-                                    android:textStyle="bold"
-                                    android:layout_marginEnd="8dp" />
+                                    android:textStyle="bold" />
 
                                 <ImageView
                                     android:id="@+id/cvvVisibilityToggle"
                                     android:layout_width="20dp"
                                     android:layout_height="20dp"
-                                    android:src="@drawable/eye_closed"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
                                     android:clickable="true"
                                     android:focusable="true"
-                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:src="@drawable/eye_closed"
                                     app:tint="@color/card_text_secondary" />
 
                             </LinearLayout>
@@ -206,15 +203,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:gravity="center"
         android:text="@string/press_and_hold_to_copy_card_number"
         android:textColor="@color/text_primary"
         android:textSize="16sp"
         android:textStyle="normal"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardDetailsContainer" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

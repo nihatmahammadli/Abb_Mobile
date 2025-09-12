@@ -27,7 +27,6 @@ class ProfileViewModel @Inject constructor(
     var hasFetchedData = false
 
 
-
     val userFullName = MediatorLiveData<String>().apply {
         addSource(name) { combineNameAndSurname() }
         addSource(surName) { combineNameAndSurname() }
@@ -42,7 +41,7 @@ class ProfileViewModel @Inject constructor(
         val user = firebaseAuth.currentUser ?: return
         val uid = user.uid
 
-        customerId.value = if (uid.length >= 7) uid.substring(0,7) else uid
+        customerId.value = if (uid.length >= 7) uid.substring(0, 7) else uid
 
         firestore.collection("users")
             .document(uid)

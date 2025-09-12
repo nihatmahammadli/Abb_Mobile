@@ -3,11 +3,11 @@ package com.nihatmahammadli.abbmobile.presentation.screens
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.nihatmahammadli.abbmobile.R
@@ -19,7 +19,11 @@ class SignUpWithFin : Fragment() {
     private lateinit var binding: FragmentSignUpWithFinBinding
     private val viewModel: SignUpViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentSignUpWithFinBinding.inflate(inflater, container, false)
         setupListeners()
         observeViewModel()
@@ -43,6 +47,7 @@ class SignUpWithFin : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 viewModel.onFixTextChangedFin(s.toString().trim())
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
@@ -51,6 +56,7 @@ class SignUpWithFin : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 viewModel.onFixTextChangedPasswordForFin(s.toString().trim())
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })

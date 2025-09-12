@@ -16,7 +16,6 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     private val auth: FirebaseAuth,
     private val fireStore: FirebaseFirestore,
-    private val firebaseMessaging: FirebaseMessaging
 ) : ViewModel() {
 
     private val _emailInput = MutableLiveData<String>("")
@@ -48,7 +47,6 @@ class SignUpViewModel @Inject constructor(
                 }
             }
     }
-
 
 
     fun updateButtonStateForEmail() {
@@ -83,6 +81,7 @@ class SignUpViewModel @Inject constructor(
         _passwordInput.value = text
         updateButtonStateForFin()
     }
+
     fun resetSignUpResult() {
         _signUpResult.value = null
     }
@@ -137,7 +136,6 @@ class SignUpViewModel @Inject constructor(
                 }
             }
     }
-
 
 
 }

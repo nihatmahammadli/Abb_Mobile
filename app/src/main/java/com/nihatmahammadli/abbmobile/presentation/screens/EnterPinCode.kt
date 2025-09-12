@@ -29,12 +29,16 @@ class EnterPinCode : Fragment() {
 
     private val pinDots by lazy {
         listOf(
-            binding.pinDot1,binding.pinDot2,binding.pinDot3,
-            binding.pinDot4,binding.pinDot5,binding.pinDot6
+            binding.pinDot1, binding.pinDot2, binding.pinDot3,
+            binding.pinDot4, binding.pinDot5, binding.pinDot6
         )
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentEnterPinCodeBinding.inflate(inflater, container, false)
         setupUI()
         setupClickListeners()
@@ -51,11 +55,11 @@ class EnterPinCode : Fragment() {
 
     private fun setupClickListeners() = with(binding) {
         leftBtn.setOnClickListener { signOutUser() }
-        listOf(btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9)
+        listOf(btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9)
             .forEach { v -> v.setOnClickListener { onDigit((it as Button).text.toString()) } }
         btnDelete.setOnClickListener { onDelete() }
         btnFaceId.setOnClickListener {
-            Toast.makeText(requireContext(),"Biometric coming soon", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Biometric coming soon", Toast.LENGTH_SHORT).show()
         }
         forgotPinText.setOnClickListener { handleForgotPin() }
     }
@@ -102,7 +106,8 @@ class EnterPinCode : Fragment() {
 
                 val ok = verifyPinPlain(currentPin)
                 if (ok) {
-                    val sharedPref = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+                    val sharedPref =
+                        requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
                     sharedPref.edit {
                         putBoolean("isLoggedIn", true)
                         putLong("last_login_time", System.currentTimeMillis())
@@ -116,7 +121,11 @@ class EnterPinCode : Fragment() {
                     handleWrongPin()
                 }
             } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Network/Server error: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Network/Server error: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
                 clearPinWithAnimation()
             } finally {
                 binding.keypadGrid.isEnabled = true
@@ -127,11 +136,19 @@ class EnterPinCode : Fragment() {
     private fun handleWrongPin() {
         attemptCount++
         if (attemptCount >= maxAttempts) {
-            Toast.makeText(requireContext(), "Too many failed attempts. Please sign in again.", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                requireContext(),
+                "Too many failed attempts. Please sign in again.",
+                Toast.LENGTH_LONG
+            ).show()
             signOutUser()
         } else {
             val remaining = maxAttempts - attemptCount
-            Toast.makeText(requireContext(), "Wrong PIN. $remaining attempts remaining.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Wrong PIN. $remaining attempts remaining.",
+                Toast.LENGTH_SHORT
+            ).show()
             clearPinWithAnimation()
         }
     }

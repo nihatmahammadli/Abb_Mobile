@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.nihatmahammadli.abbmobile.presentation.screens.viewPagerScreens.ProfileAndParameters
 
-class MorePagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
+class MorePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> ProfileAndParameters()

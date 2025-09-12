@@ -21,10 +21,6 @@ class UserInfo : Fragment() {
     private lateinit var binding: FragmentUserInfoBinding
     private val userInfoViewModel: UserInfoViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,7 +38,7 @@ class UserInfo : Fragment() {
         observeViewModel()
     }
 
-    private fun setUpListeners(){
+    private fun setUpListeners() {
         binding.nameText.addTextChangedListener(SimpleTextWatcher {
             userInfoViewModel.onFixChangedName(it.trim())
         })
@@ -77,7 +73,11 @@ class UserInfo : Fragment() {
                     findNavController().navigate(R.id.action_userInfo_to_enterDateOfBirth)
                 } else {
                     binding.progressBar.visibility = View.GONE
-                    Toast.makeText(requireContext(), "Failed to save personal info", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to save personal info",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 userInfoViewModel.resetResult()
             }
@@ -88,6 +88,7 @@ class UserInfo : Fragment() {
         override fun afterTextChanged(s: Editable?) {
             onAfterTextChanged(s.toString())
         }
+
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
     }

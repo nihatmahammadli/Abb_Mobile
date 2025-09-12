@@ -16,7 +16,7 @@ class MoreButtonsAdapter(
     private var selectedPosition = 0
 
 
-    fun setSelected(position: Int){
+    fun setSelected(position: Int) {
         val previousPosition = selectedPosition
         selectedPosition = position
         notifyItemChanged(previousPosition)
@@ -43,10 +43,12 @@ class MoreButtonsAdapter(
 
             val context = itemView.context
             if (position == selectedPosition) {
-                binding.btn.backgroundTintList = ContextCompat.getColorStateList(context, R.color.blue)
+                binding.btn.backgroundTintList =
+                    ContextCompat.getColorStateList(context, R.color.blue)
                 binding.btn.setTextColor(ContextCompat.getColor(context, R.color.white))
             } else {
-                binding.btn.backgroundTintList = ContextCompat.getColorStateList(context, R.color.white)
+                binding.btn.backgroundTintList =
+                    ContextCompat.getColorStateList(context, R.color.white)
                 binding.btn.setTextColor(ContextCompat.getColor(context, R.color.black))
             }
 

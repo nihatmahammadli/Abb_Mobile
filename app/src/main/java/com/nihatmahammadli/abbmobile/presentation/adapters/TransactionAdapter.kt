@@ -1,11 +1,11 @@
 package com.nihatmahammadli.abbmobile.presentation.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nihatmahammadli.abbmobile.databinding.ItemTransactionBinding
 import com.nihatmahammadli.abbmobile.presentation.model.PaymentSummary
-import com.nihatmahammadli.abbmobile.presentation.model.Transaction
 
 class TransactionAdapter(val items: List<PaymentSummary>) :
     RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
@@ -15,6 +15,7 @@ class TransactionAdapter(val items: List<PaymentSummary>) :
         return TransactionViewHolder(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         val item = items[position]
         holder.binding.titleTextView.text = item.paymentFor

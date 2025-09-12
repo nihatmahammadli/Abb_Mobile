@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingVertical="40dp"
-    android:paddingHorizontal="20dp"
     android:background="#F2F0F0"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="40dp"
     tools:context=".presentation.screens.Payments">
-
 
     <TextView
         android:id="@+id/textView23"
@@ -36,14 +35,14 @@
         android:id="@+id/search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/payment_serach_background"
+        android:drawableStart="@drawable/search_ic"
+        android:drawablePadding="5dp"
         android:hint="@string/search"
-        android:textSize="16sp"
         android:paddingHorizontal="10dp"
         android:paddingVertical="6dp"
-        android:drawablePadding="5dp"
-        android:drawableStart="@drawable/search_ic"
-        android:background="@drawable/payment_serach_background"
-        android:layout_marginTop="16dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
@@ -60,9 +59,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewVertical"
         android:layout_width="0dp"
-        android:background="@drawable/white_button"
         android:layout_height="0dp"
         android:layout_marginTop="21dp"
+        android:background="@drawable/white_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

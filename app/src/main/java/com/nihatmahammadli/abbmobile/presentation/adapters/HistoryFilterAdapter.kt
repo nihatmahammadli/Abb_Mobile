@@ -7,12 +7,13 @@ import com.nihatmahammadli.abbmobile.databinding.ItemHistoryFilterBinding
 
 class HistoryFilterAdapter(
     private val buttonText: List<String>
-): RecyclerView.Adapter<HistoryFilterAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<HistoryFilterAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): HistoryFilterAdapter.ViewHolder {
-        val binding = ItemHistoryFilterBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding =
+            ItemHistoryFilterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -24,5 +25,7 @@ class HistoryFilterAdapter(
     override fun getItemCount(): Int {
         return buttonText.size
     }
-    inner class ViewHolder(val binding: ItemHistoryFilterBinding): RecyclerView.ViewHolder(binding.root)
+
+    inner class ViewHolder(val binding: ItemHistoryFilterBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

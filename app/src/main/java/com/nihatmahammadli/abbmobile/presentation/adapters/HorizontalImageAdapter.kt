@@ -5,12 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nihatmahammadli.abbmobile.databinding.ItemRecyclerHomepageBinding
 
-class HorizontalImageAdapter(val imageList: List<Int>) : RecyclerView.Adapter<HorizontalImageAdapter.ImageViewHolder>(){
+class HorizontalImageAdapter(val imageList: List<Int>) :
+    RecyclerView.Adapter<HorizontalImageAdapter.ImageViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): HorizontalImageAdapter.ImageViewHolder {
-        val binding = ItemRecyclerHomepageBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding =
+            ItemRecyclerHomepageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ImageViewHolder(binding)
     }
 
@@ -22,7 +24,10 @@ class HorizontalImageAdapter(val imageList: List<Int>) : RecyclerView.Adapter<Ho
         holder.binding.images.setImageResource(image)
     }
 
-    override fun getItemCount(): Int {return imageList.size }
+    override fun getItemCount(): Int {
+        return imageList.size
+    }
 
-    inner class ImageViewHolder(val binding: ItemRecyclerHomepageBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ImageViewHolder(val binding: ItemRecyclerHomepageBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

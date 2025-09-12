@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="20dp"
     android:background="#F2F0F0"
+    android:paddingHorizontal="20dp"
     android:paddingVertical="40dp"
     tools:context=".presentation.screens.TopUp">
 
@@ -42,33 +42,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <Button
         android:id="@+id/senderBtn"
-        android:paddingHorizontal="10dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/cashback_button"
         android:drawableStart="@drawable/white_plus_icon"
-        android:text="@string/sender_ncard_ac"
         android:drawablePadding="5dp"
+        android:elevation="8dp"
+        android:paddingHorizontal="10dp"
         android:paddingVertical="10dp"
+        android:text="@string/sender_ncard_ac"
         android:textAlignment="viewStart"
         android:textAllCaps="false"
-        android:elevation="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/description"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/masterCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description"
         app:layout_constraintWidth_percent="0.43" />
 
     <EditText
         android:id="@+id/topUpAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/trans"
         android:text="0"
         android:textColor="@color/black"
-        android:background="@color/trans"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,9 +79,9 @@
         android:id="@+id/aznText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text="₼"
         android:textColor="@color/black"
-        android:layout_marginStart="5dp"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/topUpAmount"
         app:layout_constraintStart_toEndOf="@+id/topUpAmount"
@@ -204,17 +203,15 @@
         android:id="@+id/plus4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/transfer_money_background"
         android:paddingHorizontal="22dp"
         android:paddingVertical="6dp"
         android:text="Max."
         android:textColor="#1B63ED"
-        android:layout_marginBottom="10dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/transferBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-       />
-
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseAuth(): FirebaseAuth{
+    fun provideFirebaseAuth(): FirebaseAuth {
         return FirebaseAuth.getInstance()
     }
 
@@ -27,7 +27,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesFirebaseMessaging(): FirebaseMessaging{
+    fun providesFirebaseMessaging(): FirebaseMessaging {
         return FirebaseMessaging.getInstance()
     }
 }

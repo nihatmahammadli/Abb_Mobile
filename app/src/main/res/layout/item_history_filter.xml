@@ -2,28 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="36dp"
-    android:orientation="horizontal"
+    android:layout_marginEnd="8dp"
     android:background="@drawable/history_filter_btns"
     android:gravity="center_vertical"
+    android:minWidth="80dp"
+    android:orientation="horizontal"
     android:paddingStart="12dp"
-    android:paddingEnd="12dp"
-    android:layout_marginEnd="8dp"
-    android:minWidth="80dp">
+    android:paddingEnd="12dp">
 
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Direction"
-        android:textSize="14sp"
+        android:textAllCaps="false"
         android:textColor="@android:color/black"
-        android:textAllCaps="false"/>
+        android:textSize="14sp" />
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_marginStart="5dp"
-        android:src="@drawable/arrow_down_simple"
-        android:contentDescription="@null"/>
+        android:contentDescription="@null"
+        android:src="@drawable/arrow_down_simple" />
 </LinearLayout>

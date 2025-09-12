@@ -7,18 +7,20 @@ import com.bumptech.glide.Glide
 import com.nihatmahammadli.abbmobile.databinding.ItemAllCardsBinding
 import com.nihatmahammadli.abbmobile.presentation.model.AllCardInfo
 
-class AllCardsAdapter(private val cards: List<AllCardInfo>) : RecyclerView.Adapter<AllCardsAdapter.ViewHolder>() {
+class AllCardsAdapter(private val cards: List<AllCardInfo>) :
+    RecyclerView.Adapter<AllCardsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): AllCardsAdapter.ViewHolder {
-        val binding = ItemAllCardsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemAllCardsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: AllCardsAdapter.ViewHolder, position: Int) {
         val card = cards[position]
-        with(holder.binding){
+        with(holder.binding) {
             title.text = card.title
             priceText.text = card.priceText
             price.text = card.price
@@ -43,8 +45,10 @@ class AllCardsAdapter(private val cards: List<AllCardInfo>) : RecyclerView.Adapt
         return if (position in cards.indices) cards[position] else null
     }
 
-    override fun getItemCount(): Int { return cards.size }
+    override fun getItemCount(): Int {
+        return cards.size
+    }
 
-    inner class ViewHolder(val binding: ItemAllCardsBinding): RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemAllCardsBinding) : RecyclerView.ViewHolder(binding.root)
 
 }

@@ -11,13 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import com.nihatmahammadli.abbmobile.R
-import com.nihatmahammadli.abbmobile.databinding.FragmentSetPinCodeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import kotlinx.coroutines.tasks.await
+import com.nihatmahammadli.abbmobile.R
+import com.nihatmahammadli.abbmobile.databinding.FragmentSetPinCodeBinding
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class SetPinCode : Fragment() {
     private lateinit var binding: FragmentSetPinCodeBinding
@@ -29,12 +29,16 @@ class SetPinCode : Fragment() {
 
     private val pinDots by lazy {
         listOf(
-            binding.pinDot1,binding.pinDot2,binding.pinDot3,
-            binding.pinDot4,binding.pinDot5,binding.pinDot6
+            binding.pinDot1, binding.pinDot2, binding.pinDot3,
+            binding.pinDot4, binding.pinDot5, binding.pinDot6
         )
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentSetPinCodeBinding.inflate(inflater, container, false)
         setupUI()
         setupClickListeners()
@@ -64,12 +68,12 @@ class SetPinCode : Fragment() {
             }
         }
 
-        listOf(btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9)
+        listOf(btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9)
             .forEach { v -> v.setOnClickListener { addDigit((v as android.widget.Button).text.toString()) } }
 
         btnDelete.setOnClickListener { removeDigit() }
         btnFaceId.setOnClickListener {
-            Toast.makeText(requireContext(),"Face ID not available",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Face ID not available", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -107,7 +111,11 @@ class SetPinCode : Fragment() {
             if (currentPin == firstPin) {
                 savePinAndNavigate()
             } else {
-                Toast.makeText(requireContext(), "PINs don't match. Please try again.", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    "PINs don't match. Please try again.",
+                    Toast.LENGTH_LONG
+                ).show()
                 resetPinSetup()
             }
         }
@@ -131,20 +139,26 @@ class SetPinCode : Fragment() {
 
                 setPinForCurrentUser(firstPin)
 
-                val sharedPref = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+                val sharedPref =
+                    requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
                 sharedPref.edit {
                     putBoolean("pin_setup_complete", true)
                     putBoolean("isLoggedIn", true)
                     putLong("last_login_time", System.currentTimeMillis())
                 }
 
-                Toast.makeText(requireContext(), "PIN code set successfully!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "PIN code set successfully!", Toast.LENGTH_SHORT)
+                    .show()
                 findNavController().navigate(
                     R.id.homePage, null,
                     NavOptions.Builder().setPopUpTo(R.id.nav_graph, true).build()
                 )
             } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Error saving PIN: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Error saving PIN: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
                 resetPinSetup()
             } finally {
                 binding.keypadGrid.isEnabled = true

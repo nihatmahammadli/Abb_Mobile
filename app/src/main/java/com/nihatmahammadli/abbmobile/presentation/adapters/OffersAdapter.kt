@@ -5,12 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nihatmahammadli.abbmobile.databinding.ItemOffersViewBinding
 
-class OffersAdapter(val imageList: List<Int>): RecyclerView.Adapter<OffersAdapter.OffersViewHolder>() {
+class OffersAdapter(val imageList: List<Int>) :
+    RecyclerView.Adapter<OffersAdapter.OffersViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): OffersAdapter.OffersViewHolder {
-        val binding = ItemOffersViewBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding =
+            ItemOffersViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return OffersViewHolder(binding)
     }
 
@@ -23,5 +25,6 @@ class OffersAdapter(val imageList: List<Int>): RecyclerView.Adapter<OffersAdapte
         return imageList.size
     }
 
-    inner class OffersViewHolder(val binding: ItemOffersViewBinding): RecyclerView.ViewHolder(binding.root)
+    inner class OffersViewHolder(val binding: ItemOffersViewBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

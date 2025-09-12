@@ -125,7 +125,7 @@ class HomePage : Fragment() {
     }
 
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "DefaultLocale")
     private fun setupObservers() {
         viewModel.uiCards.observe(viewLifecycleOwner) { uiCards ->
             Log.d("HomePage", "Data gəldi, kartların sayı: ${uiCards.size}")
@@ -182,7 +182,7 @@ class HomePage : Fragment() {
             cards.addAll(uiCards.map { card ->
                 BaseCardData.CustomCard(
                     title = "Mastercard",
-                    balance = "${"%.2f".format(card.balance)} ₼",  // Format balance to 2 decimal places
+                    balance = "${"%.2f".format(card.balance)} ₼",
                     cardCodeEnding = "•••• ${card.cardNumber.takeLast(4)}",
                     expiryDate = card.expiryDate,
                     backgroundResId = R.drawable.card_background,

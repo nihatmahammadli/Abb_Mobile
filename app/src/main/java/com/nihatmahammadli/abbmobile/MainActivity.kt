@@ -147,7 +147,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        // Tətbiq background-a getdi - vaxtı qeyd et
         LoginCheckHelper.onAppPaused(this)
     }
 
@@ -157,10 +156,8 @@ class MainActivity : AppCompatActivity() {
         val isPinRequired = !LoginCheckHelper.onAppResumed(this)
         val currentDestination = navController.currentDestination?.id
 
-        // Əgər PIN lazım deyil və ya artıq EnterPinCode-dasansa → heç nə etmə
         if (!isPinRequired || currentDestination == R.id.enterPinCode) return
 
-        // Ana səhifələrdən birindədirsə → PIN istəyək
         if (isMainDestination(currentDestination)) {
             val opts = NavOptions.Builder()
                 .setLaunchSingleTop(true)
@@ -183,12 +180,10 @@ class MainActivity : AppCompatActivity() {
                 val currentDestination = navController.currentDestination?.id
                 when (currentDestination) {
                     R.id.homePage -> {
-                        // Ana səhifədən geri gedəndə tətbiqi bağla
                         finish()
                     }
 
                     R.id.enterPinCode -> {
-                        // PIN səhifəsindən geri gedəndə çıxış et
                         LoginCheckHelper.logout(this@MainActivity)
                         val navInflater = navController.navInflater
                         val navGraph = navInflater.inflate(R.navigation.nav_graph)
@@ -207,25 +202,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-    }
-
-    /**
-     * İstənilən fragment-dən PIN tələb etmək üçün helper.
-     * (Məsələn, təhlükəli əməliyyatdan əvvəl çağır.)
-     */
-    fun requirePinAuthentication() {
-        val current = navController.currentDestination?.id
-        if (current == R.id.enterPinCode) return
-
-        val opts = NavOptions.Builder()
-            .setLaunchSingleTop(true)
-            .setPopUpTo(current ?: R.id.homePage, true)
-            .build()
-
-        // Session-u kilidləyirik ki, PIN istəsin
-        val sharedPref = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        sharedPref.edit().putBoolean("isLoggedIn", false).apply()
-
-        navController.navigate(R.id.enterPinCode, null, opts)
     }
 }

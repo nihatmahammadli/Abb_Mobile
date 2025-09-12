@@ -7,7 +7,8 @@ import com.bumptech.glide.Glide
 import com.nihatmahammadli.abbmobile.databinding.ItemNewsBinding
 import com.nihatmahammadli.abbmobile.presentation.model.NewsItem
 
-class NewsAdapter(val newsList: List<NewsItem>): RecyclerView.Adapter<NewsAdapter.NewsItemHolder>() {
+class NewsAdapter(val newsList: List<NewsItem>) :
+    RecyclerView.Adapter<NewsAdapter.NewsItemHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -24,8 +25,9 @@ class NewsAdapter(val newsList: List<NewsItem>): RecyclerView.Adapter<NewsAdapte
     override fun getItemCount(): Int {
         return newsList.size
     }
-    class NewsItemHolder(val binding: ItemNewsBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(item: NewsItem){
+
+    class NewsItemHolder(val binding: ItemNewsBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: NewsItem) {
             Glide.with(binding.root)
                 .load(item.image)
                 .into(binding.ForNewsItem)

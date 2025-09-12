@@ -1,10 +1,10 @@
 package com.nihatmahammadli.abbmobile.presentation.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nihatmahammadli.abbmobile.databinding.FragmentPaymentsBinding
@@ -27,12 +27,13 @@ class Payments : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentPaymentsBinding.inflate(inflater,container,false)
+        binding = FragmentPaymentsBinding.inflate(inflater, container, false)
         setUpRecyclerView()
         setUpVerticalRcy()
         goBack()
         return binding.root
     }
+
     fun setUpRecyclerView() {
         horizontalRcy = PaymentHorizontalAdapter(PaymentDummyData.horizontalList) { selectedItem ->
             val action = PaymentsDirections.actionPaymentsToPaymentsAmount(
@@ -43,7 +44,8 @@ class Payments : Fragment() {
             findNavController().navigate(action)
         }
         binding.recyclerViewHorizontal.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = horizontalRcy
         }
     }
@@ -58,18 +60,18 @@ class Payments : Fragment() {
             findNavController().navigate(action)
         }
         binding.recyclerViewVertical.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = verticalRcy
         }
     }
 
 
-    fun goBack(){
+    fun goBack() {
         binding.leftBtn.setOnClickListener {
             findNavController().navigateUp()
         }
     }
-
 
 
 }

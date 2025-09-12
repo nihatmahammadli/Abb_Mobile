@@ -6,10 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nihatmahammadli.abbmobile.databinding.ItemAiTextBinding
 import com.nihatmahammadli.abbmobile.databinding.ItemUserMessageBinding
 import com.nihatmahammadli.abbmobile.presentation.model.ChatMessage
-import androidx.recyclerview.widget.DiffUtil
 
-class ChatAdapter(private val messages: MutableList<ChatMessage>)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChatAdapter(private val messages: MutableList<ChatMessage>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return if (messages[position].isUser) 0 else 1
@@ -42,15 +41,15 @@ class ChatAdapter(private val messages: MutableList<ChatMessage>)
         notifyItemInserted(messages.size - 1)
     }
 
-    class UserViewHolder(private val binding: ItemUserMessageBinding)
-        : RecyclerView.ViewHolder(binding.root) {
+    class UserViewHolder(private val binding: ItemUserMessageBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(msg: ChatMessage) {
             binding.userMessage.text = msg.text
         }
     }
 
-    class AiViewHolder(private val binding: ItemAiTextBinding)
-        : RecyclerView.ViewHolder(binding.root) {
+    class AiViewHolder(private val binding: ItemAiTextBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(msg: ChatMessage) {
             binding.aiMessage.text = msg.text
         }

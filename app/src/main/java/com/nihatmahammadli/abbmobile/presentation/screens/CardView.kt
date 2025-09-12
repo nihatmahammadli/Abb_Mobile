@@ -1,25 +1,25 @@
 package com.nihatmahammadli.abbmobile.presentation.screens
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import com.nihatmahammadli.abbmobile.databinding.FragmentCardViewBinding
-import android.graphics.drawable.Drawable
-import android.view.View
-import android.view.animation.DecelerateInterpolator
-import android.view.animation.OvershootInterpolator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.OvershootInterpolator
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.transition.Transition
-import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.nihatmahammadli.abbmobile.R
+import com.nihatmahammadli.abbmobile.databinding.FragmentCardViewBinding
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,7 +46,7 @@ class CardView : Fragment() {
         return binding.root
     }
 
-    fun showMyCardFragment(){
+    fun showMyCardFragment() {
         binding.cardInfoBtn.setOnClickListener {
             findNavController().navigate(R.id.action_cardView_to_showMyCard)
         }
@@ -93,7 +93,8 @@ class CardView : Fragment() {
                 val firstCard = cards[0]
                 val formattedBalance = "%.2f".format(firstCard.balance)
 
-                binding.cardInfoBtn.text = "${firstCard.expiryDate}   •• ${firstCard.cardNumber.takeLast(4)}"
+                binding.cardInfoBtn.text =
+                    "${firstCard.expiryDate}   •• ${firstCard.cardNumber.takeLast(4)}"
                 binding.amount.text = "$formattedBalance AZN"
             } else {
                 binding.cardInfoBtn.text = "•••• •••• •••• ••••"
@@ -115,7 +116,10 @@ class CardView : Fragment() {
             .load("https://abb-bank.az/storage/uploads/files/1735458510_tam-digi.png")
             .transition(DrawableTransitionOptions.withCrossFade(400))
             .into(object : CustomTarget<Drawable>() {
-                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                override fun onResourceReady(
+                    resource: Drawable,
+                    transition: Transition<in Drawable>?
+                ) {
                     cardView.background = resource
                     startCardAnimation(cardView)
                 }

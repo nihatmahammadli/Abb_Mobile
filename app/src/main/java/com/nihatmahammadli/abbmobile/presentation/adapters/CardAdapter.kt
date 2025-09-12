@@ -25,11 +25,12 @@ class CardAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return when(viewType) {
+        return when (viewType) {
             TYPE_CUSTOM -> {
                 val binding = ItemCustomCardBinding.inflate(inflater, parent, false)
                 CustomCardViewHolder(binding)
             }
+
             else -> {
                 val binding = ItemAddNewCardBinding.inflate(inflater, parent, false)
                 DefaultCardViewHolder(binding)
@@ -55,6 +56,7 @@ class CardAdapter(
                     }
                 }
             }
+
             is CustomCardViewHolder -> {
                 if (card is BaseCardData.CustomCard) {
                     with(holder.binding) {
@@ -80,7 +82,6 @@ class CardAdapter(
     }
 
 
-
     fun getCardAt(position: Int): BaseCardData? {
         return cards.getOrNull(position)
     }
@@ -93,7 +94,10 @@ class CardAdapter(
         notifyDataSetChanged()
     }
 
-    inner class DefaultCardViewHolder(val binding: ItemAddNewCardBinding) : RecyclerView.ViewHolder(binding.root)
-    inner class CustomCardViewHolder(val binding: ItemCustomCardBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class DefaultCardViewHolder(val binding: ItemAddNewCardBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    inner class CustomCardViewHolder(val binding: ItemCustomCardBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }
 

@@ -2,10 +2,10 @@ package com.nihatmahammadli.abbmobile.presentation.screens
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentCustomerTypeSelectionBinding
@@ -30,13 +30,13 @@ class CustomerTypeSelection : Fragment() {
         hideSwipe()
     }
 
-    fun goSignUp(){
+    fun goSignUp() {
         binding.notAnAbbCustomer.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_signUp)
         }
     }
 
-    fun goSignIn(){
+    fun goSignIn() {
         binding.abbCustomer.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_signIn)
         }

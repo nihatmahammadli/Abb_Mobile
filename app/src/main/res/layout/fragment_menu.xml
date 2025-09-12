@@ -1,11 +1,11 @@
-<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/white"
     android:paddingHorizontal="20dp"
-    tools:context=".presentation.screens.MenuFragment"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    tools:context=".presentation.screens.MenuFragment">
 
     <ImageView
         android:id="@+id/arrow"
@@ -193,8 +193,8 @@
         android:id="@+id/faq_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/faq"
         android:layout_marginBottom="2dp"
+        android:text="@string/faq"
         android:textColor="@color/black"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/faq_icon"

@@ -4,5 +4,5 @@ data class UiCard(
     val cardNumber: String,
     val expiryDate: String,
     val cvv: String,
-    val balance: Double  = 0.0
+    val balance: Double = 0.0
 )

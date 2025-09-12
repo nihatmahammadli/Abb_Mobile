@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentAddNumberBinding
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.AddNumberViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -77,11 +76,11 @@ class AddNumber : Fragment() {
 
             binding.mobileText.removeTextChangedListener(textWatcher)
 
-            if (!number.isNullOrEmpty()){
+            if (!number.isNullOrEmpty()) {
                 binding.mobileText.setText(number)
                 binding.mobileText.setSelection(number.length)
                 binding.mobileNumberLayout.suffixText = "Activate"
-            }else {
+            } else {
                 binding.mobileText.setText("")
                 binding.mobileNumberLayout.suffixText = null
             }

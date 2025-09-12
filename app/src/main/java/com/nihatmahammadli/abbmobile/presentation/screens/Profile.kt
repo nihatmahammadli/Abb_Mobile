@@ -5,13 +5,12 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.edit
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nihatmahammadli.abbmobile.MainActivity
 import com.nihatmahammadli.abbmobile.R
@@ -22,8 +21,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class Profile : Fragment() {
-   private lateinit var binding: FragmentProfileBinding
-   private val profileViewModel: ProfileViewModel by activityViewModels()
+    private lateinit var binding: FragmentProfileBinding
+    private val profileViewModel: ProfileViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +39,7 @@ class Profile : Fragment() {
         return binding.root
     }
 
-    fun initUI(){
+    fun initUI() {
         binding.logOut.setOnClickListener {
             showLogOutBottomSheet()
         }
@@ -51,21 +50,21 @@ class Profile : Fragment() {
         setUpSwipeToRefresh()
     }
 
-    private fun setUpSwipeToRefresh(){
+    private fun setUpSwipeToRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             refreshData()
             binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 
-    private fun refreshData(){
+    private fun refreshData() {
         profileViewModel.hasFetchedData = false
         profileViewModel.getCustomerInfoFirebase()
         binding.swipeRefreshLayout.isRefreshing = false
     }
 
 
-    fun goAddNumber(){
+    fun goAddNumber() {
         binding.arrowMobile.setOnClickListener {
             findNavController().navigate(R.id.action_profile_to_addNumber)
         }
@@ -78,7 +77,7 @@ class Profile : Fragment() {
         }
     }
 
-    fun goBack(){
+    fun goBack() {
         binding.leftBtn.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -92,10 +91,10 @@ class Profile : Fragment() {
             binding.emailText.text = profileViewModel.email.value
         }
 
-        profileViewModel.customerId.observe(viewLifecycleOwner){
+        profileViewModel.customerId.observe(viewLifecycleOwner) {
             binding.customerIdText.text = "Customer ID - ${profileViewModel.customerId.value}"
         }
-        profileViewModel.mobileNumber.observe(viewLifecycleOwner){
+        profileViewModel.mobileNumber.observe(viewLifecycleOwner) {
             binding.mobileNumber.text = profileViewModel.mobileNumber.value
         }
     }
@@ -120,16 +119,17 @@ class Profile : Fragment() {
         requireActivity().finish()
     }
 
-//    L7Z0of7
-    fun copyText(){
+    //    L7Z0of7
+    fun copyText() {
         binding.customerIdText.setOnClickListener {
             val fullText = binding.customerIdText.text.toString()
             val toCopy = if (fullText.length >= 7) fullText.takeLast(7) else fullText
 
-            val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipboard =
+                requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("copied_text", toCopy)
             clipboard.setPrimaryClip(clip)
         }
-        }
+    }
 
 }

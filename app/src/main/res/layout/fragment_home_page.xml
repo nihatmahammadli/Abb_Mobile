@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,23 +8,23 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"> 
+        android:layout_height="match_parent">
 
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fadeScrollbars="false"
             android:fillViewport="true"
-            android:scrollbars="none"
-            android:fadeScrollbars="false">
+            android:scrollbars="none">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="40dp"
-                android:paddingVertical="30dp"
                 android:background="#F2F0F0"
                 android:paddingHorizontal="20dp"
+                android:paddingVertical="30dp"
+                android:paddingTop="40dp"
                 tools:context=".presentation.screens.HomePage">
 
 
@@ -82,6 +81,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/profileButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/profileButton" />
+
                 <Button
                     android:id="@+id/button"
                     android:layout_width="0dp"
@@ -138,8 +138,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:clipToPadding="false"
                     android:clipChildren="false"
+                    android:clipToPadding="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/button2" />
@@ -148,6 +148,7 @@
                     android:id="@+id/cashBackBtn"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
+                    android:layout_marginTop="16dp"
                     android:background="@drawable/cashback_button"
                     android:drawableStart="@drawable/finance_ic"
                     android:drawablePadding="10dp"
@@ -155,7 +156,6 @@
                     android:text="@string/_0_00_ncashback"
                     android:textAlignment="viewStart"
                     android:textAllCaps="false"
-                    android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="@+id/imageView5"
                     app:layout_constraintTop_toBottomOf="@+id/viewPager"
                     app:layout_constraintWidth_percent="0.48"
@@ -165,10 +165,10 @@
                     android:id="@+id/qrButton"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
+                    android:layout_marginTop="16dp"
                     android:background="@drawable/cashback_button"
                     android:drawableStart="@drawable/qr_ic"
                     android:drawablePadding="10dp"
-                    android:layout_marginTop="16dp"
                     android:paddingStart="10dp"
                     android:text="@string/_0_npending_edv"
                     android:textAlignment="viewStart"
@@ -261,10 +261,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="14dp"
-                            android:textSize="16dp"
                             android:text="@string/you_don_t_have_any_auto_payment_or_template_yet"
                             android:textAlignment="center"
                             android:textColor="#9E9999"
+                            android:textSize="16dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView15" />
@@ -273,15 +273,15 @@
                             android:id="@+id/createAutoPayment"
                             android:layout_width="wrap_content"
                             android:layout_height="28dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:textAllCaps="false"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/button_light_blue"
                             android:paddingStart="14dp"
                             android:paddingEnd="14dp"
-                            android:background="@drawable/button_light_blue"
                             android:text="@string/create_new"
-                            android:layout_marginTop="10dp"
+                            android:textAllCaps="false"
                             android:textColor="@color/white"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -290,9 +290,9 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="80dp"
+                    android:background="@color/white"
                     app:cardCornerRadius="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardView">
@@ -383,12 +383,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="24dp"
         android:layout_marginEnd="20dp"
-        android:contentDescription="ABB support"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@color/white"
-        app:srcCompat="@drawable/abb_support"
+        android:contentDescription="ABB support"
         android:scaleType="centerInside"
-        app:maxImageSize="60dp" />
+        app:maxImageSize="60dp"
+        app:srcCompat="@drawable/abb_support" />
 
 </FrameLayout>

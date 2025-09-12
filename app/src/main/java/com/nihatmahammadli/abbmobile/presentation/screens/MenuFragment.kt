@@ -27,7 +27,7 @@ class MenuFragment : Fragment() {
         return binding.root
     }
 
-    fun initUi(){
+    fun initUi() {
         callClick()
         changeLanguageAz()
         changeLanguageEn()
@@ -38,7 +38,7 @@ class MenuFragment : Fragment() {
     }
 
     @SuppressLint("UseKtx")
-    fun callClick(){
+    fun callClick() {
         val number = "937"
         binding.callUs.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL)
@@ -54,14 +54,14 @@ class MenuFragment : Fragment() {
         }
     }
 
-    fun changeLanguageEn(){
+    fun changeLanguageEn() {
         binding.changeEn.setOnClickListener {
             LocaleHelper.saveLanguage(requireContext(), "en")
             requireActivity().recreate()
         }
     }
 
-    fun changeLanguageRu(){
+    fun changeLanguageRu() {
         binding.changeRu.setOnClickListener {
             LocaleHelper.saveLanguage(requireContext(), "ru")
             requireActivity().recreate()
@@ -79,13 +79,13 @@ class MenuFragment : Fragment() {
         binding.textView4.visibility = View.GONE
     }
 
-    fun goServiceNetwork(){
+    fun goServiceNetwork() {
         binding.serviceNetwork.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_serviceNetwork)
         }
     }
 
-    fun goContact(){
+    fun goContact() {
         binding.contact.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_contact)
         }

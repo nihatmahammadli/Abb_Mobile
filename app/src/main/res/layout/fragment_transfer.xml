@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingVertical="40dp"
     android:background="#F2F0F0"
-
     android:paddingHorizontal="20dp"
+    android:paddingVertical="40dp"
     tools:context=".presentation.screens.Transfer">
 
     <ImageButton
@@ -93,9 +92,9 @@
                 android:id="@+id/cardNumber"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="number"
                 android:background="@color/white"
                 android:hint="0000 0000 0000 0000"
+                android:inputType="number"
                 android:maxLength="19"
                 android:paddingVertical="4dp"
                 android:textColor="@color/black"
@@ -150,8 +149,8 @@
                 android:id="@+id/imageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/trans"
                 android:layout_marginTop="10dp"
+                android:background="@color/trans"
                 android:src="@drawable/transfer_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -96,7 +96,8 @@ class Transfer : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (isFormatting) return
                 val digitsOnly = s.toString().replace(" ", "")
-                binding.transferBtn.visibility = if (digitsOnly.length == 16) View.VISIBLE else View.GONE
+                binding.transferBtn.visibility =
+                    if (digitsOnly.length == 16) View.VISIBLE else View.GONE
             }
 
             override fun afterTextChanged(s: Editable?) {

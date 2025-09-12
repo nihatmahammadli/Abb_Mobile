@@ -9,7 +9,7 @@ import com.nihatmahammadli.abbmobile.presentation.model.SettingsItem
 
 class SettingsAdapter(
     private val items: List<SettingsItem>,
-    val onItemClick: (SettingsItem, Int) -> Unit   // position də göndərək
+    val onItemClick: (SettingsItem, Int) -> Unit
 ) : RecyclerView.Adapter<SettingsAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemSettingsBinding) :

@@ -3,59 +3,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="20dp"
-    android:paddingHorizontal="20dp"
-    android:minHeight="200dp"
-    android:paddingTop="8dp"
     android:background="@drawable/bottomsheet_background"
+    android:minHeight="200dp"
     android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="20dp"
     tools:context=".presentation.components.sheet.CardOrderSheet">
 
     <View
         android:layout_width="33dp"
         android:layout_height="3dp"
-        android:background="@drawable/view_radius"
+        android:layout_gravity="center"
         android:layout_marginBottom="20dp"
-        android:layout_gravity="center"/>
+        android:background="@drawable/view_radius" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/options"
-        android:textSize="18sp"
         android:layout_marginBottom="20dp"
-        android:textColor="@color/black"/>
+        android:text="@string/options"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/select_relevant_option"
         android:layout_marginBottom="20dp"
+        android:text="@string/select_relevant_option"
         android:textSize="14sp" />
 
     <TextView
         android:id="@+id/orderNewCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/order_new_card"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="20dp"
         android:drawableStart="@drawable/circle_plus_ic"
         android:drawablePadding="20dp"
         android:gravity="center"
-        android:layout_marginBottom="20dp"
+        android:text="@string/order_new_card"
         android:textColor="@color/black"
-        android:layout_marginStart="5dp"
         android:textSize="16sp"
         tools:ignore="UseCompatTextViewDrawableXml" />
+
     <TextView
         android:id="@+id/addOtherBanksCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:drawablePadding="20dp"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="10dp"
-        android:textColor="@color/black"
         android:drawableStart="@drawable/link_ic"
+        android:drawablePadding="20dp"
+        android:gravity="center"
         android:text="@string/add_other_bank_s_card"
+        android:textColor="@color/black"
         android:textSize="16sp"
         tools:ignore="UseCompatTextViewDrawableXml" />
 

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#F2F0F0"
-             android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F2F0F0">
 
     <TextView
         android:id="@+id/title"
@@ -244,8 +243,6 @@
             android:textColor="#1B63ED"
             android:textSize="11sp" />
     </LinearLayout>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

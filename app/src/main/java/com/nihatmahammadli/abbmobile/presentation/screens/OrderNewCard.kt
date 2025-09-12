@@ -1,11 +1,10 @@
 package com.nihatmahammadli.abbmobile.presentation.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -41,7 +40,7 @@ class OrderNewCard : Fragment() {
         goBack()
     }
 
-    fun goCardOrderLoading(){
+    fun goCardOrderLoading() {
         binding.orderCardBtn.setOnClickListener {
             findNavController().navigate(R.id.action_orderNewCard_to_cardOrderLoading)
         }
@@ -52,7 +51,6 @@ class OrderNewCard : Fragment() {
         adapter = AllCardsAdapter(cards)
         binding.viewPager.adapter = adapter
     }
-
 
 
     private fun viewPagerOverlapEffect() {
@@ -69,6 +67,7 @@ class OrderNewCard : Fragment() {
                     position < -1 -> {
                         page.alpha = 0f
                     }
+
                     position <= 1 -> {
                         val startOffset = -position * offsetPx
                         page.translationX = startOffset
@@ -79,6 +78,7 @@ class OrderNewCard : Fragment() {
 
                         page.alpha = 1 - 0.3f * abs(position)
                     }
+
                     else -> {
                         page.alpha = 0f
                     }
@@ -87,11 +87,7 @@ class OrderNewCard : Fragment() {
         }
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun goBack(){
+    private fun goBack() {
         binding.leftBtn.setOnClickListener {
             findNavController().navigateUp()
         }

@@ -18,20 +18,21 @@ class ForYouButtonAdapter : RecyclerView.Adapter<ForYouButtonAdapter.ViewHolder>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemForYouButtonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemForYouButtonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
-
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = forYouButtons[position]
         holder.binding.iconView.setImageResource(item.icon)
         holder.binding.title.text = item.title
-        holder.binding.amount.text = item.amount.toString() // burda düzəldildi
+        holder.binding.amount.text = item.amount.toString()
     }
 
     override fun getItemCount(): Int = forYouButtons.size
 
-    inner class ViewHolder(val binding: ItemForYouButtonBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemForYouButtonBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

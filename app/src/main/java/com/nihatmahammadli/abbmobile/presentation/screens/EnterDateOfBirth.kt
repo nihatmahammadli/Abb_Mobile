@@ -6,21 +6,19 @@ import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.edit
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentEnterDateOfBirthBinding
-import java.time.LocalDate
-import androidx.core.content.edit
-import androidx.navigation.NavOptions
-import com.nihatmahammadli.abbmobile.presentation.components.notification.MyFirebaseMessagingService
 import com.nihatmahammadli.abbmobile.presentation.components.notification.NotificationHelper
+import java.time.LocalDate
 
 class EnterDateOfBirth : Fragment() {
     private lateinit var binding: FragmentEnterDateOfBirthBinding
@@ -55,30 +53,33 @@ class EnterDateOfBirth : Fragment() {
             val month = calendar.get(Calendar.MONTH)
             val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-            val datePicker = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-                val selectedDate = "${selectedDay.toString().padStart(2, '0')}/" +
-                        "${(selectedMonth + 1).toString().padStart(2, '0')}/" +
-                        "$selectedYear"
-                selectYourDate.setText(selectedDate)
+            val datePicker =
+                DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+                    val selectedDate = "${selectedDay.toString().padStart(2, '0')}/" +
+                            "${(selectedMonth + 1).toString().padStart(2, '0')}/" +
+                            "$selectedYear"
+                    selectYourDate.setText(selectedDate)
 
-                val birthDate = LocalDate.of(selectedYear, selectedMonth + 1, selectedDay)
-                val currentDate = LocalDate.now()
+                    val birthDate = LocalDate.of(selectedYear, selectedMonth + 1, selectedDay)
+                    val currentDate = LocalDate.now()
 
-                val isOver18 = birthDate.plusYears(18).isBefore(currentDate) || birthDate.plusYears(18).isEqual(currentDate)
+                    val isOver18 =
+                        birthDate.plusYears(18).isBefore(currentDate) || birthDate.plusYears(18)
+                            .isEqual(currentDate)
 
-                Log.i("MYTAG", "Is over 18: $isOver18")
+                    Log.i("MYTAG", "Is over 18: $isOver18")
 
-                if (!isOver18) {
-                    selectYourDate.error = "You must be over 18 years of age"
-                    isValidAge = false
-                } else {
-                    selectYourDate.error = null
-                    isValidAge = true
-                }
+                    if (!isOver18) {
+                        selectYourDate.error = "You must be over 18 years of age"
+                        isValidAge = false
+                    } else {
+                        selectYourDate.error = null
+                        isValidAge = true
+                    }
 
-                updateButtonState()
+                    updateButtonState()
 
-            }, year, month, day)
+                }, year, month, day)
             datePicker.show()
         }
     }
@@ -95,8 +96,8 @@ class EnterDateOfBirth : Fragment() {
             val user = FirebaseAuth.getInstance().currentUser
             if (user != null && isValidAge && binding.selectDate.text?.isNotEmpty() == true) {
 
-                // Save date of birth to SharedPreferences
-                val sharedPref = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+                val sharedPref =
+                    requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
                 sharedPref.edit {
                     putString("date_of_birth", binding.selectDate.text.toString())
                     putBoolean("date_of_birth_complete", true)
@@ -113,9 +114,23 @@ class EnterDateOfBirth : Fragment() {
 
             } else {
                 when {
-                    user == null -> Toast.makeText(requireContext(), "Please sign in", Toast.LENGTH_SHORT).show()
-                    !isValidAge -> Toast.makeText(requireContext(), "You must be over 18 years of age", Toast.LENGTH_SHORT).show()
-                    binding.selectDate.text?.isEmpty() == true -> Toast.makeText(requireContext(), "Please select your date of birth", Toast.LENGTH_SHORT).show()
+                    user == null -> Toast.makeText(
+                        requireContext(),
+                        "Please sign in",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    !isValidAge -> Toast.makeText(
+                        requireContext(),
+                        "You must be over 18 years of age",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    binding.selectDate.text?.isEmpty() == true -> Toast.makeText(
+                        requireContext(),
+                        "Please select your date of birth",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }

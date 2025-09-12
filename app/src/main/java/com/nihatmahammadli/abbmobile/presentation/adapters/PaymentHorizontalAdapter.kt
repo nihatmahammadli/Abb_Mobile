@@ -9,12 +9,16 @@ import com.nihatmahammadli.abbmobile.presentation.model.PaymentHorizontal
 class PaymentHorizontalAdapter(
     val imageList: List<PaymentHorizontal>,
     val onClick: (PaymentHorizontal) -> Unit
-    ): RecyclerView.Adapter<PaymentHorizontalAdapter.ViewHolder>(){
+) : RecyclerView.Adapter<PaymentHorizontalAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): PaymentHorizontalAdapter.ViewHolder {
-        val binding = ItemPaymentsHorizontalBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = ItemPaymentsHorizontalBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return ViewHolder(binding)
     }
 
@@ -37,8 +41,9 @@ class PaymentHorizontalAdapter(
         return imageList.size
     }
 
-    inner class ViewHolder(val binding: ItemPaymentsHorizontalBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(item: PaymentHorizontal) = with(binding){
+    inner class ViewHolder(val binding: ItemPaymentsHorizontalBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: PaymentHorizontal) = with(binding) {
             image.setImageResource(item.imageRes)
             title.text = item.title
         }
