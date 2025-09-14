@@ -153,7 +153,11 @@
         android:id="@+id/history"
         android:name="com.nihatmahammadli.abbmobile.presentation.screens.History"
         android:label="fragment_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_history_to_payments"
+            app:destination="@id/payments" />
+    </fragment>
 
     <fragment
         android:id="@+id/forYou"

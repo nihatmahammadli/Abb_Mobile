@@ -106,11 +106,7 @@ class EnterDateOfBirth : Fragment() {
                 // Navigate to PIN setup instead of home page
                 findNavController().navigate(R.id.setPinCode)
 
-                NotificationHelper.generateNotification(
-                    requireContext(),
-                    "Welcome to ABB Mobile",
-                    "Please set up your PIN code to secure your account",
-                )
+
 
             } else {
                 when {

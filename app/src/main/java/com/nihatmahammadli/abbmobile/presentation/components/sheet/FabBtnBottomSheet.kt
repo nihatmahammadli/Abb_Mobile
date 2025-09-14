@@ -17,14 +17,12 @@ import com.journeyapps.barcodescanner.ScanOptions
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FabBottomSheetBinding
 import com.nihatmahammadli.abbmobile.presentation.adapters.FabBtnAdapter
-import com.nihatmahammadli.abbmobile.presentation.adapters.TransactionAdapter
 import com.nihatmahammadli.abbmobile.presentation.components.dummyData.FabBtnDummyData
 
 class FabDialogFragment : DialogFragment() {
     private lateinit var binding: FabBottomSheetBinding
 
     private lateinit var adapter: FabBtnAdapter
-
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -51,7 +49,11 @@ class FabDialogFragment : DialogFragment() {
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = FabBottomSheetBinding.inflate(inflater, container, false)
         setUpRecyclerView()
         return binding.root
@@ -67,15 +69,19 @@ class FabDialogFragment : DialogFragment() {
 
     fun setUpRecyclerView() {
         val list = FabBtnDummyData.list
-        adapter = FabBtnAdapter(list){pos, clickedItem ->
+        adapter = FabBtnAdapter(list) { pos, clickedItem ->
             when (pos) {
                 0 -> {
                     setupQrScan()
                 }
+
                 1 -> {
-                    findNavController().navigate(R.id.action_homePage_to_payments)
+                    findNavController().navigate(R.id.payments)
                 }
-                2 -> { findNavController().navigate(R.id.action_homePage_to_transfer) }
+
+                2 -> {
+                    findNavController().navigate(R.id.transfer)
+                }
             }
             dismiss()
         }
@@ -87,13 +93,13 @@ class FabDialogFragment : DialogFragment() {
     }
 
     private fun setupQrScan() {
-            val options = ScanOptions().apply {
-                setPrompt("QR kodu oxudun")
-                setBeepEnabled(true)
-                setOrientationLocked(true)
-                setCaptureActivity(CaptureActivity::class.java)
-            }
-            barcodeLauncher.launch(options)
+        val options = ScanOptions().apply {
+            setPrompt("QR kodu oxudun")
+            setBeepEnabled(true)
+            setOrientationLocked(true)
+            setCaptureActivity(CaptureActivity::class.java)
+        }
+        barcodeLauncher.launch(options)
     }
 
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->

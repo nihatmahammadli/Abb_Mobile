@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentForYouBinding
@@ -14,9 +15,13 @@ import com.nihatmahammadli.abbmobile.presentation.adapters.NewsAdapter
 import com.nihatmahammadli.abbmobile.presentation.adapters.OffersAdapter
 import com.nihatmahammadli.abbmobile.presentation.components.ui.FirstItemSpacingDecoration
 import com.nihatmahammadli.abbmobile.presentation.components.dummyData.ImageListDummy
+import com.nihatmahammadli.abbmobile.presentation.components.notification.NotificationHelper
 import com.nihatmahammadli.abbmobile.presentation.model.ForYouButton
 import com.nihatmahammadli.abbmobile.presentation.viewmodel.CardViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ForYou : Fragment() {
@@ -28,6 +33,9 @@ class ForYou : Fragment() {
 
     val newsImageList = ImageListDummy.newsImageList
     val imageList = ImageListDummy.offersImageList
+
+    private var job: Job? = null
+    private var isNotificationShown = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,6 +85,28 @@ class ForYou : Fragment() {
         binding.newRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.newRecyclerView.adapter = newsAdapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isNotificationShown) {
+            job = lifecycleScope.launch {
+                delay(5000)
+                if (isAdded && isResumed) {
+                    NotificationHelper.generateNotification(
+                        requireContext(),
+                        "Good offer for You",
+                        "Earn more with Young!"
+                    )
+                    isNotificationShown = true
+                }
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        job?.cancel()
     }
 
 

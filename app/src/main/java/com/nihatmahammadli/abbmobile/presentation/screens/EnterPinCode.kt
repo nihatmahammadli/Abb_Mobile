@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentEnterPinCodeBinding
+import com.nihatmahammadli.abbmobile.presentation.components.notification.NotificationHelper
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -113,6 +114,13 @@ class EnterPinCode : Fragment() {
                         putLong("last_login_time", System.currentTimeMillis())
                     }
                     Toast.makeText(requireContext(), "Welcome back!", Toast.LENGTH_SHORT).show()
+
+                    NotificationHelper.generateNotification(
+                        requireContext(),
+                        "Welcome back to ABB!",
+                        "Don't forget your PIN code",
+                    )
+
                     findNavController().navigate(
                         R.id.homePage, null,
                         NavOptions.Builder().setPopUpTo(R.id.nav_graph, true).build()

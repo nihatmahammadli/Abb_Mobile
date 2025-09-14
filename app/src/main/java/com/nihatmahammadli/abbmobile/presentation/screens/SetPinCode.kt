@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.nihatmahammadli.abbmobile.R
 import com.nihatmahammadli.abbmobile.databinding.FragmentSetPinCodeBinding
+import com.nihatmahammadli.abbmobile.presentation.components.notification.NotificationHelper
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -149,6 +150,13 @@ class SetPinCode : Fragment() {
 
                 Toast.makeText(requireContext(), "PIN code set successfully!", Toast.LENGTH_SHORT)
                     .show()
+
+                NotificationHelper.generateNotification(
+                    requireContext(),
+                    "Welcome to ABB Mobile",
+                        "Please set up all user information",
+                )
+
                 findNavController().navigate(
                     R.id.homePage, null,
                     NavOptions.Builder().setPopUpTo(R.id.nav_graph, true).build()
